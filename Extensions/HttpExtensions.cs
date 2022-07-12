@@ -30,7 +30,7 @@ public static class HttpExtensions
             }
         }
 
-        return new User();
+        throw new UnauthorizedAccessException();
     }
 
     public static string DecodeBase64(this string value)
