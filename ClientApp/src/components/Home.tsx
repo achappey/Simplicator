@@ -4,7 +4,7 @@ import { Link } from '@fluentui/react';
 export const Home: React.FunctionComponent = () => {
   return (
     <div>
-      <h3>Power Platform connector for <Link href="https://www.simplicate.com" target={"_blank"}>Simplicate</Link></h3>
+      <h2>Power Platform connector for <Link href="https://www.simplicate.com" target={"_blank"}>Simplicate</Link></h2>
       <ul>
         <li>Header: <code>x-api-key: base64Encode([ApiKey]:[ApiSecret]@[SimplicateEnvironment])</code>
         <br></br>
