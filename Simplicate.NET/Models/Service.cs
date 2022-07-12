@@ -5,10 +5,13 @@ namespace Simplicate.NET.Models;
 public class Service
 {
 
+    [JsonPropertyName("id")]
     public string? Id { get; set; }
 
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("explanation")]
     public string? Explanation { get; set; }
 
     [JsonPropertyName("revenue_group")]
@@ -26,10 +29,13 @@ public class Service
     [JsonPropertyName("end_date")]
     public string? EndDate { get; set; }
 
+    [JsonPropertyName("amount")]
     public double Amount { get; set; }
 
+    [JsonPropertyName("price")]
     public decimal? Price { get; set; }
 
+    [JsonPropertyName("status")]
     public string? Status { get; set; }
 
     [JsonPropertyName("invoice_method")]
@@ -39,7 +45,7 @@ public class Service
     public bool UseInResourcePlanner { get; set; }
 
     [JsonPropertyName("vat_class_id")]
-    public string VatClassId { get; set; }= null!;
+    public string VatClassId { get; set; } = null!;
 
     [JsonPropertyName("track_hours")]
     public bool TrackHours { get; set; }

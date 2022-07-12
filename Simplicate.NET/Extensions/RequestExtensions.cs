@@ -60,7 +60,7 @@ public static class RequestExtensions
             { "Authentication-Key", key },
             { "Authentication-Secret", secret }
         },
-            Content = !string.IsNullOrEmpty(bodyContent) ? new StringContent(bodyContent) : null
+            Content = !string.IsNullOrEmpty(bodyContent) ? new StringContent(bodyContent, System.Text.Encoding.UTF8, "application/json") : null
         };
 
         var result = await client.SendAsync(httpRequestMessage);

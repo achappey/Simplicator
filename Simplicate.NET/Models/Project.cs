@@ -5,8 +5,10 @@ namespace Simplicate.NET.Models;
 public class Project : Base
 {
 
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("note")]
     public string? Note { get; set; }
 
     [JsonPropertyName("project_status")]

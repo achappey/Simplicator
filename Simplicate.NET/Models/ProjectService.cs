@@ -7,6 +7,6 @@ public class ProjectService : Service
     [JsonPropertyName("project_id")]
     public string ProjectId { get; set; } = null!;
 
-    public IEnumerable<Installment> Installments { get; set; } = null!;
+    public IEnumerable<Installment>? Installments { get; set; }
 
 }
