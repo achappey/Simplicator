@@ -1,5 +1,6 @@
 using Simplicator.Models;
 using System.Text;
+
 namespace Simplicator.Extensions;
 
 public static class HttpExtensions
@@ -7,6 +8,11 @@ public static class HttpExtensions
     public static User GetUser(this HttpContext context)
     {
         var header = context.Request.Headers["x-api-key"].FirstOrDefault();
+
+        if (header == null)
+        {
+            header = context.Request.Query["x-api-key"].FirstOrDefault();
+        }
 
         if (header != null)
         {
@@ -29,6 +35,7 @@ public static class HttpExtensions
                 }
             }
         }
+
 
         throw new UnauthorizedAccessException();
     }

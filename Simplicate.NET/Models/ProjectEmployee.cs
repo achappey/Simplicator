@@ -9,14 +9,16 @@ public class ProjectEmployee
     [JsonPropertyName("employee_id")]
     public string? EmployeeId { get; set; }
 
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("tariff")]
     public decimal? Tariff { get; set; }
 
+    [JsonPropertyName("amount")]
     public double? Amount { get; set; }
 
+    [JsonPropertyName("declarable")]
     public bool Declarable { get; set; }
-
-
 
 }

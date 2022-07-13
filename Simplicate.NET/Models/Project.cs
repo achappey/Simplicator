@@ -32,4 +32,8 @@ public class Project : Base
 
     public IEnumerable<ProjectEmployee> Employees { get; set; } = null!;
 
+    [JsonPropertyName("custom_fields")]
+    public IEnumerable<CustomField>? CustomFields { get; set; }
+
+
 }

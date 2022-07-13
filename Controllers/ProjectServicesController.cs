@@ -21,6 +21,7 @@ public class ProjectServicesController : ControllerBase
     }
 
     [HttpGet(Name = "GetProjectServices")]
+    [Tags("Projects")]
     [EnableQuery]
     public async Task<IEnumerable<ProjectService>> Get()
     {
@@ -30,6 +31,7 @@ public class ProjectServicesController : ControllerBase
     }
 
     [HttpPost(Name = "AddProjectService")]
+    [Tags("Projects")]
     public async Task<ProjectService> Post([FromBody] ProjectService service)
     {
         var user = this.HttpContext.GetUser();

@@ -5,6 +5,7 @@ namespace Simplicate.NET.Models;
 public class Hours
 {
 
+    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
     public Employee Employee { get; set; } = null!;
@@ -25,9 +26,16 @@ public class Hours
     [JsonPropertyName("hours")]
     public double Time { get; set; }
 
+    [JsonPropertyName("tariff")]
     public decimal? Tariff { get; set; }
+
+    [JsonPropertyName("billable")]
     public bool Billable { get; set; }
 
+    [JsonPropertyName("status")]
     public string Status { get; set; } = null!;
+
+    [JsonPropertyName("note")]
+    public string? Note { get; set; }
 
 }

@@ -1,6 +1,5 @@
 ﻿
 using Simplicate.NET.Models.Http;
-using System.Net.Http.Json;
 
 namespace Simplicate.NET.Extensions;
 
@@ -11,13 +10,14 @@ public static class RequestExtensions
     {
         var uriBuilder = new UriBuilder(url);
         var query = System.Web.HttpUtility.ParseQueryString(uriBuilder.Query);
+
         query[paramName] = paramValue;
         uriBuilder.Query = query.ToString();
 
         return uriBuilder.Uri;
     }
 
-    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delay = 2000)
+    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delay = 1000)
     {
         List<T> items = new List<T>();
 

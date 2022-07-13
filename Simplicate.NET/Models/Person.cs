@@ -64,4 +64,8 @@ public class Person : Base
     [JsonPropertyName("linked_as_contact_to_organization")]
     public IEnumerable<Organization> Organizations { get; set; } = null!;
 
+    [JsonPropertyName("custom_fields")]
+    public IEnumerable<CustomField>? CustomFields { get; set; }
+
+
 }

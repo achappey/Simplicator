@@ -4,6 +4,9 @@ using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Simplicator.Services;
 
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Swashbuckle.AspNetCore.SwaggerGen;
+
 var odataEndpoint = "odata";
 var version = "v2";
 
@@ -22,11 +25,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 
     c.AddSecurityDefinition("API Key", new OpenApiSecurityScheme
-      {
-         Name = "x-api-key",
-         In = ParameterLocation.Header,
-         Type = SecuritySchemeType.ApiKey
-       });
+    {
+        Name = "x-api-key",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey
+    });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement()
       {
@@ -44,6 +47,8 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
           }
         });
+
+    c.OperationFilter<ODataOperationFilter>();
 });
 
 builder.Services.AddHttpClient();
@@ -105,4 +110,43 @@ static IEdmModel GetGraphModel(string name)
     builder.Namespace = name;
 
     return builder.GetEdmModel();
+}
+
+
+public class ODataOperationFilter : IOperationFilter
+{
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    {
+        if (operation.Parameters == null) operation.Parameters = new List<OpenApiParameter>();
+
+        var descriptor = context.ApiDescription.ActionDescriptor as ControllerActionDescriptor;
+
+        if (descriptor != null && descriptor.FilterDescriptors.Any(filter => filter.Filter is Microsoft.AspNetCore.OData.Query.EnableQueryAttribute))
+        {
+            operation.Parameters.Add(new OpenApiParameter()
+            {
+                Name = "$filter",
+                In = ParameterLocation.Query,
+                Schema = new OpenApiSchema
+                {
+                    Type = "string",
+                },
+                Description = "Filter the response with OData filter queries.",
+                Required = false
+            });
+
+            operation.Parameters.Add(new OpenApiParameter()
+            {
+                Name = "$orderby",
+                In = ParameterLocation.Query,
+                Schema = new OpenApiSchema
+                {
+                    Type = "string",
+                },
+                Description = "Define the order by one or more fields.",
+                Required = false
+            });
+
+        }
+    }
 }

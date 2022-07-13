@@ -27,5 +27,8 @@ public class Organization : Base
 
     [JsonPropertyName("bank_account")]
     public string? BankAccount { get; set; }
+    
+    [JsonPropertyName("custom_fields")]
+    public IEnumerable<CustomField>? CustomFields { get; set; }
 
 }
