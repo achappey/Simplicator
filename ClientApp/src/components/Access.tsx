@@ -57,6 +57,9 @@ export const Access: React.FunctionComponent = () => {
                 disabled={true}
                 canRevealPassword />
             <ActionButton onClick={() => copyToClipboard()}>Copy to clipboard</ActionButton>
+<br></br>
+<br></br>
+            <small>Calculation is browser-based. Your data is not stored anywhere.</small>
         </div>
     </>
 }

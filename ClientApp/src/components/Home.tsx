@@ -4,7 +4,7 @@ import { Link } from '@fluentui/react';
 export const Home: React.FunctionComponent = () => {
   return (
     <div>
-      <h2>Power Platform connector for <Link href="https://www.simplicate.com" target={"_blank"}>Simplicate</Link></h2>
+      <h2>Unofficial Power Platform connector for <Link href="https://www.simplicate.com" target={"_blank"}>Simplicate</Link></h2>
 
       <h4>Authentication</h4>
       <p>Add as query string or in the request header:</p>
