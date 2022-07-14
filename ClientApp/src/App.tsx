@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Route, Routes } from 'react-router';
 import { Home } from './components/Home';
 
 import { Stack, StackItem } from '@fluentui/react';
@@ -7,28 +7,39 @@ import { Header } from './components/Header';
 import { SideNavigation } from './components/SideNavigation';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { Access } from './components/Access';
+import { ThemeProvider, PartialTheme } from '@fluentui/react';
 
 initializeIcons();
+
+const appTheme: PartialTheme = {
+  palette: {
+    themePrimary: '#A69CF3'
+  }
+};
 
 export default class App extends Component {
   static displayName = App.name;
 
   render() {
     return (<>
-      <Stack>
-        <StackItem style={{ width: "100%" }}>
-          <Header />
-        </StackItem>
-      </Stack>
-      <Stack horizontal={true}>
-        <StackItem>
-          <SideNavigation />
-        </StackItem>
-        <StackItem style={{ paddingLeft: 20 }}>
-          <Route exact path='/'><Home /></Route>
-          <Route path='/access' ><Access /></Route>
-        </StackItem>
-      </Stack>
+      <ThemeProvider theme={appTheme}>
+        <Stack>
+          <StackItem style={{ width: "100%" }}>
+            <Header />
+          </StackItem>
+        </Stack>
+        <Stack horizontal={true}>
+          <StackItem>
+            <SideNavigation />
+          </StackItem>
+          <StackItem style={{ paddingLeft: 20 }}>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/access' element={<Access />} />
+            </Routes>
+          </StackItem>
+        </Stack>
+      </ThemeProvider>
     </>
     );
   }

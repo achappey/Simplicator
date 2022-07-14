@@ -1,10 +1,10 @@
 import { ActionButton, TextField } from "@fluentui/react";
 import { useCallback, useMemo, useState } from "react";
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 
 export const Access: React.FunctionComponent = () => {
     const [environment, setEnvironment] = useState<string>("");
-    const [apiKey, seApiKey] = useState<string>("");
+    const [apiKey, setApiKey] = useState<string>("");
     const [apiSecret, setApiSecret] = useState<string>("");
 
     const updateEnvironment = useCallback((name: string | undefined) => {
@@ -12,7 +12,7 @@ export const Access: React.FunctionComponent = () => {
     }, [])
 
     const updateKey = useCallback((name: string | undefined) => {
-        seApiKey(name ? name : "")
+        setApiKey(name ? name : "")
     }, [])
 
     const updateSecret = useCallback((value: string | undefined) => {
@@ -24,7 +24,7 @@ export const Access: React.FunctionComponent = () => {
     }, [environment, apiKey, apiSecret])
 
     const copyToClipboard = useCallback(() => {
-        navigator.clipboard.writeText(decoded).then(function () {
+        navigator.clipboard.writeText(decoded).then(() => {
             console.log('Async: Copying to clipboard was successful!');
         }, function (err) {
             console.error('Async: Could not copy text: ', err);
@@ -52,13 +52,12 @@ export const Access: React.FunctionComponent = () => {
             </form>
             <br></br>
             <TextField value={decoded}
-                onChange={(_e, newValue) => updateSecret(newValue)}
                 label="Simplicator API Key"
                 disabled={true}
                 canRevealPassword />
             <ActionButton onClick={() => copyToClipboard()}>Copy to clipboard</ActionButton>
-<br></br>
-<br></br>
+            <br></br>
+            <br></br>
             <small>Calculation is browser-based. Your data is not stored anywhere.</small>
         </div>
     </>
