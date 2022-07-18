@@ -62,10 +62,37 @@ public class Person : Base
     public string? CustomSalutation { get; set; }
 
     [JsonPropertyName("linked_as_contact_to_organization")]
-    public IEnumerable<Organization> Organizations { get; set; } = null!;
+    public IEnumerable<OrganizationContact> Organizations { get; set; } = null!;
 
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
+
+
+}
+
+public class OrganizationContact
+{
+    public string? Name { get; set; }
+
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("organization_id")]
+    public string CustomSalutation { get; set; } = null!;
+
+    [JsonPropertyName("is_active")]
+    public bool IsActive { get; set; }
+
+     [JsonPropertyName("work_function")]
+    public string? WorkFunction { get; set; }
+
+    [JsonPropertyName("work_email")]
+    public string? WorkEmail { get; set; }
+
+    [JsonPropertyName("work_phone")]
+    public string? WorkPhone { get; set; }
+
+    [JsonPropertyName("work_mobile")]
+    public string? WorkMobile { get; set; }
 
 
 }

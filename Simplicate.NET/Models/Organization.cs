@@ -32,3 +32,10 @@ public class Organization : Base
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
 }
+
+public class OrganizationLookup
+{
+    public string? Name { get; set; }
+
+    public string Id { get; set; } = null!;
+}

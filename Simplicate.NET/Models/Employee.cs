@@ -35,3 +35,14 @@ public class Employee : Base
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
 }
+
+public class EmployeeLookup
+{
+    public string? Name { get; set; }
+
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("person_id")]
+    public string? PersonId { get; set; }
+
+}

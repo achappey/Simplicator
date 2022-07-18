@@ -27,6 +27,11 @@ public static class HttpExtensions
         return await client.PagedRequest<Project>(environment.BuildRequestUri(Endpoints.PROJECT), key, secret);
     }
 
+    public static async Task<IEnumerable<Sales>> GetSales(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<Sales>(environment.BuildRequestUri(Endpoints.SALES), key, secret);
+    }
+
     public static async Task<IEnumerable<RevenueGroup>> GetRevenueGroups(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<RevenueGroup>(environment.BuildRequestUri(Endpoints.REVENUEGROUP), key, secret);

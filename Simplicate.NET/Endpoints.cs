@@ -9,6 +9,7 @@ public static class Endpoints
     public static string PERSON = "crm/person";
     public static string EMPLOYEE = "hrm/employee";
     public static string PROJECT = "projects/project";
+    public static string SALES = "sales/sales";
     public static string REVENUEGROUP = "sales/revenuegroup";
     public static string DEFAULTSERVICE = "services/defaultservice";
     public static string INVOICE = "invoices/invoice";

@@ -18,6 +18,11 @@ public class SimplicateService
         return await this._client.GetProjects(environment, key, secret);
     }
 
+    public async Task<IEnumerable<Sales>> GetSales(string environment, string key, string secret)
+    {
+        return await this._client.GetSales(environment, key, secret);
+    }
+
     public async Task<IEnumerable<Person>> GetPersons(string environment, string key, string secret)
     {
         return await this._client.GetPersons(environment, key, secret);

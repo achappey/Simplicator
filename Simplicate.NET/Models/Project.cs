@@ -17,7 +17,7 @@ public class Project : Base
     [JsonPropertyName("hours_rate_type")]
     public string? RateType { get; set; }
 
-    public Organization Organization { get; set; } = null!;
+    public OrganizationLookup Organization { get; set; } = null!;
 
     public bool Billable { get; set; }
 
@@ -34,6 +34,18 @@ public class Project : Base
 
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
+}
 
+public class ProjectLookup
+{
+
+    public string? Name { get; set; }
+
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("project_number")]
+    public string ProjectNumber { get; set; } = null!;
+
+    public OrganizationLookup Organization { get; set; } = null!;
 
 }

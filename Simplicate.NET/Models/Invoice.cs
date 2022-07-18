@@ -24,7 +24,7 @@ public class Invoice : Base
 
     public string Comments { get; set; } = null!;
 
-    public Project Project { get; set; } = null!;
+    public ProjectLookup Project { get; set; } = null!;
 
     [JsonPropertyName("total_excluding_vat")]
     public decimal TotalExcludingVat { get; set; }
@@ -38,4 +38,7 @@ public class Invoice : Base
     [JsonPropertyName("total_vat")]
     public decimal TotalVat { get; set; }
 
+    public OrganizationLookup Organization { get; set; } = null!;
+
 }
+

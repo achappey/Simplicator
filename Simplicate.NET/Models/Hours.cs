@@ -8,11 +8,11 @@ public class Hours
     [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
-    public Employee Employee { get; set; } = null!;
+    public EmployeeLookup Employee { get; set; } = null!;
 
-    public Project Project { get; set; } = null!;
+    public ProjectLookup Project { get; set; } = null!;
 
-    public ProjectService ProjectService { get; set; } = null!;
+    public ProjectServiceLookup ProjectService { get; set; } = null!;
 
     [JsonPropertyName("invoice_status")]
     public string? InvoiceStatus { get; set; }

@@ -22,6 +22,7 @@ public class OrganizationsController : ControllerBase
 
     [HttpGet(Name = "GetOrganizations")]
     [EnableQuery]
+    [Tags("CRM")]
     public async Task<IEnumerable<Organization>> Get()
     {
         var user = this.HttpContext.GetUser();

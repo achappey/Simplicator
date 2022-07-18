@@ -4,11 +4,12 @@ namespace Simplicate.NET.Models;
 
 public class Installment
 {
-
     public string Name { get; set; } = null!;
 
     public decimal Price { get; set; }
+
     public double Percentage { get; set; }
+
     public double Order { get; set; }
 
     [JsonPropertyName("expiration_date")]

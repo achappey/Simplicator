@@ -22,6 +22,7 @@ public class EmployeesController : ControllerBase
 
     [HttpGet(Name = "GetEmployees")]
     [EnableQuery]
+    [Tags("HRM")]
     public async Task<IEnumerable<Employee>> Get()
     {
         var user = this.HttpContext.GetUser();

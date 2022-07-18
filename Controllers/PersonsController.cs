@@ -22,6 +22,7 @@ public class PersonsController : ControllerBase
 
     [HttpGet(Name = "GetPersons")]
     [EnableQuery]
+    [Tags("CRM")]
     public async Task<IEnumerable<Person>> Get()
     {
         var user = this.HttpContext.GetUser();
