@@ -26,13 +26,13 @@ export const Access: React.FunctionComponent = () => {
     const copyToClipboard = useCallback(() => {
         navigator.clipboard.writeText(decoded).then(() => {
             console.log('Async: Copying to clipboard was successful!');
-        }, function (err) {
+        }, (err) => {
             console.error('Async: Could not copy text: ', err);
         });
     }, [decoded]);
 
     return <>
-        <div>
+        <div style={{ maxWidth: 350 }}>
             <p>Calculate your API key</p>
             <form>
                 <TextField label="Simplicate URL"
@@ -41,10 +41,12 @@ export const Access: React.FunctionComponent = () => {
                     onChange={(_e, newValue) => updateEnvironment(newValue)}
                     value={environment}
                     suffix=".simplicate.com" />
+
                 <TextField required
                     value={apiKey}
                     onChange={(_e, newValue) => updateKey(newValue)}
                     label="Simplicate API key" />
+                    
                 <TextField required
                     value={apiSecret}
                     onChange={(_e, newValue) => updateSecret(newValue)}
