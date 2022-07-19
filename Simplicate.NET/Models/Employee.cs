@@ -7,10 +7,8 @@ public class Employee : Base
     [JsonPropertyName("person_id")]
     public string? PersonId { get; set; }
 
-    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
-    [JsonPropertyName("function")]
     public string? Function { get; set; }
 
     [JsonPropertyName("work_phone")]

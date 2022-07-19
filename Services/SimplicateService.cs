@@ -43,7 +43,7 @@ public class SimplicateService
         return await this._client.GetProjectServices(environment, key, secret);
     }
 
-    public async Task<ProjectService> AddProjectService(string environment, string key, string secret, ProjectService service)
+    public async Task<NewProjectService> AddProjectService(string environment, string key, string secret, NewProjectService service)
     {
         return await this._client.AddProjectService(environment, key, secret, service);
     }

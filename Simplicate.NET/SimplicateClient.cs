@@ -62,7 +62,7 @@ public class SimplicateClient
         return await this._httpClient.GetHours(environment, key, secret);
     }
 
-    public async Task<ProjectService> AddProjectService(string environment, string key, string secret, ProjectService service)
+    public async Task<NewProjectService> AddProjectService(string environment, string key, string secret, NewProjectService service)
     {
         var item = await this._httpClient.AddProjectService(environment, key, secret, service);
 

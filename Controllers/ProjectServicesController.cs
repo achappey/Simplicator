@@ -32,7 +32,7 @@ public class ProjectServicesController : ControllerBase
 
     [HttpPost(Name = "AddProjectService")]
     [Tags("Projects")]
-    public async Task<ProjectService> Post([FromBody] ProjectService service)
+    public async Task<NewProjectService> Post([FromBody] NewProjectService service)
     {
         var user = this.HttpContext.GetUser();
 

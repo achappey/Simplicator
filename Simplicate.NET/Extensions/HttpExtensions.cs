@@ -52,9 +52,9 @@ public static class HttpExtensions
         return await client.PagedRequest<ProjectService>(environment.BuildRequestUri(Endpoints.PROJECTSERVICE), key, secret);
     }
 
-    public static async Task<ProjectService?> AddProjectService(this HttpClient client, string environment, string key, string secret, ProjectService service)
+    public static async Task<NewProjectService?> AddProjectService(this HttpClient client, string environment, string key, string secret, NewProjectService service)
     {
-        return await client.SimplicatePostRequest<ProjectService>(
+        return await client.SimplicatePostRequest<NewProjectService>(
             environment.BuildRequestUri(Endpoints.PROJECTSERVICE), 
             key, secret, JsonSerializer.Serialize(service));
     }

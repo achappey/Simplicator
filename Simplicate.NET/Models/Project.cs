@@ -5,10 +5,8 @@ namespace Simplicate.NET.Models;
 public class Project : Base
 {
 
-    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
-    [JsonPropertyName("note")]
     public string? Note { get; set; }
 
     [JsonPropertyName("project_status")]
@@ -48,4 +46,14 @@ public class ProjectLookup
 
     public OrganizationLookup Organization { get; set; } = null!;
 
+}
+
+public class ProjectStatus
+{
+
+    public string Id { get; set; } = null!;
+    
+    public string? Label { get; set; }
+
+    public string? Color { get; set; }
 }

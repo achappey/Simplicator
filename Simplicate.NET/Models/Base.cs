@@ -6,7 +6,6 @@ namespace Simplicate.NET.Models;
 public class Base
 {
 
-    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
     [JsonPropertyName("simplicate_url")]

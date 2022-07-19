@@ -5,7 +5,6 @@ namespace Simplicate.NET.Models;
 public class Hours
 {
 
-    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
     public EmployeeLookup Employee { get; set; } = null!;
@@ -26,16 +25,27 @@ public class Hours
     [JsonPropertyName("hours")]
     public double Time { get; set; }
 
-    [JsonPropertyName("tariff")]
     public decimal? Tariff { get; set; }
 
-    [JsonPropertyName("billable")]
     public bool Billable { get; set; }
 
-    [JsonPropertyName("status")]
     public string Status { get; set; } = null!;
 
-    [JsonPropertyName("note")]
     public string? Note { get; set; }
+
+}
+
+
+public class HourType
+{
+    [JsonPropertyName("budgeted_amount")]
+    public decimal? BudgetedAmount { get; set; }
+
+    public decimal? Tariff { get; set; }
+
+    public bool Billable { get; set; }
+
+    [JsonPropertyName("hourstype_id")]
+    public string HoursTypeId { get; set; } = null!;
 
 }

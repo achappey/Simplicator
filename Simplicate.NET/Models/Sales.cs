@@ -5,10 +5,8 @@ namespace Simplicate.NET.Models;
 public class Sales : Base
 {
 
-    [JsonPropertyName("subject")]
     public string? Subject { get; set; }
 
-    [JsonPropertyName("note")]
     public string? Note { get; set; }
 
     [JsonPropertyName("chance_to_score")]

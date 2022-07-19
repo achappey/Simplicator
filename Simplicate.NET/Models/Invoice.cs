@@ -7,13 +7,10 @@ public class Invoice : Base
 
     public InvoiceStatus? Status { get; set; }
 
-    [JsonPropertyName("date")]
     public string? Date { get; set; }
 
-    [JsonPropertyName("subject")]
     public string Subject { get; set; } = null!;
 
-    [JsonPropertyName("reference")]
     public string? Reference { get; set; }
 
     [JsonPropertyName("sending_method")]
@@ -42,3 +39,9 @@ public class Invoice : Base
 
 }
 
+public class InvoiceStatus
+{
+    public string Id { get; set; } = null!;
+
+    public string? Name { get; set; }
+}
