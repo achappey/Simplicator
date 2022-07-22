@@ -24,7 +24,7 @@ export const Home: React.FunctionComponent = () => {
     window.open("/odata/$metadata", "_blank")
   }, [])
 
-  const simplicatorHeader = <Label size='large'>Simplicator</Label>
+  const simplicatorHeader = <Label size='large'>Unofficial Power Platform connector for <Link href={simplicateUrl} target={"_blank"}>Simplicate</Link></Label>
   const powerPlatformHeader = <Label size='large'>Power Platform</Label>
   const authenticationHeader = <Label size='large'>Authentication</Label>
 
@@ -33,13 +33,26 @@ export const Home: React.FunctionComponent = () => {
   const sourceIcon = <CodeRegular fontSize={16} />
 
   return <>
-    <h2>Unofficial Power Platform connector for <Link href={simplicateUrl} target={"_blank"}>Simplicate</Link></h2>
 
     <Card className={classes.card}>
       <CardHeader header={simplicatorHeader} />
       <CardPreview className={classes.cardDescripton}>
-        <Text>Simplicator is an application proxy between the Power Platform and Simplicate.</Text>
-        <Text>Requests and responses are forwarded and sent back only, data is not stored anywhere.</Text>
+        <Text>
+          Simplicator is a proxy between Power Platform and Simplicate.
+        </Text>
+        <Text>
+          Get your Simplicate data and/or perform actions from your Microsoft 365 tenant.
+        </Text>
+        <Text>To get started:
+          <ul>
+            <li>Get your Simplicate API key and API secret</li>
+            <li>Calculate your Simplicator API key</li>
+            <li>Retrieve data in Power BI and/or create a custom Power Automate connector</li>
+          </ul>
+          <Text>
+            Requests and responses are forwarded and returned only, <b>your data is not stored anywhere.</b>
+          </Text>
+        </Text>
       </CardPreview>
       <CardFooter>
         <Button onClick={openSwagger} icon={swaggerIcon}> Swagger</Button>
@@ -51,7 +64,9 @@ export const Home: React.FunctionComponent = () => {
     <Card className={classes.card}>
       <CardHeader header={powerPlatformHeader} />
       <CardPreview className={classes.cardDescripton}>
-        <Text>For example, retrieve all your Simplicate projects in Power BI:</Text>
+        <Text>
+          For example, retrieve all your Simplicate projects in Power BI:
+        </Text>
 
         <pre className={classes.wrap}>
           OData.Feed("https://simplicator.net/odata/projects", null, [ApiKeyName="x-api-key", Implementation = "2.0"])
@@ -66,7 +81,9 @@ export const Home: React.FunctionComponent = () => {
       <CardPreview className={classes.cardDescripton}>
         <Text>Add as query string or in the request header.</Text>
 
-        <pre className={classes.wrap}>x-api-key: base64Encode([ApiKey]:[ApiSecret]@[Environment])</pre>
+        <pre className={classes.wrap}>
+          x-api-key: base64Encode([ApiKey]:[ApiSecret]@[Environment])
+        </pre>
 
       </CardPreview>
     </Card>

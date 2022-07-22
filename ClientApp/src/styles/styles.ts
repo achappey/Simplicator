@@ -6,18 +6,18 @@ export const useStyles = makeStyles({
     },
     card: {
         marginBottom: "16px",
-        maxWidth:"1000px"
+        maxWidth: "1000px"
     },
     formField: {
         maxWidth: "450px",
         display: "flex",
         flexDirection: "column",
-        paddingBottom:"8px"
+        paddingBottom: "8px"
     },
     wrap: {
         whiteSpace: "pre-wrap"
     },
     form: {
-        maxWidth:"450px"
+        maxWidth: "450px"
     }
 });
