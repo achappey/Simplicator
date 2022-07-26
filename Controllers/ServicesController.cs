@@ -8,23 +8,23 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Simplicator.Controllers;
 
 [ApiController]
-[Route("api/v2/services/[controller]")]
-public class DefaultServiceController : ControllerBase
+[Route("api/v2/[controller]")]
+public class ServicesController : ControllerBase
 {
-    private readonly ILogger<DefaultServiceController> _logger;
+    private readonly ILogger<ServicesController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
-    public DefaultServiceController(ILogger<DefaultServiceController> logger, SimplicateService simplicateService)
+    public ServicesController(ILogger<ServicesController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
         _simplicateService = simplicateService;
     }
 
-    [HttpGet(Name = "GetDefaultServices")]
+    [HttpGet(template: "defaultservice", Name = "GetDefaultServices")]
     [EnableQuery]
     [Tags("Services")]
-     [SwaggerOperation("Fetches all default services")]
+    [SwaggerOperation("Fetches all default services")]
     public async Task<IEnumerable<DefaultService>> Get()
     {
         var user = this.HttpContext.GetUser();

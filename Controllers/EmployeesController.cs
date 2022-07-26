@@ -9,26 +9,28 @@ namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
-public class HoursController : ControllerBase
+[ApiExplorerSettings(IgnoreApi = true)]
+public class EmployeesController : ControllerBase
 {
-    private readonly ILogger<HoursController> _logger;
+    private readonly ILogger<EmployeesController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
-    public HoursController(ILogger<HoursController> logger, SimplicateService simplicateService)
+    public EmployeesController(ILogger<EmployeesController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
         _simplicateService = simplicateService;
     }
 
-    [HttpGet(template: "hours", Name = "GetHours")]
+    [HttpGet]
     [EnableQuery]
-    [SwaggerOperation("Fetches all hours")]
-    public async Task<IEnumerable<Hours>> Get()
+    [Tags("HRM")]
+    [SwaggerOperation("Fetches all employees")]
+    public async Task<IEnumerable<Employee>> Get()
     {
         var user = this.HttpContext.GetUser();
 
-        return await _simplicateService.GetHours(user.Environment, user.Key, user.Secret);
+        return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }
 
 }

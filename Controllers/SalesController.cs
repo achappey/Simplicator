@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Simplicator.Controllers;
 
 [ApiController]
-[Route("api/v2/sales/[controller]")]
+[Route("api/v2/[controller]")]
 public class SalesController : ControllerBase
 {
     private readonly ILogger<SalesController> _logger;
@@ -21,7 +21,7 @@ public class SalesController : ControllerBase
         _simplicateService = simplicateService;
     }
 
-    [HttpGet(Name = "GetSales")]
+    [HttpGet(template: "sales", Name = "GetSales")]
     [EnableQuery]
     [SwaggerOperation("Fetches all sales")]
     public async Task<IEnumerable<Sales>> Get()
@@ -29,5 +29,16 @@ public class SalesController : ControllerBase
         var user = this.HttpContext.GetUser();
 
         return await _simplicateService.GetSales(user.Environment, user.Key, user.Secret);
+    }
+
+    [HttpGet(template: "revenuegroup", Name = "GetRevenueGroups")]
+    [EnableQuery]
+    [SwaggerOperation("Fetches all revenue groups")]
+    [Tags("Sales")]
+    public async Task<IEnumerable<RevenueGroup>> GetRevenueGroups()
+    {
+        var user = this.HttpContext.GetUser();
+
+        return await _simplicateService.GetRevenueGroups(user.Environment, user.Key, user.Secret);
     }
 }

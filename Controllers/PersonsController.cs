@@ -8,20 +8,21 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Simplicator.Controllers;
 
 [ApiController]
-[Route("api/v2/crm/[controller]")]
-public class PersonController : ControllerBase
+[Route("api/v2/[controller]")]
+[ApiExplorerSettings(IgnoreApi = true)]
+public class PersonsController : ControllerBase
 {
-    private readonly ILogger<PersonController> _logger;
+    private readonly ILogger<PersonsController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
-    public PersonController(ILogger<PersonController> logger, SimplicateService simplicateService)
+    public PersonsController(ILogger<PersonsController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
         _simplicateService = simplicateService;
     }
 
-    [HttpGet(Name = "GetPersons")]
+    [HttpGet]
     [EnableQuery]
     [Tags("CRM")]
     [SwaggerOperation("Fetches all persons")]

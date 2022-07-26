@@ -8,20 +8,20 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Simplicator.Controllers;
 
 [ApiController]
-[Route("api/v2/invoices/[controller]")]
-public class InvoiceController : ControllerBase
+[Route("api/v2/[controller]")]
+public class InvoicesController : ControllerBase
 {
-    private readonly ILogger<InvoiceController> _logger;
+    private readonly ILogger<InvoicesController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
-    public InvoiceController(ILogger<InvoiceController> logger, SimplicateService simplicateService)
+    public InvoicesController(ILogger<InvoicesController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
         _simplicateService = simplicateService;
     }
 
-    [HttpGet(Name = "GetInvoices")]
+    [HttpGet(template: "invoice", Name = "GetInvoices")]
     [EnableQuery]
     [Tags("Invoices")]
     [SwaggerOperation("Fetches all invoices")]
@@ -30,6 +30,17 @@ public class InvoiceController : ControllerBase
         var user = this.HttpContext.GetUser();
 
         return await _simplicateService.GetInvoices(user.Environment, user.Key, user.Secret);
+    }
+
+    [HttpGet(template: "vatclass", Name = "GetVatClasses")]
+    [EnableQuery]
+    [Tags("Invoices")]
+    [SwaggerOperation("Fetches all vat classes")]
+    public async Task<IEnumerable<VatClass>> GetVatClasses()
+    {
+        var user = this.HttpContext.GetUser();
+
+        return await _simplicateService.GetVatClasses(user.Environment, user.Key, user.Secret);
     }
 
 }
