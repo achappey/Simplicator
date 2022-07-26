@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Button, Label, Link, Text } from '@fluentui/react-components';
+import { Button, Label, Link, Text, Image } from '@fluentui/react-components';
 import { Card, CardFooter, CardHeader, CardPreview } from '@fluentui/react-components/unstable';
 import { CodeRegular, DatabaseRegular, BookOpenRegular } from '@fluentui/react-icons';
 import { useStyles } from '../styles/styles';
@@ -27,6 +27,7 @@ export const Home: React.FunctionComponent = () => {
   const simplicatorHeader = <Label size='large'>Unofficial Power Platform connector for <Link href={simplicateUrl} target={"_blank"}>Simplicate</Link></Label>
   const powerPlatformHeader = <Label size='large'>Power Platform</Label>
   const authenticationHeader = <Label size='large'>Authentication</Label>
+  const screenshotHeader = <Label size='large'>Custom Connector</Label>
 
   const swaggerIcon = <BookOpenRegular fontSize={16} />
   const oDataIcon = <DatabaseRegular fontSize={16} />
@@ -38,9 +39,6 @@ export const Home: React.FunctionComponent = () => {
       <CardHeader header={simplicatorHeader} />
       <CardPreview className={classes.cardDescripton}>
         <Text>
-          Simplicator is a proxy between Power Platform and Simplicate.
-        </Text>
-        <Text>
           Get your Simplicate data and/or perform actions from your Microsoft 365 tenant.
         </Text>
         <Text>To get started:
@@ -49,9 +47,9 @@ export const Home: React.FunctionComponent = () => {
             <li>Calculate your Simplicator API key</li>
             <li>Retrieve data in Power BI and/or create a custom Power Automate connector</li>
           </ul>
-          <Text>
-            Requests and responses are forwarded and returned only, <b>your data is not stored anywhere.</b>
-          </Text>
+        </Text>
+        <Text>
+          Your Simplicate API key/secret is <b>NOT</b> your Simplicate username and password. If you don't have a API key and secret, contact your (Simplicate) administrator.
         </Text>
       </CardPreview>
       <CardFooter>
@@ -72,7 +70,7 @@ export const Home: React.FunctionComponent = () => {
           OData.Feed("https://simplicator.net/odata/projects", null, [ApiKeyName="x-api-key", Implementation = "2.0"])
         </pre>
 
-        <Text>Or <Link href={customConnectorUrl} target={"_blank"}>create</Link> a custom connector from <Link href={"/swagger/v2/swagger.json"} target={"_blank"}>this</Link> file to use Power Automate actions.</Text>
+        <Text>Or <Link href={customConnectorUrl} target={"_blank"}>create</Link> a custom connector from <Link href={"/swagger/v2/swagger.yaml"} target={"_blank"}>this</Link> file to use Power Automate actions.</Text>
       </CardPreview>
     </Card>
 
@@ -88,6 +86,16 @@ export const Home: React.FunctionComponent = () => {
       </CardPreview>
     </Card>
 
-    <Calculate />
+    <div className={classes.row}>
+      <Calculate />
+
+      <Card className={classes.card} style={{ maxWidth: "500px" }}>
+        <CardHeader header={screenshotHeader} />
+        <CardPreview className={classes.cardDescripton}>
+          <Image src={"/Actions.png"} />
+
+        </CardPreview>
+      </Card>
+    </div>
   </>
 }

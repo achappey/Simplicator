@@ -2,11 +2,13 @@ import { makeStyles } from "@fluentui/react-components";
 
 export const useStyles = makeStyles({
     cardDescripton: {
-        paddingLeft: "12px"
+        paddingLeft: "12px",
+        paddingRight: "12px"
     },
     card: {
         marginBottom: "16px",
-        maxWidth: "1000px"
+        maxWidth: "1000px",
+        marginRight: "16px"
     },
     formField: {
         maxWidth: "450px",
@@ -17,7 +19,9 @@ export const useStyles = makeStyles({
     wrap: {
         whiteSpace: "pre-wrap"
     },
-    form: {
-        maxWidth: "450px"
-    }
+    row: {
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap"
+    },
 });
