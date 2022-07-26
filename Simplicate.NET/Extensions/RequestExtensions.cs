@@ -17,7 +17,7 @@ public static class RequestExtensions
         return uriBuilder.Uri;
     }
 
-    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delay = 1000)
+    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delay = 1500)
     {
         List<T> items = new List<T>();
 
@@ -25,30 +25,30 @@ public static class RequestExtensions
 
         int offset = 0;
 
-        SimplicateResponse<T>? result = null;
+        SimplicateCollectionResponse<T>? result = null;
 
         do
         {
             uri = uri.AddParameter("offset", offset.ToString());
 
-            result = await client.SimplicateGetRequest<SimplicateResponse<T>>(uri, key, secret);
+            result = await client.SimplicateGetRequest<SimplicateCollectionResponse<T>>(uri, key, secret);
 
             if (result != null)
             {
                 items.AddRange(result.Data);
 
-                offset = result.Metadata.Offset + result.Metadata.Limit;
+                offset = result.Metadata!.Offset + result.Metadata.Limit;
             }
 
             System.Threading.Thread.Sleep(delay);
         }
-        while (result?.Metadata.Count > offset);
+        while (result?.Metadata!.Count > offset);
 
         return items;
 
     }
 
-    public static async Task<T?> SimplicateRequest<T>(this HttpClient client, Uri uri, string key, string secret, HttpMethod method, string? bodyContent = null)
+    private static async Task<T?> SimplicateRequest<T>(this HttpClient client, Uri uri, string key, string secret, HttpMethod method, object? bodyContent = null)
     {
         var httpRequestMessage = new HttpRequestMessage
         {
@@ -60,24 +60,73 @@ public static class RequestExtensions
             { "Authentication-Key", key },
             { "Authentication-Secret", secret }
         },
-            Content = !string.IsNullOrEmpty(bodyContent) ? new StringContent(bodyContent, System.Text.Encoding.UTF8, "application/json") : null
+            Content = bodyContent != null ? JsonContent.Create(bodyContent) : null
         };
 
         var result = await client.SendAsync(httpRequestMessage);
 
-        result.EnsureSuccessStatusCode();
-
-        if (result != null && result.Content != null)
-        {
-            return await result.Content.ReadFromJsonAsync<T>();
-        }
-
-        return default(T);
+        return await result.HandleSimplicateResponse<T>();
     }
 
-    public static async Task<T?> SimplicatePostRequest<T>(this HttpClient client, Uri uri, string key, string secret, string bodyContent)
+    private static async Task<T?> HandleSimplicateResponse<T>(this HttpResponseMessage message)
     {
-        return await client.SimplicateRequest<T>(uri, key, secret, HttpMethod.Post, bodyContent);
+        switch (message.StatusCode)
+        {
+            case System.Net.HttpStatusCode.OK:
+                if (message != null && message.Content != null)
+                {
+                    return await message.Content.ReadFromJsonAsync<T>();
+                }
+
+                return default(T);
+            case System.Net.HttpStatusCode.BadRequest:
+                if (message != null && message.Content != null)
+                {
+                    var errors = await message.Content.ReadFromJsonAsync<SimplicateErrorResponse>();
+
+                    if (errors != null && errors.Errors != null)
+                    {
+                        throw new SimplicateResponseException((int)message.StatusCode, string.Join(',', errors.Errors.Select(y => y.Message)));
+                    }
+                }
+                break;
+            case System.Net.HttpStatusCode.NotFound:
+            case System.Net.HttpStatusCode.Unauthorized:
+            default:
+                break;
+        }
+
+        if (message != null)
+            throw new SimplicateResponseException((int)message.StatusCode);
+        else
+            throw new SimplicateResponseException((int)System.Net.HttpStatusCode.InternalServerError);
+    }
+
+    private static async Task<T> SimplicateItemRequest<T>(this HttpClient client, Uri uri, string key, string secret, object bodyContent, HttpMethod method)
+    {
+        var result = await client.SimplicateRequest<SimplicateItemResponse<T>>(uri, key, secret, method, bodyContent);
+
+        if (result != null && result.Data != null)
+        {
+            return result.Data;
+        }
+
+        if (result != null && result.Errors != null)
+        {
+            throw new Exception(string.Join(',', result.Errors));
+        }
+
+        throw new Exception();
+    }
+
+    public static async Task<T> SimplicatePostRequest<T>(this HttpClient client, Uri uri, string key, string secret, object bodyContent)
+    {
+        return await client.SimplicateItemRequest<T>(uri, key, secret, bodyContent, HttpMethod.Post);
+    }
+
+    public static async Task<T> SimplicatePutRequest<T>(this HttpClient client, Uri uri, string key, string secret, object bodyContent)
+    {
+        return await client.SimplicateItemRequest<T>(uri, key, secret, bodyContent, HttpMethod.Put);
     }
 
     public static async Task<T?> SimplicateGetRequest<T>(this HttpClient client, Uri uri, string key, string secret)

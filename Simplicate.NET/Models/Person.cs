@@ -9,12 +9,16 @@ public class Person : Base
     [JsonPropertyName("full_name")]
     public string? FullName { get; set; }
 
+    [JsonPropertyName("gender")]
     public string? Gender { get; set; }
 
+    [JsonPropertyName("initials")]
     public string? Initials { get; set; }
 
+    [JsonPropertyName("email")]
     public string? Email { get; set; }
 
+    [JsonPropertyName("phone")]
     public string? Phone { get; set; }
 
     [JsonPropertyName("is_active")]
@@ -29,6 +33,7 @@ public class Person : Base
     [JsonPropertyName("family_name")]
     public string? FamilyName { get; set; }
 
+    [JsonPropertyName("note")]
     public string? Note { get; set; }
 
     [JsonPropertyName("linkedin_url")]
@@ -72,8 +77,10 @@ public class Person : Base
 
 public class OrganizationContact
 {
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
     [JsonPropertyName("organization_id")]
@@ -82,7 +89,7 @@ public class OrganizationContact
     [JsonPropertyName("is_active")]
     public bool IsActive { get; set; }
 
-     [JsonPropertyName("work_function")]
+    [JsonPropertyName("work_function")]
     public string? WorkFunction { get; set; }
 
     [JsonPropertyName("work_email")]

@@ -3,18 +3,19 @@ using Microsoft.AspNetCore.OData.Query;
 using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Simplicator.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class PersonsController : ControllerBase
+[Route("api/v2/crm/[controller]")]
+public class PersonController : ControllerBase
 {
-    private readonly ILogger<PersonsController> _logger;
+    private readonly ILogger<PersonController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
-    public PersonsController(ILogger<PersonsController> logger, SimplicateService simplicateService)
+    public PersonController(ILogger<PersonController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
         _simplicateService = simplicateService;
@@ -23,6 +24,7 @@ public class PersonsController : ControllerBase
     [HttpGet(Name = "GetPersons")]
     [EnableQuery]
     [Tags("CRM")]
+    [SwaggerOperation("Fetches all persons")]
     public async Task<IEnumerable<Person>> Get()
     {
         var user = this.HttpContext.GetUser();

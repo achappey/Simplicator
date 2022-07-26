@@ -1,6 +1,5 @@
 ﻿
 using Simplicate.NET.Models;
-using System.Text.Json;
 
 namespace Simplicate.NET.Extensions;
 
@@ -22,11 +21,6 @@ public static class HttpExtensions
         return await client.PagedRequest<Employee>(environment.BuildRequestUri(Endpoints.EMPLOYEE), key, secret);
     }
 
-    public static async Task<IEnumerable<Project>> GetProjects(this HttpClient client, string environment, string key, string secret)
-    {
-        return await client.PagedRequest<Project>(environment.BuildRequestUri(Endpoints.PROJECT), key, secret);
-    }
-
     public static async Task<IEnumerable<Sales>> GetSales(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<Sales>(environment.BuildRequestUri(Endpoints.SALES), key, secret);
@@ -37,36 +31,31 @@ public static class HttpExtensions
         return await client.PagedRequest<RevenueGroup>(environment.BuildRequestUri(Endpoints.REVENUEGROUP), key, secret);
     }
 
-    public static async Task<IEnumerable<Service>> GetDefaultServices(this HttpClient client, string environment, string key, string secret)
+    public static async Task<IEnumerable<DefaultService>> GetDefaultServices(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<Service>(environment.BuildRequestUri(Endpoints.DEFAULTSERVICE), key, secret);
+        return await client.PagedRequest<DefaultService>(environment.BuildRequestUri(Endpoints.DEFAULTSERVICE), key, secret);
     }
 
-    public static async Task<IEnumerable<Invoice>> GetInvoices(this HttpClient client, string environment, string key, string secret)
-    {
-        return await client.PagedRequest<Invoice>(environment.BuildRequestUri(Endpoints.INVOICE), key, secret);
-    }
-
-    public static async Task<IEnumerable<ProjectService>> GetProjectServices(this HttpClient client, string environment, string key, string secret)
-    {
-        return await client.PagedRequest<ProjectService>(environment.BuildRequestUri(Endpoints.PROJECTSERVICE), key, secret);
-    }
-
-    public static async Task<NewProjectService?> AddProjectService(this HttpClient client, string environment, string key, string secret, NewProjectService service)
-    {
-        return await client.SimplicatePostRequest<NewProjectService>(
-            environment.BuildRequestUri(Endpoints.PROJECTSERVICE), 
-            key, secret, JsonSerializer.Serialize(service));
-    }
 
     public static async Task<IEnumerable<Hours>> GetHours(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<Hours>(environment.BuildRequestUri(Endpoints.HOURS), key, secret);
     }
-
-    public static Uri BuildRequestUri(this string environment, string apiRequest)
+    
+    public static async Task<IEnumerable<Hours>> GetEmployeeHours(this HttpClient client, string environment, string key, string secret, string employeeId)
     {
-        return new Uri(string.Format("{0}{1}", string.Format(Endpoints.API_URL, environment), apiRequest));
+        return await client.PagedRequest<Hours>(environment.BuildRequestUri(Endpoints.HOURS, null, string.Format("q[employee.id]={0}", employeeId)), key, secret);
+    }
+
+    public static Uri BuildRequestUri(this string environment, string apiRequest, string? id = null, string? query = null)
+    {
+        var baseUri = string.Format("{0}{1}{2}{3}",
+            string.Format(Endpoints.API_URL, environment),
+            apiRequest,
+            !string.IsNullOrEmpty(id) ? string.Format("/{0}", id) : "",
+            !string.IsNullOrEmpty(query) ? string.Format("?{0}", query) : "");
+
+        return new Uri(baseUri);
     }
 
 }

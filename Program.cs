@@ -1,10 +1,14 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
+using Microsoft.AspNetCore.Mvc.Controllers;
+
+using Simplicate.NET.Models.Http;
 using Simplicator.Services;
 
-using Microsoft.AspNetCore.Mvc.Controllers;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var odataEndpoint = "odata";
@@ -17,6 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc(version, new OpenApiInfo { Title = "Simplicator", Version = version });
+    c.EnableAnnotations();
 
     c.DocInclusionPredicate((docName, apiDesc) =>
     {
@@ -54,7 +59,12 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<SimplicateService>();
 
-builder.Services.AddControllers()
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true); 
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<HttpResponseExceptionFilter>();
+})
     .AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicate"))
             .Filter().Select().Expand().OrderBy().Count().SetMaxTop(999).SkipToken());
 
@@ -147,6 +157,26 @@ public class ODataOperationFilter : IOperationFilter
                 Required = false
             });
 
+        }
+    }
+}
+
+public class HttpResponseExceptionFilter : IActionFilter, IOrderedFilter
+{
+    public int Order => int.MaxValue - 10;
+
+    public void OnActionExecuting(ActionExecutingContext context) { }
+
+    public void OnActionExecuted(ActionExecutedContext context)
+    {
+        if (context.Exception is SimplicateResponseException httpResponseException)
+        {
+            context.Result = new ObjectResult(httpResponseException.Value)
+            {
+                StatusCode = httpResponseException.StatusCode,
+            };
+
+            context.ExceptionHandled = true;
         }
     }
 }

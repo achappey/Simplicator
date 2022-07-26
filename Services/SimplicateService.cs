@@ -32,20 +32,39 @@ public class SimplicateService
     {
         return await this._client.GetOrganizations(environment, key, secret);
     }
-    
+
     public async Task<IEnumerable<RevenueGroup>> GetRevenueGroups(string environment, string key, string secret)
     {
         return await this._client.GetRevenueGroups(environment, key, secret);
     }
 
-    public async Task<IEnumerable<ProjectService>> GetProjectServices(string environment, string key, string secret)
+    public async Task<IEnumerable<DefaultService>> GetDefaultServices(string environment, string key, string secret)
+    {
+        return await this._client.GetDefaultServices(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<VatClass>> GetVatClasses(string environment, string key, string secret)
+    {
+        return await this._client.GetVatClasses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<ProjectServices>> GetProjectServices(string environment, string key, string secret)
     {
         return await this._client.GetProjectServices(environment, key, secret);
     }
 
-    public async Task<NewProjectService> AddProjectService(string environment, string key, string secret, NewProjectService service)
+    public async Task<ProjectService> AddProjectService(string environment, string key, string secret, NewProjectService service)
     {
-        return await this._client.AddProjectService(environment, key, secret, service);
+        service.Id = await this._client.AddProjectService(environment, key, secret, service);
+
+        return service;
+    }
+
+    public async Task<ProjectService> UpdateProjectService(string environment, string key, string secret, string id, ProjectService service)
+    {
+        service.Id = await this._client.UpdateProjectService(environment, key, secret, id, service);
+
+        return service;
     }
 
     public async Task<IEnumerable<Invoice>> GetInvoices(string environment, string key, string secret)
@@ -62,5 +81,14 @@ public class SimplicateService
     {
         return await this._client.GetHours(environment, key, secret);
     }
+ 
+    public async Task<IEnumerable<Hours>> GetProjectHours(string environment, string key, string secret, string projectId)
+    {
+        return await this._client.GetProjectHours(environment, key, secret, projectId);
+    }
 
+     public async Task<IEnumerable<Hours>> GetEmployeeHours(string environment, string key, string secret, string employeeId)
+    {
+        return await this._client.GetEmployeeHours(environment, key, secret, employeeId);
+    }
 }

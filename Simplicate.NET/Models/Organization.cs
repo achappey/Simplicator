@@ -6,17 +6,22 @@ namespace Simplicate.NET.Models;
 public class Organization : Base
 {
 
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("email")]
     public string? Email { get; set; }
 
+    [JsonPropertyName("phone")]
     public string? Phone { get; set; }
 
     [JsonPropertyName("is_active")]
     public bool IsActive { get; set; }
 
+    [JsonPropertyName("url")]
     public string? Url { get; set; }
 
+    [JsonPropertyName("note")]
     public string? Note { get; set; }
 
     [JsonPropertyName("linkedin_url")]
@@ -35,7 +40,9 @@ public class Organization : Base
 
 public class OrganizationLookup
 {
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 }

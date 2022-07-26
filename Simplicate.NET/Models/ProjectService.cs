@@ -2,20 +2,34 @@ using System.Text.Json.Serialization;
 
 namespace Simplicate.NET.Models;
 
-public class ProjectService : Service
+public class ProjectServices : Service
 {
     [JsonPropertyName("project_id")]
     public string ProjectId { get; set; } = null!;
 
+    [JsonPropertyName("invoice_in_installments")]
+    public bool InvoiceInInstallments { get; set; }
+
+    [JsonPropertyName("installments")]
     public IEnumerable<Installment>? Installments { get; set; }
+
+    [JsonPropertyName("start_date")]
+    public string? StartDate { get; set; }
+
+    [JsonPropertyName("end_date")]
+    public string? EndDate { get; set; }
+
+    [JsonPropertyName("revenue_group")]
+    public RevenueGroup? RevenueGroup { get; set; } = null!;
 
 }
 
-
 public class ProjectServiceLookup
 {
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
     [JsonPropertyName("start_date")]
@@ -32,18 +46,30 @@ public class ProjectServiceLookup
 
 }
 
-public class NewProjectService
+
+public class NewProjectService : ProjectService
 {
-    public string? Name { get; set; }
-
-    public string? Explanation { get; set; }
-
-    public double Amount { get; set; }
-
-    public decimal? Price { get; set; }
-
     [JsonPropertyName("project_id")]
     public string ProjectId { get; set; } = null!;
+
+}
+
+public class ProjectService
+{
+    [JsonPropertyName("id")]
+    public string? Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("explanation")]
+    public string? Explanation { get; set; }
+
+    [JsonPropertyName("amount")]
+    public double Amount { get; set; }
+
+    [JsonPropertyName("price")]
+    public decimal? Price { get; set; }
 
     [JsonPropertyName("use_in_resource_planner")]
     public bool UseInResourcePlanner { get; set; }

@@ -37,9 +37,14 @@ public class SimplicateClient
         return await this._httpClient.GetRevenueGroups(environment, key, secret);
     }
 
-    public async Task<IEnumerable<Service>> GetDefaultServices(string environment, string key, string secret)
+    public async Task<IEnumerable<DefaultService>> GetDefaultServices(string environment, string key, string secret)
     {
         return await this._httpClient.GetDefaultServices(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<VatClass>> GetVatClasses(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetVatClasses(environment, key, secret);
     }
 
     public async Task<IEnumerable<Employee>> GetEmployees(string environment, string key, string secret)
@@ -52,7 +57,7 @@ public class SimplicateClient
         return await this._httpClient.GetInvoices(environment, key, secret);
     }
 
-    public async Task<IEnumerable<ProjectService>> GetProjectServices(string environment, string key, string secret)
+    public async Task<IEnumerable<ProjectServices>> GetProjectServices(string environment, string key, string secret)
     {
         return await this._httpClient.GetProjectServices(environment, key, secret);
     }
@@ -62,12 +67,23 @@ public class SimplicateClient
         return await this._httpClient.GetHours(environment, key, secret);
     }
 
-    public async Task<NewProjectService> AddProjectService(string environment, string key, string secret, NewProjectService service)
+    public async Task<IEnumerable<Hours>> GetProjectHours(string environment, string key, string secret, string projectId)
     {
-        var item = await this._httpClient.AddProjectService(environment, key, secret, service);
-
-        return item != null ? item : throw new Exception();
+        return await this._httpClient.GetProjectHours(environment, key, secret, projectId);
     }
 
+    public async Task<IEnumerable<Hours>> GetEmployeeHours(string environment, string key, string secret, string employeeId)
+    {
+        return await this._httpClient.GetEmployeeHours(environment, key, secret, employeeId);
+    }
 
+    public async Task<string?> AddProjectService(string environment, string key, string secret, NewProjectService service)
+    {
+        return await this._httpClient.AddProjectService(environment, key, secret, service);
+    }
+
+    public async Task<string?> UpdateProjectService(string environment, string key, string secret, string id, ProjectService service)
+    {
+        return await this._httpClient.UpdateProjectService(environment, key, secret, id, service);
+    }
 }

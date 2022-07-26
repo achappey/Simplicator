@@ -5,12 +5,16 @@ namespace Simplicate.NET.Models;
 public class Invoice : Base
 {
 
+    [JsonPropertyName("status")]
     public InvoiceStatus? Status { get; set; }
 
+    [JsonPropertyName("date")]
     public string? Date { get; set; }
 
+    [JsonPropertyName("subject")]
     public string Subject { get; set; } = null!;
 
+    [JsonPropertyName("reference")]
     public string? Reference { get; set; }
 
     [JsonPropertyName("sending_method")]
@@ -19,8 +23,10 @@ public class Invoice : Base
     [JsonPropertyName("invoice_number")]
     public string InvoiceNumber { get; set; } = null!;
 
+    [JsonPropertyName("comments")]
     public string Comments { get; set; } = null!;
 
+    [JsonPropertyName("project")]
     public ProjectLookup Project { get; set; } = null!;
 
     [JsonPropertyName("total_excluding_vat")]
@@ -35,13 +41,16 @@ public class Invoice : Base
     [JsonPropertyName("total_vat")]
     public decimal TotalVat { get; set; }
 
+    [JsonPropertyName("organization")]
     public OrganizationLookup Organization { get; set; } = null!;
 
 }
 
 public class InvoiceStatus
 {
+    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 }

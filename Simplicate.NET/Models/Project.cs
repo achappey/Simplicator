@@ -5,8 +5,10 @@ namespace Simplicate.NET.Models;
 public class Project : Base
 {
 
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("note")]
     public string? Note { get; set; }
 
     [JsonPropertyName("project_status")]
@@ -15,8 +17,10 @@ public class Project : Base
     [JsonPropertyName("hours_rate_type")]
     public string? RateType { get; set; }
 
+    [JsonPropertyName("organization")]
     public OrganizationLookup Organization { get; set; } = null!;
 
+    [JsonPropertyName("billable")]
     public bool Billable { get; set; }
 
     [JsonPropertyName("project_number")]
@@ -28,6 +32,7 @@ public class Project : Base
     [JsonPropertyName("end_date")]
     public string? EndDate { get; set; }
 
+    [JsonPropertyName("employees")]
     public IEnumerable<ProjectEmployee> Employees { get; set; } = null!;
 
     [JsonPropertyName("custom_fields")]
@@ -37,13 +42,16 @@ public class Project : Base
 public class ProjectLookup
 {
 
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
     [JsonPropertyName("project_number")]
     public string ProjectNumber { get; set; } = null!;
 
+    [JsonPropertyName("organization")]
     public OrganizationLookup Organization { get; set; } = null!;
 
 }
