@@ -15,7 +15,7 @@ public class Hours
     public ProjectLookup? Project { get; set; }
 
     [JsonPropertyName("projectservice")]
-    public ProjectServiceLookup ProjectService { get; set; } = null!;
+    public ProjectServiceLookup? ProjectService { get; set; }
 
     [JsonPropertyName("invoice_status")]
     public string? InvoiceStatus { get; set; }
