@@ -49,7 +49,7 @@ public class ProjectLookup : NameLookup
     public string? ProjectNumber { get; set; }
 
     [JsonPropertyName("organization")]
-    public NameLookup Organization { get; set; } = null!;
+    public NameLookup? Organization { get; set; }
 
 }
 
