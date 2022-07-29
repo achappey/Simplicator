@@ -32,6 +32,17 @@ public class HrmController : ControllerBase
         return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }
 
+    [HttpGet(template: "contract", Name = "GetContracts")]
+    [EnableQuery]
+    [Tags("HRM")]
+    [SwaggerOperation("Fetches all contracts")]
+    public async Task<IEnumerable<Contract>> GetContracts()
+    {
+        var user = this.HttpContext.GetUser();
+
+        return await _simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
+    }
+
     [HttpGet(template: "employee/{id}/hours", Name = "GetEmployeeHours")]
     [Tags("HRM")]
     [EnableQuery]
@@ -42,5 +53,5 @@ public class HrmController : ControllerBase
 
         return await _simplicateService.GetEmployeeHours(user.Environment, user.Key, user.Secret, id);
     }
-    
+
 }

@@ -17,7 +17,7 @@ public static class RequestExtensions
         return uriBuilder.Uri;
     }
 
-    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delay = 1200)
+    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delay = 1500)
     {
         List<T> items = new List<T>();
 

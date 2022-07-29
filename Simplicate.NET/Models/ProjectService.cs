@@ -20,18 +20,12 @@ public class ProjectServices : Service
     public string? EndDate { get; set; }
 
     [JsonPropertyName("revenue_group")]
-    public RevenueGroup? RevenueGroup { get; set; } = null!;
+    public LabelLookup? RevenueGroup { get; set; } = null!;
 
 }
 
-public class ProjectServiceLookup
+public class ProjectServiceLookup : NameLookup
 {
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
-
-    [JsonPropertyName("id")]
-    public string Id { get; set; } = null!;
-
     [JsonPropertyName("start_date")]
     public string? StartDate { get; set; }
 

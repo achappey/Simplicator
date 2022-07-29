@@ -35,7 +35,7 @@ public class SalesController : ControllerBase
     [EnableQuery]
     [SwaggerOperation("Fetches all revenue groups")]
     [Tags("Sales")]
-    public async Task<IEnumerable<RevenueGroup>> GetRevenueGroups()
+    public async Task<IEnumerable<LabelLookup>> GetRevenueGroups()
     {
         var user = this.HttpContext.GetUser();
 

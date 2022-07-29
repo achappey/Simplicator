@@ -25,6 +25,7 @@ public class InvoicesController : ControllerBase
     [EnableQuery]
     [Tags("Invoices")]
     [SwaggerOperation("Fetches all invoices")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IEnumerable<Invoice>> Get()
     {
         var user = this.HttpContext.GetUser();
@@ -41,6 +42,16 @@ public class InvoicesController : ControllerBase
         var user = this.HttpContext.GetUser();
 
         return await _simplicateService.GetVatClasses(user.Environment, user.Key, user.Secret);
+    }
+
+    [HttpPost(template: "invoice", Name = "AddInvoice")]
+    [Tags("Invoices")]
+    [SwaggerOperation("Add a new invoice")]
+    public async Task<Invoice> AddMessage([FromBody] NewInvoice invoice)
+    {
+        var user = this.HttpContext.GetUser();
+
+        return await _simplicateService.AddInvoice(user.Environment, user.Key, user.Secret, invoice);
     }
 
 }

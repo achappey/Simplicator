@@ -15,10 +15,10 @@ public class CustomField
     public string Label { get; set; } = null!;
 
     [JsonPropertyName("value")]
-    public string Value { get; set; } = null!;
+    public string? Value { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; } = null!;
+    public string? Type { get; set; }
 
     [JsonPropertyName("render_type")]
     public string RenderType { get; set; } = null!;

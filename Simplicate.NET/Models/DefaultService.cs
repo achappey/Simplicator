@@ -27,7 +27,7 @@ public class DefaultService
     public decimal Price { get; set; }
 
     [JsonPropertyName("revenue_group")]
-    public RevenueGroup? RevenueGroup { get; set; }
+    public LabelLookup? RevenueGroup { get; set; }
 
     [JsonPropertyName("vat_class")]
     public VatClass? VatClass { get; set; }

@@ -3,19 +3,20 @@ using Microsoft.AspNetCore.OData.Query;
 using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class PersonsController : ControllerBase
+public class ContractsController : ControllerBase
 {
-    private readonly ILogger<PersonsController> _logger;
+    private readonly ILogger<ContractsController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
-    public PersonsController(ILogger<PersonsController> logger, SimplicateService simplicateService)
+    public ContractsController(ILogger<ContractsController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
         _simplicateService = simplicateService;
@@ -23,10 +24,12 @@ public class PersonsController : ControllerBase
 
     [HttpGet]
     [EnableQuery]
-    public async Task<IEnumerable<Person>> Get()
+    [Tags("CRM")]
+    [SwaggerOperation("Fetches all contracts")]
+    public async Task<IEnumerable<Contract>> Get()
     {
         var user = this.HttpContext.GetUser();
 
-        return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
+        return await _simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
     }
 }

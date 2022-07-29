@@ -6,7 +6,7 @@ public class Invoice : Base
 {
 
     [JsonPropertyName("status")]
-    public InvoiceStatus? Status { get; set; }
+    public NameLookup? Status { get; set; }
 
     [JsonPropertyName("date")]
     public string? Date { get; set; }
@@ -21,7 +21,7 @@ public class Invoice : Base
     public string SendingMethod { get; set; } = null!;
 
     [JsonPropertyName("invoice_number")]
-    public string InvoiceNumber { get; set; } = null!;
+    public string? InvoiceNumber { get; set; }
 
     [JsonPropertyName("comments")]
     public string Comments { get; set; } = null!;
@@ -42,15 +42,62 @@ public class Invoice : Base
     public decimal TotalVat { get; set; }
 
     [JsonPropertyName("organization")]
-    public OrganizationLookup Organization { get; set; } = null!;
+    public NameLookup Organization { get; set; } = null!;
 
 }
 
-public class InvoiceStatus
+public class NewInvoice
 {
-    [JsonPropertyName("id")]
-    public string Id { get; set; } = null!;
+    [JsonPropertyName("payment_term_id")]
+    public string PaymentTermId { get; set; } = null!;
 
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
+    [JsonPropertyName("status_id")]
+    public string StatusId { get; set; } = null!;
+
+    [JsonPropertyName("date")]
+    public string? Date { get; set; }
+
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; } = null!;
+
+    [JsonPropertyName("reference")]
+    public string? Reference { get; set; }
+
+    [JsonPropertyName("comments")]
+    public string Comments { get; set; } = null!;
+
+    [JsonPropertyName("project_id")]
+    public string ProjectId { get; set; } = null!;
+
+    [JsonPropertyName("organization_id")]
+    public string OrganizationId { get; set; } = null!;
+
+    [JsonPropertyName("my_organization_profile_id")]
+    public string MyOrganizationProfileId { get; set; } = null!;
+
+    [JsonPropertyName("invoice_lines")]
+    public IEnumerable<InvoiceLine> InvoiceLines { get; set; } = null!;
+
+}
+
+public class InvoiceLine
+{
+    [JsonPropertyName("vat_class_id")]
+    public string VatClassId { get; set; } = null!;
+
+    [JsonPropertyName("revenue_group_id")]
+    public string RevenueGroupId { get; set; } = null!;
+
+    [JsonPropertyName("date")]
+    public string? Date { get; set; }
+
+    [JsonPropertyName("description")]
+    public string Description { get; set; } = null!;
+
+    [JsonPropertyName("amount")]
+    public double Amount { get; set; }
+
+    [JsonPropertyName("price")]
+    public decimal Price { get; set; }
+
 }

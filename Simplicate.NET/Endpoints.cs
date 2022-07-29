@@ -11,6 +11,10 @@ public static class Endpoints
 
     public static string EMPLOYEE = "hrm/employee";
 
+    public static string CONTRACT = "hrm/contract";
+
+    public static string MESSAGE = "timeline/message";
+
     public static string PROJECT = "projects/project";
 
     public static string SALES = "sales/sales";

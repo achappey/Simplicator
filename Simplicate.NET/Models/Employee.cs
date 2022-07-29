@@ -47,34 +47,15 @@ public class Employee : Base
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
     [JsonPropertyName("teams")]
-    public IEnumerable<TeamLookup>? Teams { get; set; }
+    public IEnumerable<NameLookup>? Teams { get; set; }
 
 }
 
-public class EmployeeLookup
+public class EmployeeLookup : NameLookup
 {
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
-
-    [JsonPropertyName("id")]
-    public string Id { get; set; } = null!;
-
     [JsonPropertyName("person_id")]
     public string? PersonId { get; set; }
-
 }
-
-
-public class TeamLookup
-{
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
-
-    [JsonPropertyName("id")]
-    public string Id { get; set; } = null!;
-
-}
-
 
 public class Avatar
 {

@@ -18,7 +18,7 @@ public class Project : Base
     public string? RateType { get; set; }
 
     [JsonPropertyName("organization")]
-    public OrganizationLookup Organization { get; set; } = null!;
+    public NameLookup Organization { get; set; } = null!;
 
     [JsonPropertyName("billable")]
     public bool Billable { get; set; }
@@ -37,31 +37,25 @@ public class Project : Base
 
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
+
+    [JsonPropertyName("my_organization_profile")]
+    public MyOrganizationLookup MyOrganization { get; set; } = null!;
+
 }
 
-public class ProjectLookup
+public class ProjectLookup : NameLookup
 {
-
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
-
-    [JsonPropertyName("id")]
-    public string Id { get; set; } = null!;
-
     [JsonPropertyName("project_number")]
-    public string ProjectNumber { get; set; } = null!;
+    public string? ProjectNumber { get; set; }
 
     [JsonPropertyName("organization")]
-    public OrganizationLookup Organization { get; set; } = null!;
+    public NameLookup Organization { get; set; } = null!;
 
 }
 
-public class ProjectStatus
+public class ProjectStatus : LabelLookup
 {
 
-    public string Id { get; set; } = null!;
-    
-    public string? Label { get; set; }
-
+    [JsonPropertyName("color")]
     public string? Color { get; set; }
 }

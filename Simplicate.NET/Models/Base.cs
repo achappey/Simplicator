@@ -19,3 +19,42 @@ public class Base
     public string? UpdatedAt { get; set; }
 
 }
+
+
+public class NameLookup
+{
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+}
+
+
+public class TypeLookup
+{
+
+    [JsonPropertyName("type")]
+    public string? Type { get; set; }
+
+    [JsonPropertyName("id")]
+    public string? Id { get; set; }
+}
+
+
+public class LabelTypeLookup : TypeLookup
+{
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+
+}
+
+public class LabelLookup
+{
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+}

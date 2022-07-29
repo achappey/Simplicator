@@ -65,7 +65,7 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<HttpResponseExceptionFilter>();
 })
-    .AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicate"))
+    .AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
             .Filter().Select().Expand().OrderBy().Count().SetMaxTop(999).SkipToken());
 
 var app = builder.Build();
@@ -113,7 +113,24 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.Person>("Persons").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Hours>("Hours").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Project>("Projects").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.Contract>("Contracts").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Invoice>("Invoices").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.Message>("Messages").EntityType.Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.Avatar>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.MyOrganizationLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.ProjectStatus>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.MessageType>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.VatClass>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.NameLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.TypeLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.LabelLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.LabelTypeLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.CustomField>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.ProjectEmployee>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.ProjectServiceLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.ProjectLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.OrganizationContact>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.EmployeeLookup>().Namespace = name;
 
     builder.Namespace = name;
 

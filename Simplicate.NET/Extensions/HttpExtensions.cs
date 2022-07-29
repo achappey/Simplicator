@@ -21,14 +21,24 @@ public static class HttpExtensions
         return await client.PagedRequest<Employee>(environment.BuildRequestUri(Endpoints.EMPLOYEE), key, secret);
     }
 
+    public static async Task<IEnumerable<Contract>> GetContracts(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<Contract>(environment.BuildRequestUri(Endpoints.CONTRACT), key, secret);
+    }
+
+ public static async Task<IEnumerable<Message>> GetMessages(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<Message>(environment.BuildRequestUri(Endpoints.MESSAGE), key, secret);
+    }
+
     public static async Task<IEnumerable<Sales>> GetSales(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<Sales>(environment.BuildRequestUri(Endpoints.SALES), key, secret);
     }
 
-    public static async Task<IEnumerable<RevenueGroup>> GetRevenueGroups(this HttpClient client, string environment, string key, string secret)
+    public static async Task<IEnumerable<LabelLookup>> GetRevenueGroups(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<RevenueGroup>(environment.BuildRequestUri(Endpoints.REVENUEGROUP), key, secret);
+        return await client.PagedRequest<LabelLookup>(environment.BuildRequestUri(Endpoints.REVENUEGROUP), key, secret);
     }
 
     public static async Task<IEnumerable<DefaultService>> GetDefaultServices(this HttpClient client, string environment, string key, string secret)
@@ -41,7 +51,7 @@ public static class HttpExtensions
     {
         return await client.PagedRequest<Hours>(environment.BuildRequestUri(Endpoints.HOURS), key, secret);
     }
-    
+
     public static async Task<IEnumerable<Hours>> GetEmployeeHours(this HttpClient client, string environment, string key, string secret, string employeeId)
     {
         return await client.PagedRequest<Hours>(environment.BuildRequestUri(Endpoints.HOURS, null, string.Format("q[employee.id]={0}", employeeId)), key, secret);

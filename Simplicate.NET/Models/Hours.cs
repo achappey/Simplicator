@@ -36,7 +36,7 @@ public class Hours
     public bool Billable { get; set; }
 
     [JsonPropertyName("status")]
-    public string Status { get; set; } = null!;
+    public string? Status { get; set; }
 
     [JsonPropertyName("note")]
     public string? Note { get; set; }
