@@ -20,13 +20,11 @@ public class Project : Base
     [JsonPropertyName("organization")]
     public NameLookup? Organization { get; set; }
 
-    public string? OrganizationId
-    {
-        get
-        {
-            return Organization?.Id;
-        }
-    }
+    [JsonPropertyName("organization_id")]
+    public string? OrganizationId { get; set; }
+
+    [JsonPropertyName("person_id")]
+    public string? PersonId { get; set; }
 
     [JsonPropertyName("billable")]
     public bool Billable { get; set; }
@@ -48,6 +46,9 @@ public class Project : Base
 
     [JsonPropertyName("my_organization_profile")]
     public MyOrganizationLookup MyOrganization { get; set; } = null!;
+
+    [JsonPropertyName("my_organization_profile_id")]
+    public string MyOrganizationId { get; set; } = null!;
 
 }
 

@@ -44,6 +44,15 @@ public class Invoice : Base
     [JsonPropertyName("organization")]
     public NameLookup? Organization { get; set; }
 
+    [JsonPropertyName("organization_id")]
+    public string? OrganizationId { get; set; }
+
+    [JsonPropertyName("my_organization_profile")]
+    public MyOrganizationLookup? MyOrganization { get; set; }
+
+    [JsonPropertyName("my_organization_profile_id")]
+    public string? MyOrganizationId { get; set; }
+
 }
 
 public class NewInvoice
