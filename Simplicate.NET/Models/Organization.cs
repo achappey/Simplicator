@@ -41,7 +41,7 @@ public class Organization : Base
 public class MyOrganizationLookup
 {
     [JsonPropertyName("organization")]
-    public NameLookup Organization { get; set; } = null!;
+    public NameLookup? Organization { get; set; }
 
     [JsonPropertyName("id")]
     public string Id { get; set; } = null!;

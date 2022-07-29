@@ -42,7 +42,7 @@ public class Invoice : Base
     public decimal TotalVat { get; set; }
 
     [JsonPropertyName("organization")]
-    public NameLookup Organization { get; set; } = null!;
+    public NameLookup? Organization { get; set; }
 
 }
 

@@ -18,7 +18,7 @@ public class Project : Base
     public string? RateType { get; set; }
 
     [JsonPropertyName("organization")]
-    public NameLookup Organization { get; set; } = null!;
+    public NameLookup? Organization { get; set; }
 
     [JsonPropertyName("billable")]
     public bool Billable { get; set; }

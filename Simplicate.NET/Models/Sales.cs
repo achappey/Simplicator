@@ -18,7 +18,7 @@ public class Sales : Base
     public decimal ExpectedRevenue { get; set; }
 
     [JsonPropertyName("organization")]
-    public NameLookup Organization { get; set; } = null!;
+    public NameLookup? Organization { get; set; }
 
     [JsonPropertyName("start_date")]
     public string? StartDate { get; set; }
