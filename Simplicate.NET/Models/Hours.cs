@@ -12,7 +12,7 @@ public class Hours
     public EmployeeLookup Employee { get; set; } = null!;
 
     [JsonPropertyName("project")]
-    public ProjectLookup Project { get; set; } = null!;
+    public ProjectLookup? Project { get; set; }
 
     [JsonPropertyName("projectservice")]
     public ProjectServiceLookup ProjectService { get; set; } = null!;
