@@ -20,6 +20,14 @@ public class Project : Base
     [JsonPropertyName("organization")]
     public NameLookup? Organization { get; set; }
 
+    public string? OrganizationId
+    {
+        get
+        {
+            return Organization?.Id;
+        }
+    }
+
     [JsonPropertyName("billable")]
     public bool Billable { get; set; }
 
