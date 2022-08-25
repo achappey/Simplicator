@@ -46,4 +46,11 @@ public static class HttpExtensions
 
         return Encoding.UTF8.GetString(valueBytes);
     }
+
+    public static string EncodeBase64(this string plainText)
+    {
+        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+
+        return System.Convert.ToBase64String(plainTextBytes);
+    }
 }

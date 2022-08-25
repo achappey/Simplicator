@@ -89,20 +89,11 @@ app.UseSwaggerUI(c =>
         "Simplicator");
 });
 
+
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseAuthentication();
-app.UseRouting();
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html"); ;
+app.MapControllers();
 
 app.Run();
-
 
 static IEdmModel GetGraphModel(string name)
 {
