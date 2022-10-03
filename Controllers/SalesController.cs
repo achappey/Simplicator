@@ -9,6 +9,7 @@ namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
+[Produces("application/json")]
 public class SalesController : ControllerBase
 {
     private readonly ILogger<SalesController> _logger;
@@ -40,5 +41,16 @@ public class SalesController : ControllerBase
         var user = this.HttpContext.GetUser();
 
         return await _simplicateService.GetRevenueGroups(user.Environment, user.Key, user.Secret);
+    }
+
+    [HttpGet(template: "quotes", Name = "GetQuotes")]
+    [EnableQuery]
+    [SwaggerOperation("Fetches all quotes")]
+    [Tags("Sales")]
+    public async Task<IEnumerable<Quote>> GetQuotes()
+    {
+        var user = this.HttpContext.GetUser();
+
+        return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
     }
 }

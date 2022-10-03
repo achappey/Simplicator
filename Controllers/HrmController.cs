@@ -9,6 +9,7 @@ namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
+[Produces("application/json")]
 public class HrmController : ControllerBase
 {
     private readonly ILogger<HrmController> _logger;

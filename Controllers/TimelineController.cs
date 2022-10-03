@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
 using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
@@ -9,6 +8,8 @@ namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
+[Produces("application/json")]
+[Consumes("application/json")]
 public class TimelineController : ControllerBase
 {
     private readonly ILogger<TimelineController> _logger;

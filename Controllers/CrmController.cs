@@ -9,6 +9,7 @@ namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
+[Produces("application/json")]
 public class CrmController : ControllerBase
 {
     private readonly ILogger<CrmController> _logger;
@@ -25,6 +26,7 @@ public class CrmController : ControllerBase
     [EnableQuery]
     [Tags("CRM")]
     [SwaggerOperation("Fetches all persons")]
+    [ProducesResponseType(typeof(IEnumerable<Person>), 200)]
     public async Task<IEnumerable<Person>> GetPersons()
     {
         var user = this.HttpContext.GetUser();

@@ -18,6 +18,8 @@ public static class Endpoints
     public static string PROJECT = "projects/project";
 
     public static string SALES = "sales/sales";
+    
+    public static string QUOTES = "sales/quote";
 
     public static string REVENUEGROUP = "sales/revenuegroup";
 

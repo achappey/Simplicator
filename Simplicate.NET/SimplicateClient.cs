@@ -32,6 +32,11 @@ public class SimplicateClient
         return await this._httpClient.GetSales(environment, key, secret);
     }
 
+    public async Task<IEnumerable<Quote>> GetQuotes(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetQuotes(environment, key, secret);
+    }
+
     public async Task<IEnumerable<LabelLookup>> GetRevenueGroups(string environment, string key, string secret)
     {
         return await this._httpClient.GetRevenueGroups(environment, key, secret);

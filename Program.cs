@@ -59,7 +59,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<SimplicateService>();
 
-builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true); 
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 builder.Services.AddControllers(options =>
 {
@@ -80,6 +80,7 @@ if (!app.Environment.IsDevelopment())
 app.UseSwagger(options =>
 {
     options.SerializeAsV2 = true;
+
 });
 
 app.UseSwaggerUI(c =>
@@ -104,6 +105,8 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.Person>("Persons").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Hours>("Hours").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Project>("Projects").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.Sales>("Sales").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.Quote>("Quotes").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Contract>("Contracts").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Invoice>("Invoices").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Message>("Messages").EntityType.Namespace = name;
