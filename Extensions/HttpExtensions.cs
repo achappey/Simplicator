@@ -2,6 +2,7 @@ using Simplicator.Models;
 using System.Text;
 using Simplicator.Services;
 using System.Security.Claims;
+using Microsoft.Identity.Web;
 
 namespace Simplicator.Extensions;
 
@@ -18,7 +19,7 @@ public static class HttpExtensions
 
         if (header == null)
         {
-            var userName = context.GetUserPrincipalName();
+            var userName = context.User.GetObjectIdValue();
 
             if (userName != null)
             {
@@ -53,6 +54,20 @@ public static class HttpExtensions
 
         throw new UnauthorizedAccessException();
     }
+
+
+    public static string GetObjectIdValue(this ClaimsPrincipal claim)
+    {
+        var id = claim.GetObjectId();
+
+        if (string.IsNullOrEmpty(id))
+        {
+            throw new UnauthorizedAccessException();
+        }
+
+        return id;
+    }
+
 
     public static string GetUserPrincipalName(this HttpContext context)
     {
