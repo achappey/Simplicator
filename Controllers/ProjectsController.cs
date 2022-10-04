@@ -34,9 +34,18 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all projects")]
     public async Task<IEnumerable<Project>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        try
+        {
+            var user = await this.HttpContext.GetUser(this._keyVaultService);
 
-        return await _simplicateService.GetProjects(user.Environment, user.Key, user.Secret);
+            return await _simplicateService.GetProjects(user.Environment, user.Key, user.Secret);
+        }
+        catch (Exception e)
+        {
+            this._logger.LogError(e, e.Message);
+        }
+        
+        return null;
     }
 
     [HttpGet(template: "project/{id}/hours", Name = "GetProjectHours")]
@@ -49,7 +58,7 @@ public class ProjectsController : ControllerBase
 
         return await _simplicateService.GetProjectHours(user.Environment, user.Key, user.Secret, id);
     }
-    
+
     [HttpGet(template: "service", Name = "GetProjectServices")]
     [Tags("Projects")]
     [EnableQuery]
