@@ -56,7 +56,7 @@ public static class HttpExtensions
 
     public static string GetUserPrincipalName(this HttpContext context)
     {
-        var id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var id = context.User.FindFirstValue("http://schemas.microsoft.com/identity/claims/objectidentifier");
 
         if (string.IsNullOrEmpty(id))
         {
