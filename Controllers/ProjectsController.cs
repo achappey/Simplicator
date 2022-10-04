@@ -43,9 +43,14 @@ public class ProjectsController : ControllerBase
         catch (Exception e)
         {
             this._logger.LogError(e, e.Message);
+             return new List<Project>() {
+                new Project() {
+                    Name = e.Message
+                }
+             };
         }
-        
-        return null;
+
+       
     }
 
     [HttpGet(template: "project/{id}/hours", Name = "GetProjectHours")]
