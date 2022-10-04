@@ -4,7 +4,6 @@ using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 
@@ -12,7 +11,6 @@ namespace Simplicator.Controllers;
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
 [Consumes("application/json")]
-//[Authorize]
 public class ProjectsController : ControllerBase
 {
     private readonly ILogger<ProjectsController> _logger;
@@ -21,11 +19,16 @@ public class ProjectsController : ControllerBase
 
     private readonly KeyVaultService _keyVaultService;
 
-    public ProjectsController(ILogger<ProjectsController> logger, SimplicateService simplicateService, KeyVaultService keyVaultService)
+    public ProjectsController(ILogger<ProjectsController> logger,  IServiceProvider serviceProvider)
     {
         _logger = logger;
-        _simplicateService = simplicateService;
-        _keyVaultService = keyVaultService;
+
+         _simplicateService = serviceProvider
+          .GetRequiredService<SimplicateService>();
+
+        _keyVaultService = serviceProvider
+          .GetService<KeyVaultService>() ??
+            null!;
     }
 
     [HttpGet(template: "project", Name = "GetProjects")]
@@ -34,23 +37,9 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all projects")]
     public async Task<IEnumerable<Project>> Get()
     {
-        try
-        {
-            var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
-            return await _simplicateService.GetProjects(user.Environment, user.Key, user.Secret);
-        }
-        catch (Exception e)
-        {
-            this._logger.LogError(e, e.Message);
-             return new List<Project>() {
-                new Project() {
-                    Name = e.Message
-                }
-             };
-        }
-
-       
+        return await _simplicateService.GetProjects(user.Environment, user.Key, user.Secret);
     }
 
     [HttpGet(template: "project/{id}/hours", Name = "GetProjectHours")]

@@ -8,7 +8,7 @@ namespace Simplicator.Extensions;
 
 public static class HttpExtensions
 {
-    public static async Task<User> GetUser(this HttpContext context, KeyVaultService keyVault = null)
+    public static async Task<User> GetUser(this HttpContext context, KeyVaultService? keyVault = null!)
     {
         var header = context.Request.Headers["x-api-key"].FirstOrDefault();
 
@@ -21,7 +21,7 @@ public static class HttpExtensions
         {
             var userName = context.User.GetObjectIdValue();
 
-            if (userName != null)
+            if (userName != null && keyVault != null)
             {
                 var secret = await keyVault.GetSecret(userName);
 
@@ -55,23 +55,9 @@ public static class HttpExtensions
         throw new UnauthorizedAccessException();
     }
 
-
     public static string GetObjectIdValue(this ClaimsPrincipal claim)
     {
         var id = claim.GetObjectId();
-
-        if (string.IsNullOrEmpty(id))
-        {
-            throw new UnauthorizedAccessException();
-        }
-
-        return id;
-    }
-
-
-    public static string GetUserPrincipalName(this HttpContext context)
-    {
-        var id = context.User.FindFirstValue("http://schemas.microsoft.com/identity/claims/objectidentifier");
 
         if (string.IsNullOrEmpty(id))
         {
