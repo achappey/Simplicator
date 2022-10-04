@@ -16,10 +16,17 @@ public class SalesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public SalesController(ILogger<SalesController> logger, SimplicateService simplicateService)
+    private readonly KeyVaultService _keyVaultService;
+
+    public SalesController(ILogger<SalesController> logger,   IServiceProvider serviceProvider)
     {
         _logger = logger;
-        _simplicateService = simplicateService;
+         _simplicateService = serviceProvider
+       .GetRequiredService<SimplicateService>();
+
+        _keyVaultService = serviceProvider
+          .GetService<KeyVaultService>() ??
+            null!;
     }
 
     [HttpGet(template: "sales", Name = "GetSales")]
@@ -27,7 +34,7 @@ public class SalesController : ControllerBase
     [SwaggerOperation("Fetches all sales")]
     public async Task<IEnumerable<Sales>> Get()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetSales(user.Environment, user.Key, user.Secret);
     }
@@ -38,7 +45,7 @@ public class SalesController : ControllerBase
     [Tags("Sales")]
     public async Task<IEnumerable<LabelLookup>> GetRevenueGroups()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetRevenueGroups(user.Environment, user.Key, user.Secret);
     }
@@ -49,7 +56,7 @@ public class SalesController : ControllerBase
     [Tags("Sales")]
     public async Task<IEnumerable<Quote>> GetQuotes()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
     }

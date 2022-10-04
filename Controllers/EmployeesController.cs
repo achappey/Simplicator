@@ -16,10 +16,18 @@ public class EmployeesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public EmployeesController(ILogger<EmployeesController> logger, SimplicateService simplicateService)
+    private readonly KeyVaultService _keyVaultService;
+
+    public EmployeesController(ILogger<EmployeesController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
-        _simplicateService = simplicateService;
+
+        _simplicateService = serviceProvider
+            .GetRequiredService<SimplicateService>();
+
+        _keyVaultService = serviceProvider
+          .GetService<KeyVaultService>() ??
+            null!;
     }
 
     [HttpGet]
@@ -28,7 +36,7 @@ public class EmployeesController : ControllerBase
     [SwaggerOperation("Fetches all employees")]
     public async Task<IEnumerable<Employee>> Get()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }

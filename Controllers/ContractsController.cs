@@ -16,10 +16,18 @@ public class ContractsController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public ContractsController(ILogger<ContractsController> logger, SimplicateService simplicateService)
+    private readonly KeyVaultService _keyVaultService;
+
+    public ContractsController(ILogger<ContractsController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
-        _simplicateService = simplicateService;
+
+        _simplicateService = serviceProvider
+       .GetRequiredService<SimplicateService>();
+
+        _keyVaultService = serviceProvider
+          .GetService<KeyVaultService>() ??
+            null!;
     }
 
     [HttpGet]
@@ -28,7 +36,7 @@ public class ContractsController : ControllerBase
     [SwaggerOperation("Fetches all contracts")]
     public async Task<IEnumerable<Contract>> Get()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
     }

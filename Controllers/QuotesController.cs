@@ -17,10 +17,18 @@ public class QuotesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public QuotesController(ILogger<QuotesController> logger, SimplicateService simplicateService)
+    private readonly KeyVaultService _keyVaultService;
+
+    public QuotesController(ILogger<QuotesController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
-        _simplicateService = simplicateService;
+
+        _simplicateService = serviceProvider
+       .GetRequiredService<SimplicateService>();
+
+        _keyVaultService = serviceProvider
+          .GetService<KeyVaultService>() ??
+            null!;
     }
 
     [HttpGet]
@@ -29,7 +37,7 @@ public class QuotesController : ControllerBase
     [SwaggerOperation("Fetches all quotes")]
     public async Task<IEnumerable<Quote>> Get()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
     }

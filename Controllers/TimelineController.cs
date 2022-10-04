@@ -16,10 +16,18 @@ public class TimelineController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public TimelineController(ILogger<TimelineController> logger, SimplicateService simplicateService)
+    private readonly KeyVaultService _keyVaultService;
+
+    public TimelineController(ILogger<TimelineController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
-        _simplicateService = simplicateService;
+
+        _simplicateService = serviceProvider
+            .GetRequiredService<SimplicateService>();
+
+        _keyVaultService = serviceProvider
+          .GetService<KeyVaultService>() ??
+            null!;
     }
 
     [HttpPost(template: "message", Name = "AddMessage")]
@@ -27,7 +35,7 @@ public class TimelineController : ControllerBase
     [SwaggerOperation("Add a new message")]
     public async Task<Message> AddMessage([FromBody] NewMessage message)
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.AddMessage(user.Environment, user.Key, user.Secret, message);
     }

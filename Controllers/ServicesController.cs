@@ -16,10 +16,18 @@ public class ServicesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public ServicesController(ILogger<ServicesController> logger, SimplicateService simplicateService)
+    private readonly KeyVaultService _keyVaultService;
+
+    public ServicesController(ILogger<ServicesController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
-        _simplicateService = simplicateService;
+
+        _simplicateService = serviceProvider
+            .GetRequiredService<SimplicateService>();
+
+        _keyVaultService = serviceProvider
+          .GetService<KeyVaultService>() ??
+            null!;
     }
 
     [HttpGet(template: "defaultservice", Name = "GetDefaultServices")]
@@ -28,7 +36,7 @@ public class ServicesController : ControllerBase
     [SwaggerOperation("Fetches all default services")]
     public async Task<IEnumerable<DefaultService>> Get()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetDefaultServices(user.Environment, user.Key, user.Secret);
     }

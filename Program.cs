@@ -78,9 +78,10 @@ if (!string.IsNullOrEmpty(appConfig.KeyVault))
          appConfig.AzureAd.ClientSecret));
      });
 
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
           .AddMicrosoftIdentityWebApp(builder.Configuration);
 }
+
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 

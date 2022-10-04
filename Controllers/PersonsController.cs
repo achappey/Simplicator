@@ -15,17 +15,25 @@ public class PersonsController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public PersonsController(ILogger<PersonsController> logger, SimplicateService simplicateService)
+    private readonly KeyVaultService _keyVaultService;
+
+    public PersonsController(ILogger<PersonsController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
-        _simplicateService = simplicateService;
+
+        _simplicateService = serviceProvider
+          .GetRequiredService<SimplicateService>();
+
+        _keyVaultService = serviceProvider
+          .GetService<KeyVaultService>() ??
+            null!;
     }
 
     [HttpGet]
     [EnableQuery]
     public async Task<IEnumerable<Person>> Get()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }
