@@ -30,7 +30,7 @@ public class InvoicesController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IEnumerable<Invoice>> Get()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetInvoices(user.Environment, user.Key, user.Secret);
     }
@@ -41,7 +41,7 @@ public class InvoicesController : ControllerBase
     [SwaggerOperation("Fetches all vat classes")]
     public async Task<IEnumerable<VatClass>> GetVatClasses()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetVatClasses(user.Environment, user.Key, user.Secret);
     }
@@ -51,7 +51,7 @@ public class InvoicesController : ControllerBase
     [SwaggerOperation("Add a new invoice")]
     public async Task<Invoice> AddMessage([FromBody] NewInvoice invoice)
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.AddInvoice(user.Environment, user.Key, user.Secret, invoice);
     }

@@ -1,13 +1,18 @@
+using Azure.Identity;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.OData;
+using Microsoft.Extensions.Azure;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
 using Simplicate.NET.Models.Http;
 using Simplicator.Services;
+using Simplicator.Models;
 
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -15,6 +20,7 @@ var odataEndpoint = "odata";
 var version = "v2";
 
 var builder = WebApplication.CreateBuilder(args);
+var appConfig = builder.Configuration.Get<AppConfig>();
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -58,6 +64,16 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<SimplicateService>();
+builder.Services.AddScoped<KeyVaultService>();
+
+builder.Services.AddAzureClients(b =>
+ {
+     b.AddSecretClient(new Uri(appConfig.KeyVault));
+
+     b.UseCredential(new ClientSecretCredential(appConfig.AzureAd.TenantId,
+     appConfig.AzureAd.ClientId,
+     appConfig.AzureAd.ClientSecret));
+ });
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
@@ -67,6 +83,9 @@ builder.Services.AddControllers(options =>
 })
     .AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
             .Filter().Select().Expand().OrderBy().Count().SetMaxTop(999).SkipToken());
+
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+          .AddMicrosoftIdentityWebApp(builder.Configuration);
 
 var app = builder.Build();
 

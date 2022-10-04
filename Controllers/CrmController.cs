@@ -29,7 +29,7 @@ public class CrmController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<Person>), 200)]
     public async Task<IEnumerable<Person>> GetPersons()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }
@@ -40,7 +40,7 @@ public class CrmController : ControllerBase
     [SwaggerOperation("Fetches all organizations")]
     public async Task<IEnumerable<Organization>> GetOrganizations()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }

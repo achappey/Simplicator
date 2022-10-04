@@ -27,7 +27,7 @@ public class SalesController : ControllerBase
     [SwaggerOperation("Fetches all sales")]
     public async Task<IEnumerable<Sales>> Get()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetSales(user.Environment, user.Key, user.Secret);
     }
@@ -38,7 +38,7 @@ public class SalesController : ControllerBase
     [Tags("Sales")]
     public async Task<IEnumerable<LabelLookup>> GetRevenueGroups()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetRevenueGroups(user.Environment, user.Key, user.Secret);
     }
@@ -49,7 +49,7 @@ public class SalesController : ControllerBase
     [Tags("Sales")]
     public async Task<IEnumerable<Quote>> GetQuotes()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
     }

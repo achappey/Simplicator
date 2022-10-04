@@ -27,7 +27,7 @@ public class MessagesController : ControllerBase
     [SwaggerOperation("Fetches all messages")]
     public async Task<IEnumerable<Message>> Get()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetMessages(user.Environment, user.Key, user.Secret);
     }

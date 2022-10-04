@@ -1,17 +1,31 @@
 using Simplicator.Models;
 using System.Text;
+using Simplicator.Services;
+using System.Security.Claims;
 
 namespace Simplicator.Extensions;
 
 public static class HttpExtensions
 {
-    public static User GetUser(this HttpContext context)
+    public static async Task<User> GetUser(this HttpContext context, KeyVaultService keyVault = null)
     {
         var header = context.Request.Headers["x-api-key"].FirstOrDefault();
 
         if (header == null)
         {
             header = context.Request.Query["x-api-key"].FirstOrDefault();
+        }
+
+        if (header == null)
+        {
+            var userName = context.GetUserPrincipalName();
+
+            if (userName != null)
+            {
+                var secret = await keyVault.GetSecret(userName);
+
+                header = secret.Value;
+            }
         }
 
         if (header != null)
@@ -38,6 +52,18 @@ public static class HttpExtensions
 
 
         throw new UnauthorizedAccessException();
+    }
+
+    public static string GetUserPrincipalName(this HttpContext context)
+    {
+        var id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(id))
+        {
+            throw new UnauthorizedAccessException();
+        }
+
+        return id;
     }
 
     public static string DecodeBase64(this string value)

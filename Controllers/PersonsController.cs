@@ -25,7 +25,7 @@ public class PersonsController : ControllerBase
     [EnableQuery]
     public async Task<IEnumerable<Person>> Get()
     {
-        var user = this.HttpContext.GetUser();
+        var user = await this.HttpContext.GetUser();
 
         return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }
