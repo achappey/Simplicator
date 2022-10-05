@@ -4,6 +4,7 @@ namespace Simplicate.NET.Models;
 
 public class ProjectServices : Service
 {
+    
     [JsonPropertyName("project_id")]
     public string ProjectId { get; set; } = null!;
 

@@ -133,7 +133,7 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.Person>("Persons").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Hours>("Hours").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Project>("Projects").EntityType.Namespace = name;
-    builder.EntitySet<Simplicate.NET.Models.ProjectService>("ProjectServices").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.ProjectServices>("ProjectServices").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Sales>("Sales").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Quote>("Quotes").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Contract>("Contracts").EntityType.Namespace = name;
@@ -144,7 +144,7 @@ static IEdmModel GetGraphModel(string name)
     builder.ComplexType<Simplicate.NET.Models.ProjectStatus>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.MessageType>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.VatClass>().Namespace = name;
-    builder.ComplexType<Simplicate.NET.Models.HourType>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.Installment>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.NameLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.TypeLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.LabelLookup>().Namespace = name;
