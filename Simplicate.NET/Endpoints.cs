@@ -6,6 +6,8 @@ public static class Endpoints
     public static string API_URL = "https://{0}.simplicate.com/api/v2/";
 
     public static string ORGANIZATION = "crm/organization";
+    
+    public static string MYORGANIZATION = "crm/myorganizationprofile";
 
     public static string PERSON = "crm/person";
 

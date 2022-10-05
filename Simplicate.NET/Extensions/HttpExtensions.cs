@@ -11,6 +11,11 @@ public static class HttpExtensions
         return await client.PagedRequest<Organization>(environment.BuildRequestUri(Endpoints.ORGANIZATION), key, secret);
     }
 
+    public static async Task<IEnumerable<MyOrganization>> GetMyOrganizations(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<MyOrganization>(environment.BuildRequestUri(Endpoints.MYORGANIZATION), key, secret);
+    }
+
     public static async Task<IEnumerable<Person>> GetPersons(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<Person>(environment.BuildRequestUri(Endpoints.PERSON), key, secret);

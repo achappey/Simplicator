@@ -22,6 +22,11 @@ public class SimplicateClient
         return await this._httpClient.GetOrganizations(environment, key, secret);
     }
 
+    public async Task<IEnumerable<MyOrganization>> GetMyOrganizations(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetMyOrganizations(environment, key, secret);
+    }
+
     public async Task<IEnumerable<Project>> GetProjects(string environment, string key, string secret)
     {
         return await this._httpClient.GetProjects(environment, key, secret);

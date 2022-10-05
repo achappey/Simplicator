@@ -37,12 +37,3 @@ public class Organization : Base
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
 }
-
-public class MyOrganizationLookup
-{
-    [JsonPropertyName("organization")]
-    public NameLookup? Organization { get; set; }
-
-    [JsonPropertyName("id")]
-    public string Id { get; set; } = null!;
-}

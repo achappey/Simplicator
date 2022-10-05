@@ -40,6 +40,11 @@ public class SimplicateService
         return await this._client.GetOrganizations(environment, key, secret);
     }
 
+    public async Task<IEnumerable<MyOrganization>> GetMyOrganizations(string environment, string key, string secret)
+    {
+        return await this._client.GetMyOrganizations(environment, key, secret);
+    }
+
     public async Task<IEnumerable<LabelLookup>> GetRevenueGroups(string environment, string key, string secret)
     {
         return await this._client.GetRevenueGroups(environment, key, secret);

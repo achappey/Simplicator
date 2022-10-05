@@ -52,4 +52,15 @@ public class CrmController : ControllerBase
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }
+
+    [HttpGet(template: "myorganization", Name = "GetMyOrganizations")]
+    [EnableQuery]
+    [Tags("CRM")]
+    [SwaggerOperation("Fetches all my organizations")]
+    public async Task<IEnumerable<Organization>> GetMyOrganizations()
+    {
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
+
+        return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
+    }
 }
