@@ -32,6 +32,9 @@ public class Project : Base
     [JsonPropertyName("project_number")]
     public string? ProjectNumber { get; set; }
 
+    [JsonPropertyName("invoice_reference")]
+    public string? InvoiceReference { get; set; }
+
     [JsonPropertyName("start_date")]
     public string? StartDate { get; set; }
 

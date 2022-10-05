@@ -26,6 +26,9 @@ public class Sales : Base
     [JsonPropertyName("expected_closing_date")]
     public string? ExpectedClosingDate { get; set; }
 
+    [JsonPropertyName("timeline_email_address")]
+    public string? TimelineEmailAddress { get; set; }    
+
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
