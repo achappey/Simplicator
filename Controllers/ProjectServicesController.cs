@@ -36,7 +36,7 @@ public class ProjectServicesController : ControllerBase
     public async Task<IEnumerable<ProjectServices>> Get()
     {
         var user = await this.HttpContext.GetUser(this._keyVaultService);
-
+var das =  await _simplicateService.GetProjectServices(user.Environment, user.Key, user.Secret);
         return await _simplicateService.GetProjectServices(user.Environment, user.Key, user.Secret);
     }
 }

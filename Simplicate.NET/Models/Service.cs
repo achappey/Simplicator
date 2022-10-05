@@ -15,13 +15,13 @@ public class Service
     public string? Explanation { get; set; }
 
     [JsonPropertyName("default_service_id")]
-    public string DefaultServiceId { get; set; } = null!;
+    public string? DefaultServiceId { get; set; }
 
     [JsonPropertyName("invoice_date")]
     public string? InvoiceDate { get; set; }
 
     [JsonPropertyName("amount")]
-    public double Amount { get; set; }
+    public double? Amount { get; set; }
 
     [JsonPropertyName("price")]
     public decimal? Price { get; set; }

@@ -11,8 +11,8 @@ public class ProjectServices : Service
     [JsonPropertyName("invoice_in_installments")]
     public bool InvoiceInInstallments { get; set; }
 
-    [JsonPropertyName("installments")]
-    public IEnumerable<Installment>? Installments { get; set; }
+   // [JsonPropertyName("installments")]
+   // public IEnumerable<Installment>? Installments { get; set; }
 
     [JsonPropertyName("start_date")]
     public string? StartDate { get; set; }

@@ -8,10 +8,10 @@ public class VatClass
     public string Id { get; set; } = null!;
 
     [JsonPropertyName("label")]
-    public string Label { get; set; } = null!;
+    public string? Label { get; set; }
 
     [JsonPropertyName("code")]
-    public string Code { get; set; } = null!;
+    public string? Code { get; set; }
 
     [JsonPropertyName("percentage")]
     public double Percentage { get; set; }
