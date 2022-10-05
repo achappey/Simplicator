@@ -17,15 +17,15 @@ public class Installment
     public double Order { get; set; }
 
     [JsonPropertyName("expiration_date")]
-    public string ExpirationDate { get; set; } = null!;
+    public string? ExpirationDate { get; set; }
 
     [JsonPropertyName("status")]
     public string Status { get; set; } = null!;
 
     [JsonPropertyName("invoiced_date")]
-    public string InvoicedDate { get; set; } = null!;
+    public string? InvoicedDate { get; set; }
 
     [JsonPropertyName("invoice_id")]
-    public string InvoiceId { get; set; } = null!;
+    public string? InvoiceId { get; set; }
 
 }
