@@ -9,21 +9,22 @@ namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
+[Produces("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class ProjectServicesController : ControllerBase
+public class SalesStatusesController : ControllerBase
 {
-    private readonly ILogger<ProjectServicesController> _logger;
+    private readonly ILogger<SalesStatusesController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
     private readonly KeyVaultService _keyVaultService;
 
-    public ProjectServicesController(ILogger<ProjectServicesController> logger, IServiceProvider serviceProvider)
+    public SalesStatusesController(ILogger<SalesStatusesController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
 
         _simplicateService = serviceProvider
-            .GetRequiredService<SimplicateService>();
+       .GetRequiredService<SimplicateService>();
 
         _keyVaultService = serviceProvider
           .GetService<KeyVaultService>() ??
@@ -32,11 +33,12 @@ public class ProjectServicesController : ControllerBase
 
     [HttpGet]
     [EnableQuery]
-    [SwaggerOperation("Fetches all project services")]
-    public async Task<IEnumerable<ProjectServices>> Get()
+    [SwaggerOperation("Fetches all sales statuses")]
+    public async Task<IEnumerable<SalesStatus>> Get()
     {
         var user = await this.HttpContext.GetUser(this._keyVaultService);
 
-        return await _simplicateService.GetProjectServices(user.Environment, user.Key, user.Secret);
+        return await _simplicateService.GetSalesStatuses(user.Environment, user.Key, user.Secret);
     }
+
 }

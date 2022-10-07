@@ -42,6 +42,31 @@ public class SimplicateClient
         return await this._httpClient.GetQuotes(environment, key, secret);
     }
 
+    public async Task<IEnumerable<QuoteStatus>> GetQuoteStatuses(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetQuoteStatuses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<ProjectStatus>> GetProjectStatuses(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetProjectStatuses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<SalesStatus>> GetSalesStatuses(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetSalesStatuses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<SalesProgress>> GetSalesProgresses(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetSalesProgresses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<MessageType>> GetMessageTypes(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetMessageTypes(environment, key, secret);
+    }
+
     public async Task<IEnumerable<LabelLookup>> GetRevenueGroups(string environment, string key, string secret)
     {
         return await this._httpClient.GetRevenueGroups(environment, key, secret);
@@ -107,7 +132,7 @@ public class SimplicateClient
         return await this._httpClient.AddMessage(environment, key, secret, message);
     }
 
- public async Task<string?> AddInvoice(string environment, string key, string secret, NewInvoice invoice)
+    public async Task<string?> AddInvoice(string environment, string key, string secret, NewInvoice invoice)
     {
         return await this._httpClient.AddInvoice(environment, key, secret, invoice);
     }

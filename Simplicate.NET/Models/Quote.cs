@@ -33,8 +33,13 @@ public class Quote : Base
     public NameLookup QuoteTemplate { get; set; } = null!;
 
     [JsonPropertyName("quotestatus")]
-    public LabelLookup QuoteStatus { get; set; } = null!;
+    public QuoteStatus QuoteStatus { get; set; } = null!;
 
     
 
+}
+
+
+public class QuoteStatus : LabelLookup
+{
 }

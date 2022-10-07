@@ -46,6 +46,31 @@ public static class HttpExtensions
         return await client.PagedRequest<Quote>(environment.BuildRequestUri(Endpoints.QUOTES), key, secret);
     }
 
+    public static async Task<IEnumerable<QuoteStatus>> GetQuoteStatuses(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<QuoteStatus>(environment.BuildRequestUri(Endpoints.QUOTESTATUS), key, secret);
+    }
+
+    public static async Task<IEnumerable<ProjectStatus>> GetProjectStatuses(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<ProjectStatus>(environment.BuildRequestUri(Endpoints.PROJECTSTATUS), key, secret);
+    }
+
+    public static async Task<IEnumerable<SalesStatus>> GetSalesStatuses(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<SalesStatus>(environment.BuildRequestUri(Endpoints.SALESSTATUS), key, secret);
+    }
+
+    public static async Task<IEnumerable<SalesProgress>> GetSalesProgresses(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<SalesProgress>(environment.BuildRequestUri(Endpoints.SALESPROGRESS), key, secret);
+    }
+
+    public static async Task<IEnumerable<MessageType>> GetMessageTypes(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<MessageType>(environment.BuildRequestUri(Endpoints.MESSAGETYPES), key, secret);
+    }
+
     public static async Task<IEnumerable<LabelLookup>> GetRevenueGroups(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<LabelLookup>(environment.BuildRequestUri(Endpoints.REVENUEGROUP), key, secret);

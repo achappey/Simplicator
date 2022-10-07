@@ -11,27 +11,15 @@ public class DefaultService
     [JsonPropertyName("name")]
     public string Name { get; set; } = null!;
 
-    [JsonPropertyName("created_at")]
-    public string? CreatedAt { get; set; }
-
-    [JsonPropertyName("updated_at")]
-    public string? UpdatedAt { get; set; }
-
-    [JsonPropertyName("modified")]
-    public string? Modified { get; set; }
-
     [JsonPropertyName("price_editable")]
     public bool PriceEditable { get; set; }
 
     [JsonPropertyName("price")]
-    public decimal Price { get; set; }
+    public string? Price { get; set; }
 
     [JsonPropertyName("revenue_group")]
     public LabelLookup? RevenueGroup { get; set; }
 
     [JsonPropertyName("vat_class")]
     public VatClass? VatClass { get; set; }
-
-    
-
 }

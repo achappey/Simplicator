@@ -23,6 +23,16 @@ public static class Endpoints
     
     public static string QUOTES = "sales/quote";
 
+    public static string QUOTESTATUS = "sales/quotestatus";
+
+    public static string PROJECTSTATUS = "projects/projectstatus";
+
+    public static string SALESSTATUS = "sales/salesstatus";
+
+    public static string SALESPROGRESS = "sales/salesprogress";
+
+    public static string MESSAGETYPES = "timeline/messagetype";
+
     public static string REVENUEGROUP = "sales/revenuegroup";
 
     public static string DEFAULTSERVICE = "services/defaultservice";

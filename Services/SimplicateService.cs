@@ -29,6 +29,30 @@ public class SimplicateService
         return await this._client.GetQuotes(environment, key, secret);
     }
 
+    public async Task<IEnumerable<QuoteStatus>> GetQuoteStatuses(string environment, string key, string secret)
+    {
+        return await this._client.GetQuoteStatuses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<ProjectStatus>> GetProjectStatuses(string environment, string key, string secret)
+    {
+        return await this._client.GetProjectStatuses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<SalesStatus>> GetSalesStatuses(string environment, string key, string secret)
+    {
+        return await this._client.GetSalesStatuses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<SalesProgress>> GetSalesProgresses(string environment, string key, string secret)
+    {
+        return await this._client.GetSalesProgresses(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<MessageType>> GetMessageTypes(string environment, string key, string secret)
+    {
+        return await this._client.GetMessageTypes(environment, key, secret);
+    }
 
     public async Task<IEnumerable<Person>> GetPersons(string environment, string key, string secret)
     {
@@ -71,20 +95,22 @@ public class SimplicateService
 
         return service;
     }
-public async Task<Invoice> AddInvoice(string environment, string key, string secret, NewInvoice invoice)
+    public async Task<Invoice> AddInvoice(string environment, string key, string secret, NewInvoice invoice)
     {
         var id = await this._client.AddInvoice(environment, key, secret, invoice);
 
-        return id != null ? new Invoice() {
+        return id != null ? new Invoice()
+        {
             Id = id
         } : throw new SimplicateResponseException(500, "Could not create invoice");
     }
 
- public async Task<Message> AddMessage(string environment, string key, string secret, NewMessage message)
+    public async Task<Message> AddMessage(string environment, string key, string secret, NewMessage message)
     {
         var id = await this._client.AddMessage(environment, key, secret, message);
 
-        return id != null ? new Message() {
+        return id != null ? new Message()
+        {
             Id = id
         } : throw new SimplicateResponseException(500, "Could not create message");
     }
