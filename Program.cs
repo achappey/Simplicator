@@ -150,6 +150,7 @@ static IEdmModel GetGraphModel(string name)
     builder.ComplexType<Simplicate.NET.Models.MyOrganizationLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.VatClass>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.NameLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.LinkedProject>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.TypeLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.LabelTypeLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.CustomField>().Namespace = name;

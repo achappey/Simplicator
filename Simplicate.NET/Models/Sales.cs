@@ -38,6 +38,9 @@ public class Sales : Base
     [JsonPropertyName("timeline_email_address")]
     public string? TimelineEmailAddress { get; set; }
 
+    [JsonPropertyName("linked_project")]
+    public LinkedProject? LinkedProject { get; set; }
+
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
 

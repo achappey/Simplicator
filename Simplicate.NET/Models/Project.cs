@@ -65,6 +65,18 @@ public class ProjectLookup : NameLookup
 
 }
 
+public class LinkedProject
+{
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("project_number")]
+    public string? ProjectNumber { get; set; }
+}
+
 public class ProjectStatus : LabelLookup
 {
 
