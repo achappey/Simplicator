@@ -10,6 +10,9 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
+// TEMP
+[ApiExplorerSettings(IgnoreApi = true)]
+
 public class CrmController : ControllerBase
 {
     private readonly ILogger<CrmController> _logger;

@@ -7,6 +7,8 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 //[ApiExplorerSettings(IgnoreApi = true)]
+[Produces("application/json")]
+[Consumes("application/json")]
 public class ApiKeyController : ControllerBase
 {
     private readonly ILogger<ApiKeyController> _logger;

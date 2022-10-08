@@ -10,6 +10,8 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
+// TEMP
+[ApiExplorerSettings(IgnoreApi = true)]
 public class SalesController : ControllerBase
 {
     private readonly ILogger<SalesController> _logger;
