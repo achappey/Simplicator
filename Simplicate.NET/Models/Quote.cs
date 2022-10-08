@@ -30,7 +30,7 @@ public class Quote : Base
     public string? SalesId { get; set; }
 
     [JsonPropertyName("quotetemplate")]
-    public NameLookup QuoteTemplate { get; set; } = null!;
+    public QuoteTemplate QuoteTemplate { get; set; } = null!;
 
     [JsonPropertyName("quotestatus")]
     public QuoteStatus QuoteStatus { get; set; } = null!;
@@ -41,5 +41,11 @@ public class Quote : Base
 
 
 public class QuoteStatus : LabelLookup
+{
+}
+
+
+
+public class QuoteTemplate : LabelLookup
 {
 }

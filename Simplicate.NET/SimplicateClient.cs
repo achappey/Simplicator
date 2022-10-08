@@ -47,6 +47,16 @@ public class SimplicateClient
         return await this._httpClient.GetQuoteStatuses(environment, key, secret);
     }
 
+    public async Task<IEnumerable<Industry>> GetIndustries(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetIndustries(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetQuoteTemplates(environment, key, secret);
+    }
+
     public async Task<IEnumerable<ProjectStatus>> GetProjectStatuses(string environment, string key, string secret)
     {
         return await this._httpClient.GetProjectStatuses(environment, key, secret);

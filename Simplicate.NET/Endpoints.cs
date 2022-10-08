@@ -25,9 +25,13 @@ public static class Endpoints
 
     public static string QUOTESTATUS = "sales/quotestatus";
 
+    public static string QUOTETEMPLATE = "sales/quotetemplate";
+
     public static string PROJECTSTATUS = "projects/projectstatus";
 
     public static string SALESSTATUS = "sales/salesstatus";
+
+    public static string CRMINDUSTRY = "crm/industry";
 
     public static string SALESPROGRESS = "sales/salesprogress";
 

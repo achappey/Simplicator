@@ -32,8 +32,21 @@ public class Organization : Base
 
     [JsonPropertyName("bank_account")]
     public string? BankAccount { get; set; }
-    
+
+    [JsonPropertyName("industry")]
+    public Industry? Industry { get; set; }
+
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
+}
+
+
+public class Industry
+{
+     [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
 }

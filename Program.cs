@@ -141,8 +141,10 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.QuoteStatus>("QuoteStatuses").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.ProjectStatus>("ProjectStatuses").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.SalesStatus>("SalesStatuses").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.Industry>("Industries").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.SalesProgress>("SalesProgresses").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.MessageType>("MessageTypes").EntityType.Namespace = name;    
+    builder.EntitySet<Simplicate.NET.Models.QuoteTemplate>("QuoteTemplates").EntityType.Namespace = name;    
     builder.EntitySet<Simplicate.NET.Models.Contract>("Contracts").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Invoice>("Invoices").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Message>("Messages").EntityType.Namespace = name;

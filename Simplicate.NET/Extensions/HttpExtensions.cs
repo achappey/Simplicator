@@ -51,6 +51,11 @@ public static class HttpExtensions
         return await client.PagedRequest<QuoteStatus>(environment.BuildRequestUri(Endpoints.QUOTESTATUS), key, secret);
     }
 
+public static async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<QuoteTemplate>(environment.BuildRequestUri(Endpoints.QUOTETEMPLATE), key, secret);
+    }
+
     public static async Task<IEnumerable<ProjectStatus>> GetProjectStatuses(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<ProjectStatus>(environment.BuildRequestUri(Endpoints.PROJECTSTATUS), key, secret);
@@ -59,6 +64,11 @@ public static class HttpExtensions
     public static async Task<IEnumerable<SalesStatus>> GetSalesStatuses(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<SalesStatus>(environment.BuildRequestUri(Endpoints.SALESSTATUS), key, secret);
+    }
+
+    public static async Task<IEnumerable<Industry>> GetIndustries(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<Industry>(environment.BuildRequestUri(Endpoints.CRMINDUSTRY), key, secret);
     }
 
     public static async Task<IEnumerable<SalesProgress>> GetSalesProgresses(this HttpClient client, string environment, string key, string secret)
