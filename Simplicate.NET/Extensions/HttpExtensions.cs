@@ -66,6 +66,11 @@ public static async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(this Http
         return await client.PagedRequest<SalesStatus>(environment.BuildRequestUri(Endpoints.SALESSTATUS), key, secret);
     }
 
+    public static async Task<IEnumerable<RevenueGroup>> GetRevenueGroups(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<RevenueGroup>(environment.BuildRequestUri(Endpoints.REVENUEGROUP), key, secret);
+    }
+
     public static async Task<IEnumerable<Industry>> GetIndustries(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<Industry>(environment.BuildRequestUri(Endpoints.CRMINDUSTRY), key, secret);
@@ -81,16 +86,10 @@ public static async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(this Http
         return await client.PagedRequest<MessageType>(environment.BuildRequestUri(Endpoints.MESSAGETYPES), key, secret);
     }
 
-    public static async Task<IEnumerable<LabelLookup>> GetRevenueGroups(this HttpClient client, string environment, string key, string secret)
-    {
-        return await client.PagedRequest<LabelLookup>(environment.BuildRequestUri(Endpoints.REVENUEGROUP), key, secret);
-    }
-
     public static async Task<IEnumerable<DefaultService>> GetDefaultServices(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<DefaultService>(environment.BuildRequestUri(Endpoints.DEFAULTSERVICE), key, secret);
     }
-
 
     public static async Task<IEnumerable<Hours>> GetHours(this HttpClient client, string environment, string key, string secret)
     {

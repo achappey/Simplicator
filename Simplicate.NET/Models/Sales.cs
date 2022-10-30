@@ -41,6 +41,9 @@ public class Sales : Base
     [JsonPropertyName("linked_project")]
     public LinkedProject? LinkedProject { get; set; }
 
+    [JsonPropertyName("responsible_employee")]
+    public NameLookup? ResponsibleEmployee { get; set; }    
+
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
@@ -50,6 +53,10 @@ public class SalesStatus : LabelLookup
 {
 }
 
+
+public class RevenueGroup : LabelLookup
+{
+}
 
 public class SalesProgress : LabelLookup
 {

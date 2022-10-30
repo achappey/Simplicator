@@ -66,6 +66,11 @@ public class SimplicateClient
     {
         return await this._httpClient.GetSalesStatuses(environment, key, secret);
     }
+    
+    public async Task<IEnumerable<RevenueGroup>> GetRevenueGroups(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetRevenueGroups(environment, key, secret);
+    }
 
     public async Task<IEnumerable<SalesProgress>> GetSalesProgresses(string environment, string key, string secret)
     {
@@ -75,11 +80,6 @@ public class SimplicateClient
     public async Task<IEnumerable<MessageType>> GetMessageTypes(string environment, string key, string secret)
     {
         return await this._httpClient.GetMessageTypes(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<LabelLookup>> GetRevenueGroups(string environment, string key, string secret)
-    {
-        return await this._httpClient.GetRevenueGroups(environment, key, secret);
     }
 
     public async Task<IEnumerable<DefaultService>> GetDefaultServices(string environment, string key, string secret)
