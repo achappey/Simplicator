@@ -36,6 +36,12 @@ public class Organization : Base
     [JsonPropertyName("industry")]
     public Industry? Industry { get; set; }
 
+    [JsonPropertyName("visiting_address")]
+    public Address? VisitingAddress { get; set; }
+
+    [JsonPropertyName("postal_address")]
+    public Address? PostalAddress { get; set; }
+
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
@@ -44,9 +50,34 @@ public class Organization : Base
 
 public class Industry
 {
-     [JsonPropertyName("name")]
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
     [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
+}
+
+public class Address
+{
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("line_1")]
+    public string? Line1 { get; set; } 
+
+    [JsonPropertyName("line_2")]
+    public string? Line2 { get; set; } 
+
+    [JsonPropertyName("postal_code")]
+    public string? PostalCode { get; set; } 
+
+    [JsonPropertyName("country")]
+    public string? Country { get; set; } 
+
+    [JsonPropertyName("province")]
+    public string? Province { get; set; } 
+
+    [JsonPropertyName("locality")]
+    public string? Locality { get; set; } 
+
 }
