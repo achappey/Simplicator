@@ -57,5 +57,9 @@ public static class HttpProjectExtensions
         return await client.PagedRequest<Hours>(environment.BuildRequestUri(Endpoints.HOURS, null, string.Format("q[project.id]={0}", projectId)), key, secret);
     }
 
+    public static async Task<IEnumerable<Invoice>> GetProjectInvoices(this HttpClient client, string environment, string key, string secret, string projectId)
+    {
+        return await client.PagedRequest<Invoice>(environment.BuildRequestUri(Endpoints.INVOICE, null, string.Format("q[projects.id]={0}", projectId)), key, secret);
+    }
 
 }

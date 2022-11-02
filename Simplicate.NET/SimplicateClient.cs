@@ -127,6 +127,11 @@ public class SimplicateClient
         return await this._httpClient.GetProjectHours(environment, key, secret, projectId);
     }
 
+     public async Task<IEnumerable<Invoice>> GetProjectInvoices(string environment, string key, string secret, string projectId)
+    {
+        return await this._httpClient.GetProjectInvoices(environment, key, secret, projectId);
+    }
+
     public async Task<IEnumerable<Hours>> GetEmployeeHours(string environment, string key, string secret, string employeeId)
     {
         return await this._httpClient.GetEmployeeHours(environment, key, secret, employeeId);

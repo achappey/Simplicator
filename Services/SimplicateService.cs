@@ -162,6 +162,12 @@ public class SimplicateService
         return await this._client.GetProjectHours(environment, key, secret, projectId);
     }
 
+    public async Task<IEnumerable<Invoice>> GetProjectInvoices(string environment, string key, string secret, string projectId)
+    {
+        return await this._client.GetProjectInvoices(environment, key, secret, projectId);
+    }
+
+
     public async Task<IEnumerable<Hours>> GetEmployeeHours(string environment, string key, string secret, string employeeId)
     {
         return await this._client.GetEmployeeHours(environment, key, secret, employeeId);

@@ -53,6 +53,17 @@ public class ProjectsController : ControllerBase
         return await _simplicateService.GetProjectHours(user.Environment, user.Key, user.Secret, id);
     }
 
+    [HttpGet(template: "project/{id}/invoices", Name = "GetProjectInvoices")]
+    [Tags("Projects")]
+    [EnableQuery]
+    [SwaggerOperation("Fetches all invoices for the given project id")]
+    public async Task<IEnumerable<Invoice>> GetInvoices([FromRoute] string id)
+    {
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
+
+        return await _simplicateService.GetProjectInvoices(user.Environment, user.Key, user.Secret, id);
+    }
+
     [HttpGet(template: "service", Name = "GetProjectServices")]
     [Tags("Projects")]
     [EnableQuery]
