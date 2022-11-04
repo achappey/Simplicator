@@ -10,6 +10,7 @@ using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 using Simplicate.NET.Models.Http;
 using Simplicator.Services;
@@ -92,7 +93,12 @@ builder.Services.AddControllers(options =>
 
     if (!string.IsNullOrEmpty(appConfig.KeyVault))
     {
-        options.Filters.Add(new AuthorizeFilter());
+
+        var policy = new AuthorizationPolicyBuilder()
+                     .RequireAuthenticatedUser()
+                     .Build();
+        options.Filters.Add(new AuthorizeFilter(policy));
+
     }
 })
     .AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
