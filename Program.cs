@@ -9,6 +9,7 @@ using Microsoft.Identity.Web;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 using Simplicate.NET.Models.Http;
 using Simplicator.Services;
@@ -87,7 +88,12 @@ builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true
 
 builder.Services.AddControllers(options =>
 {
-        options.Filters.Add<HttpResponseExceptionFilter>();
+    options.Filters.Add<HttpResponseExceptionFilter>();
+
+    if (!string.IsNullOrEmpty(appConfig.KeyVault))
+    {
+        options.Filters.Add(new AuthorizeFilter());
+    }
 })
     .AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
             .Filter().Select().Expand().OrderBy().Count().SetMaxTop(999).SkipToken());
@@ -144,8 +150,8 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.SalesStatus>("SalesStatuses").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Industry>("Industries").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.SalesProgress>("SalesProgresses").EntityType.Namespace = name;
-    builder.EntitySet<Simplicate.NET.Models.MessageType>("MessageTypes").EntityType.Namespace = name;    
-    builder.EntitySet<Simplicate.NET.Models.QuoteTemplate>("QuoteTemplates").EntityType.Namespace = name;    
+    builder.EntitySet<Simplicate.NET.Models.MessageType>("MessageTypes").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.QuoteTemplate>("QuoteTemplates").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Contract>("Contracts").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Invoice>("Invoices").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Message>("Messages").EntityType.Namespace = name;
