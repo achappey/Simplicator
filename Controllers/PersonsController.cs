@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.OData.Query;
 using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
+[Authorize]
 public class PersonsController : ControllerBase
 {
     private readonly ILogger<PersonsController> _logger;

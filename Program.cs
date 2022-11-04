@@ -67,8 +67,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<SimplicateService>();
 
-if (!string.IsNullOrEmpty(appConfig.KeyVault))
-{
+//if (!string.IsNullOrEmpty(appConfig.KeyVault))
+//{
     builder.Services.AddScoped<KeyVaultService>();
 
     builder.Services.AddAzureClients(b =>
@@ -82,7 +82,7 @@ if (!string.IsNullOrEmpty(appConfig.KeyVault))
 
     builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
           .AddMicrosoftIdentityWebApp(builder.Configuration);
-}
+//}
 
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
@@ -91,7 +91,7 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<HttpResponseExceptionFilter>();
 
-    if (!string.IsNullOrEmpty(appConfig.KeyVault))
+    /*if (!string.IsNullOrEmpty(appConfig.KeyVault))
     {
 
         var policy = new AuthorizationPolicyBuilder()
@@ -99,7 +99,7 @@ builder.Services.AddControllers(options =>
                      .Build();
         options.Filters.Add(new AuthorizeFilter(policy));
 
-    }
+    }*/
 })
     .AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
             .Filter().Select().Expand().OrderBy().Count().SetMaxTop(999).SkipToken());

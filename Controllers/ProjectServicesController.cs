@@ -4,12 +4,14 @@ using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
+[Authorize]
 public class ProjectServicesController : ControllerBase
 {
     private readonly ILogger<ProjectServicesController> _logger;
