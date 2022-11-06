@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
 
+
 using Simplicate.NET.Models.Http;
 using Simplicator.Services;
 using Simplicator.Models;
@@ -67,43 +68,26 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<SimplicateService>();
 
-//if (!string.IsNullOrEmpty(appConfig.KeyVault))
-//{
-    builder.Services.AddScoped<KeyVaultService>();
+builder.Services.AddScoped<KeyVaultService>();
 
-    builder.Services.AddAzureClients(b =>
-     {
-         b.AddSecretClient(new Uri(appConfig.KeyVault));
+builder.Services.AddAzureClients(b =>
+ {
+     b.AddSecretClient(new Uri(appConfig.KeyVault));
 
-         b.UseCredential(new ClientSecretCredential(appConfig.AzureAd.TenantId,
-         appConfig.AzureAd.ClientId,
-         appConfig.AzureAd.ClientSecret));
-     });
-
-    builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-          .AddMicrosoftIdentityWebApp(builder.Configuration);
-//}
-
+     b.UseCredential(new ClientSecretCredential(appConfig.AzureAd.TenantId,
+     appConfig.AzureAd.ClientId,
+     appConfig.AzureAd.ClientSecret));
+ });
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<HttpResponseExceptionFilter>();
-
-    /*if (!string.IsNullOrEmpty(appConfig.KeyVault))
-    {
-
-        var policy = new AuthorizationPolicyBuilder()
-                     .RequireAuthenticatedUser()
-                     .Build();
-        options.Filters.Add(new AuthorizeFilter(policy));
-
-    }*/
-})
-    .AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
+builder.Services.AddControllers().AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
             .Filter().Select().Expand().OrderBy().Count().SetMaxTop(999).SkipToken());
 
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+          .AddMicrosoftIdentityWebApp(builder.Configuration)
+          .EnableTokenAcquisitionToCallDownstreamApi()
+          .AddInMemoryTokenCaches();
 
 var app = builder.Build();
 
