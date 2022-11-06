@@ -86,6 +86,16 @@ public class ProjectsController : ControllerBase
 
         return await _simplicateService.AddProjectService(user.Environment, user.Key, user.Secret, service);
     }
+    
+    [HttpPost(template: "project", Name = "AddProject")]
+    [Tags("Projects")]
+    [SwaggerOperation("Add a new project")]
+    public async Task<Project> AddProject([FromBody] NewProject project)
+    {
+        var user = await this.HttpContext.GetUser(this._keyVaultService);
+
+        return await _simplicateService.AddProject(user.Environment, user.Key, user.Secret, project);
+    }
 
     [HttpPut(template: "service/{id}", Name = "UpdateProjectService")]
     [Tags("Projects")]

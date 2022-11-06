@@ -105,6 +105,19 @@ public class SimplicateService
 
         return service;
     }
+
+    
+    public async Task<Project> AddProject(string environment, string key, string secret, NewProject service)
+    {
+
+        var id = await this._client.AddProject(environment, key, secret, service);
+
+        return id != null ? new Project()
+        {
+            Id = id
+        } : throw new SimplicateResponseException(500, "Could not create project");
+    }
+
     public async Task<Invoice> AddInvoice(string environment, string key, string secret, NewInvoice invoice)
     {
         var id = await this._client.AddInvoice(environment, key, secret, invoice);

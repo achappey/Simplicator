@@ -142,6 +142,11 @@ public class SimplicateClient
         return await this._httpClient.AddProjectService(environment, key, secret, service);
     }
 
+    public async Task<string?> AddProject(string environment, string key, string secret, NewProject service)
+    {
+        return await this._httpClient.AddProject(environment, key, secret, service);
+    }
+
     public async Task<string?> AddMessage(string environment, string key, string secret, NewMessage message)
     {
         return await this._httpClient.AddMessage(environment, key, secret, message);
