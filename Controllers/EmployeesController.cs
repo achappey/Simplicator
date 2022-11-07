@@ -38,7 +38,7 @@ public class EmployeesController : ControllerBase
     [SwaggerOperation("Fetches all employees")]
     public async Task<IEnumerable<Employee>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }

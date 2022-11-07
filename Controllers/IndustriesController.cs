@@ -36,7 +36,7 @@ public class IndustriesController : ControllerBase
     [SwaggerOperation("Fetches all crm industries")]
     public async Task<IEnumerable<Industry>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetIndustries(user.Environment, user.Key, user.Secret);
     }

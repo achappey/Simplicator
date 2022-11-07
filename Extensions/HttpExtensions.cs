@@ -3,12 +3,13 @@ using System.Text;
 using Simplicator.Services;
 using System.Security.Claims;
 using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Simplicator.Extensions;
 
 public static class HttpExtensions
 {
-    public static async Task<User> GetUser(this HttpContext context, KeyVaultService? keyVault = null!)
+    public static async Task<User> GetUser(this ControllerBase context, KeyVaultService? keyVault = null!)
     {
         var header = context.Request.Headers["x-api-key"].FirstOrDefault();
 
@@ -19,8 +20,7 @@ public static class HttpExtensions
 
         if (header == null)
         {
-            var headerValues = context.Request.Headers.FirstOrDefault(a => a.Key == "X-MS-CLIENT-PRINCIPAL-ID");
-            var userName = headerValues.Value.FirstOrDefault();
+            var userName = context.User.GetObjectId();
 
             if (userName != null && keyVault != null)
             {

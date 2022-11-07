@@ -36,7 +36,7 @@ public class MessageTypesController : ControllerBase
     [SwaggerOperation("Fetches all message types")]
     public async Task<IEnumerable<MessageType>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetMessageTypes(user.Environment, user.Key, user.Secret);
     }

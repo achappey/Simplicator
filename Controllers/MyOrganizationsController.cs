@@ -36,7 +36,7 @@ public class MyOrganizationsController : ControllerBase
     [SwaggerOperation("Fetches all my organizations")]
     public async Task<IEnumerable<MyOrganization>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetMyOrganizations(user.Environment, user.Key, user.Secret);
     }

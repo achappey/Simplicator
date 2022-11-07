@@ -36,7 +36,7 @@ public class SalesStatusesController : ControllerBase
     [SwaggerOperation("Fetches all sales statuses")]
     public async Task<IEnumerable<SalesStatus>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetSalesStatuses(user.Environment, user.Key, user.Secret);
     }

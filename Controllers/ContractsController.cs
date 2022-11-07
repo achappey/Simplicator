@@ -38,7 +38,7 @@ public class ContractsController : ControllerBase
     [SwaggerOperation("Fetches all contracts")]
     public async Task<IEnumerable<Contract>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
     }

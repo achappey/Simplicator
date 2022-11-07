@@ -37,7 +37,7 @@ public class ProjectServicesController : ControllerBase
     [SwaggerOperation("Fetches all project services")]
     public async Task<IEnumerable<ProjectServices>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetProjectServices(user.Environment, user.Key, user.Secret);
     }

@@ -36,7 +36,7 @@ public class SalesProgressesController : ControllerBase
     [SwaggerOperation("Fetches all sales progresses")]
     public async Task<IEnumerable<SalesProgress>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetSalesProgresses(user.Environment, user.Key, user.Secret);
     }

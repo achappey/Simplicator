@@ -38,7 +38,7 @@ public class QuotesController : ControllerBase
     [SwaggerOperation("Fetches all quotes")]
     public async Task<IEnumerable<Quote>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
     }

@@ -37,7 +37,7 @@ public class TimelineController : ControllerBase
     [SwaggerOperation("Add a new message")]
     public async Task<Message> AddMessage([FromBody] NewMessage message)
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.AddMessage(user.Environment, user.Key, user.Secret, message);
     }

@@ -35,7 +35,7 @@ public class DefaultServicesController : ControllerBase
     [SwaggerOperation("Fetches all default services")]
     public async Task<IEnumerable<DefaultService>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetDefaultServices(user.Environment, user.Key, user.Secret);
     }

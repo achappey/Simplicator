@@ -40,7 +40,7 @@ public class CrmController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<Person>), 200)]
     public async Task<IEnumerable<Person>> GetPersons()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }
@@ -51,7 +51,7 @@ public class CrmController : ControllerBase
     [SwaggerOperation("Fetches all organizations")]
     public async Task<IEnumerable<Organization>> GetOrganizations()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }
@@ -62,7 +62,7 @@ public class CrmController : ControllerBase
     [SwaggerOperation("Fetches all my organizations")]
     public async Task<IEnumerable<Organization>> GetMyOrganizations()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }

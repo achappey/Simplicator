@@ -36,7 +36,7 @@ public class ProjectStatusesController : ControllerBase
     [SwaggerOperation("Fetches all project statuses")]
     public async Task<IEnumerable<ProjectStatus>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetProjectStatuses(user.Environment, user.Key, user.Secret);
     }

@@ -39,7 +39,7 @@ public class HrmController : ControllerBase
     [SwaggerOperation("Fetches all employees")]
     public async Task<IEnumerable<Employee>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }
@@ -50,7 +50,7 @@ public class HrmController : ControllerBase
     [SwaggerOperation("Fetches all contracts")]
     public async Task<IEnumerable<Contract>> GetContracts()
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
     }
@@ -61,7 +61,7 @@ public class HrmController : ControllerBase
     [SwaggerOperation("Fetches all hours for the given employee id")]
     public async Task<IEnumerable<Hours>> GetByEmployee([FromRoute] string id)
     {
-        var user = await this.HttpContext.GetUser();
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetEmployeeHours(user.Environment, user.Key, user.Secret, id);
     }

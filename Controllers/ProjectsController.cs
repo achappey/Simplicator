@@ -39,7 +39,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all projects")]
     public async Task<IEnumerable<Project>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetProjects(user.Environment, user.Key, user.Secret);
     }
@@ -50,7 +50,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all hours for the given project id")]
     public async Task<IEnumerable<Hours>> GetHours([FromRoute] string id)
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetProjectHours(user.Environment, user.Key, user.Secret, id);
     }
@@ -61,7 +61,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all invoices for the given project id")]
     public async Task<IEnumerable<Invoice>> GetInvoices([FromRoute] string id)
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetProjectInvoices(user.Environment, user.Key, user.Secret, id);
     }
@@ -72,7 +72,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all project services")]
     public async Task<IEnumerable<ProjectServices>> GetProjectServices()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetProjectServices(user.Environment, user.Key, user.Secret);
     }
@@ -82,7 +82,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Add a new project service")]
     public async Task<ProjectService> AddProjectService([FromBody] NewProjectService service)
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.AddProjectService(user.Environment, user.Key, user.Secret, service);
     }
@@ -92,7 +92,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Add a new project")]
     public async Task<Project> AddProject([FromBody] NewProject project)
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.AddProject(user.Environment, user.Key, user.Secret, project);
     }
@@ -102,7 +102,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Updates a project service for the given id")]
     public async Task<ProjectService> UpdateProjectService([FromRoute] string id, [FromBody] ProjectService service)
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.UpdateProjectService(user.Environment, user.Key, user.Secret, id, service);
     }

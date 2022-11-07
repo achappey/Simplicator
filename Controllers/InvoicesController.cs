@@ -41,7 +41,7 @@ public class InvoicesController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IEnumerable<Invoice>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetInvoices(user.Environment, user.Key, user.Secret);
     }
@@ -52,7 +52,7 @@ public class InvoicesController : ControllerBase
     [SwaggerOperation("Fetches all vat classes")]
     public async Task<IEnumerable<VatClass>> GetVatClasses()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetVatClasses(user.Environment, user.Key, user.Secret);
     }
@@ -62,7 +62,7 @@ public class InvoicesController : ControllerBase
     [SwaggerOperation("Add a new invoice")]
     public async Task<Invoice> AddMessage([FromBody] NewInvoice invoice)
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.AddInvoice(user.Environment, user.Key, user.Secret, invoice);
     }

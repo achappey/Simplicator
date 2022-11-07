@@ -35,7 +35,7 @@ public class MessagesController : ControllerBase
     [SwaggerOperation("Fetches all messages")]
     public async Task<IEnumerable<Message>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetMessages(user.Environment, user.Key, user.Secret);
     }

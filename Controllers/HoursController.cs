@@ -40,7 +40,7 @@ public class HoursController : ControllerBase
     [SwaggerOperation("Fetches all hours")]
     public async Task<IEnumerable<Hours>> Get()
     {
-        var user = await this.HttpContext.GetUser(this._keyVaultService);
+        var user = await this.GetUser(this._keyVaultService);
 
         return await _simplicateService.GetHours(user.Environment, user.Key, user.Secret);
     }
