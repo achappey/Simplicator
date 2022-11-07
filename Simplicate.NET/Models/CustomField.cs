@@ -41,3 +41,13 @@ public class CustomFieldOption
     public string Value { get; set; } = null!;
 
 }
+
+public class CustomFieldLookup
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = null!;
+
+    [JsonPropertyName("value")]
+    public string Value { get; set; } = null!;
+
+}

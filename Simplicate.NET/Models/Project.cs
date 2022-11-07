@@ -121,5 +121,10 @@ public class NewProject
     [JsonPropertyName("can_register_mileage")]
     public bool CanRegisterMileage { get; set; }
 
+     [JsonPropertyName("custom_fields")]
+    public IEnumerable<CustomFieldLookup>? CustomFields { get; set; }
+
+    
+
 
 }

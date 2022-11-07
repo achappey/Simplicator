@@ -19,7 +19,8 @@ public static class HttpExtensions
 
         if (header == null)
         {
-            var userName = context.User.GetObjectIdValue();
+            var headerValues = context.Request.Headers.FirstOrDefault(a => a.Key == "X-MS-CLIENT-PRINCIPAL-ID");
+            var userName = headerValues.Value.FirstOrDefault();
 
             if (userName != null && keyVault != null)
             {

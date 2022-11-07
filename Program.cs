@@ -81,12 +81,16 @@ builder.Services.AddAzureClients(b =>
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-builder.Services.AddControllers().AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<HttpResponseExceptionFilter>();
+}).AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
             .Filter().Select().Expand().OrderBy().Count().SetMaxTop(999).SkipToken());
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
           .AddMicrosoftIdentityWebApp(builder.Configuration)
-          .EnableTokenAcquisitionToCallDownstreamApi()
+              .EnableTokenAcquisitionToCallDownstreamApi()
           .AddInMemoryTokenCaches();
 
 var app = builder.Build();
