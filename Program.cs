@@ -68,8 +68,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<SimplicateService>();
 
-builder.Services.AddScoped<KeyVaultService>();
-
+//builder.Services.AddScoped<KeyVaultService>();
+/*
 builder.Services.AddAzureClients(b =>
  {
      b.AddSecretClient(new Uri(appConfig.KeyVault));
@@ -78,7 +78,7 @@ builder.Services.AddAzureClients(b =>
      appConfig.AzureAd.ClientId,
      appConfig.AzureAd.ClientSecret));
  });
-
+*/
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 
@@ -88,10 +88,8 @@ builder.Services.AddControllers(options =>
 }).AddOData(opt => opt.AddRouteComponents(odataEndpoint, GetGraphModel("Simplicator"))
             .Filter().Select().Expand().OrderBy().Count().SetMaxTop(999).SkipToken());
 
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-          .AddMicrosoftIdentityWebApp(builder.Configuration)
-              .EnableTokenAcquisitionToCallDownstreamApi()
-          .AddInMemoryTokenCaches();
+//builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+  //        .AddMicrosoftIdentityWebApp(builder.Configuration);
 
 var app = builder.Build();
 
