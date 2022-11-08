@@ -9,25 +9,13 @@ namespace Simplicator.Extensions;
 
 public static class HttpExtensions
 {
-    public static async Task<User> GetUser(this ControllerBase context, KeyVaultService? keyVault = null!)
+    public static async Task<User> GetUser(this ControllerBase context)
     {
         var header = context.Request.Headers["x-api-key"].FirstOrDefault();
 
         if (header == null)
         {
             header = context.Request.Query["x-api-key"].FirstOrDefault();
-        }
-
-        if (header == null)
-        {
-            var userName = context.User.GetObjectId();
-
-            if (userName != null && keyVault != null)
-            {
-                var secret = await keyVault.GetSecret(userName);
-
-                header = secret.Value;
-            }
         }
 
         if (header != null)

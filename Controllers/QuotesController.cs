@@ -4,7 +4,6 @@ using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 
@@ -18,7 +17,7 @@ public class QuotesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public QuotesController(ILogger<QuotesController> logger, IServiceProvider serviceProvider)
     {
@@ -27,9 +26,7 @@ public class QuotesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -38,7 +35,7 @@ public class QuotesController : ControllerBase
     [SwaggerOperation("Fetches all quotes")]
     public async Task<IEnumerable<Quote>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
     }

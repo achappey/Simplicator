@@ -16,7 +16,7 @@ public class OrganizationsController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public OrganizationsController(ILogger<OrganizationsController> logger, IServiceProvider serviceProvider)
     {
@@ -25,9 +25,7 @@ public class OrganizationsController : ControllerBase
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -36,7 +34,7 @@ public class OrganizationsController : ControllerBase
     [SwaggerOperation("Fetches all organizations")]
     public async Task<IEnumerable<Organization>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }

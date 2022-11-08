@@ -11,14 +11,13 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-[Authorize]
 public class ProjectServicesController : ControllerBase
 {
     private readonly ILogger<ProjectServicesController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public ProjectServicesController(ILogger<ProjectServicesController> logger, IServiceProvider serviceProvider)
     {
@@ -27,9 +26,7 @@ public class ProjectServicesController : ControllerBase
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -37,7 +34,7 @@ public class ProjectServicesController : ControllerBase
     [SwaggerOperation("Fetches all project services")]
     public async Task<IEnumerable<ProjectServices>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetProjectServices(user.Environment, user.Key, user.Secret);
     }

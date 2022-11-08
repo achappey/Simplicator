@@ -19,8 +19,6 @@ public class CrmController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
-
     public CrmController(ILogger<CrmController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
@@ -28,9 +26,6 @@ public class CrmController : ControllerBase
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
     }
 
     [HttpGet(template: "person", Name = "GetPersons")]
@@ -40,7 +35,7 @@ public class CrmController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<Person>), 200)]
     public async Task<IEnumerable<Person>> GetPersons()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }
@@ -51,7 +46,7 @@ public class CrmController : ControllerBase
     [SwaggerOperation("Fetches all organizations")]
     public async Task<IEnumerable<Organization>> GetOrganizations()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }
@@ -62,7 +57,7 @@ public class CrmController : ControllerBase
     [SwaggerOperation("Fetches all my organizations")]
     public async Task<IEnumerable<Organization>> GetMyOrganizations()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }

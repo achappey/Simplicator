@@ -17,7 +17,7 @@ public class QuoteTemplatesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public QuoteTemplatesController(ILogger<QuoteTemplatesController> logger, IServiceProvider serviceProvider)
     {
@@ -26,9 +26,7 @@ public class QuoteTemplatesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -36,7 +34,7 @@ public class QuoteTemplatesController : ControllerBase
     [SwaggerOperation("Fetches all quote templates")]
     public async Task<IEnumerable<QuoteTemplate>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetQuoteTemplates(user.Environment, user.Key, user.Secret);
     }

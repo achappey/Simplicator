@@ -19,18 +19,12 @@ public class HrmController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
-
     public HrmController(ILogger<HrmController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
 
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
     }
 
     [HttpGet(template: "employee", Name = "GetEmployees")]
@@ -39,7 +33,7 @@ public class HrmController : ControllerBase
     [SwaggerOperation("Fetches all employees")]
     public async Task<IEnumerable<Employee>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }
@@ -50,7 +44,7 @@ public class HrmController : ControllerBase
     [SwaggerOperation("Fetches all contracts")]
     public async Task<IEnumerable<Contract>> GetContracts()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
     }
@@ -61,7 +55,7 @@ public class HrmController : ControllerBase
     [SwaggerOperation("Fetches all hours for the given employee id")]
     public async Task<IEnumerable<Hours>> GetByEmployee([FromRoute] string id)
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetEmployeeHours(user.Environment, user.Key, user.Secret, id);
     }

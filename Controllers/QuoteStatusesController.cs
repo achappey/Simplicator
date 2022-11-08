@@ -17,7 +17,7 @@ public class QuoteStatusesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public QuoteStatusesController(ILogger<QuoteStatusesController> logger, IServiceProvider serviceProvider)
     {
@@ -26,9 +26,7 @@ public class QuoteStatusesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -36,7 +34,7 @@ public class QuoteStatusesController : ControllerBase
     [SwaggerOperation("Fetches all quote statuses")]
     public async Task<IEnumerable<QuoteStatus>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetQuoteStatuses(user.Environment, user.Key, user.Secret);
     }

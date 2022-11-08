@@ -11,14 +11,11 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-[Authorize]
 public class ContractsController : ControllerBase
 {
     private readonly ILogger<ContractsController> _logger;
 
     private readonly SimplicateService _simplicateService;
-
-    private readonly KeyVaultService _keyVaultService;
 
     public ContractsController(ILogger<ContractsController> logger, IServiceProvider serviceProvider)
     {
@@ -26,10 +23,6 @@ public class ContractsController : ControllerBase
 
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
-
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
     }
 
     [HttpGet]
@@ -38,7 +31,7 @@ public class ContractsController : ControllerBase
     [SwaggerOperation("Fetches all contracts")]
     public async Task<IEnumerable<Contract>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
     }

@@ -10,14 +10,13 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-[Authorize]
 public class PersonsController : ControllerBase
 {
     private readonly ILogger<PersonsController> _logger;
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public PersonsController(ILogger<PersonsController> logger, IServiceProvider serviceProvider)
     {
@@ -26,16 +25,14 @@ public class PersonsController : ControllerBase
         _simplicateService = serviceProvider
           .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
     [EnableQuery]
     public async Task<IEnumerable<Person>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }

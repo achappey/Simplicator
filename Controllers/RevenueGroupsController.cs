@@ -17,7 +17,7 @@ public class RevenueGroupsController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public RevenueGroupsController(ILogger<RevenueGroupsController> logger, IServiceProvider serviceProvider)
     {
@@ -26,9 +26,7 @@ public class RevenueGroupsController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -36,7 +34,7 @@ public class RevenueGroupsController : ControllerBase
     [SwaggerOperation("Fetches all revenue groups")]
     public async Task<IEnumerable<RevenueGroup>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetRevenueGroups(user.Environment, user.Key, user.Secret);
     }

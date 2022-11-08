@@ -16,7 +16,7 @@ public class MessagesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public MessagesController(ILogger<MessagesController> logger, IServiceProvider serviceProvider)
     {
@@ -25,9 +25,7 @@ public class MessagesController : ControllerBase
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet(template: "messages", Name = "GetMessages")]
@@ -35,7 +33,7 @@ public class MessagesController : ControllerBase
     [SwaggerOperation("Fetches all messages")]
     public async Task<IEnumerable<Message>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetMessages(user.Environment, user.Key, user.Secret);
     }

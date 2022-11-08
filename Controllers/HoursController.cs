@@ -11,7 +11,6 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-[Authorize]
 // TEMP
 [ApiExplorerSettings(IgnoreApi = true)]
 
@@ -21,8 +20,6 @@ public class HoursController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
-
     public HoursController(ILogger<HoursController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
@@ -30,9 +27,6 @@ public class HoursController : ControllerBase
          _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
     }
 
     [HttpGet(template: "hours", Name = "GetHours")]
@@ -40,7 +34,7 @@ public class HoursController : ControllerBase
     [SwaggerOperation("Fetches all hours")]
     public async Task<IEnumerable<Hours>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetHours(user.Environment, user.Key, user.Secret);
     }

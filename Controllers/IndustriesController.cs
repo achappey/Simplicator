@@ -17,8 +17,6 @@ public class IndustriesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
-
     public IndustriesController(ILogger<IndustriesController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
@@ -26,9 +24,6 @@ public class IndustriesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
     }
 
     [HttpGet]
@@ -36,7 +31,7 @@ public class IndustriesController : ControllerBase
     [SwaggerOperation("Fetches all crm industries")]
     public async Task<IEnumerable<Industry>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetIndustries(user.Environment, user.Key, user.Secret);
     }

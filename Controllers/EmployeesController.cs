@@ -11,14 +11,11 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-[Authorize]
 public class EmployeesController : ControllerBase
 {
     private readonly ILogger<EmployeesController> _logger;
 
     private readonly SimplicateService _simplicateService;
-
-    private readonly KeyVaultService _keyVaultService;
 
     public EmployeesController(ILogger<EmployeesController> logger, IServiceProvider serviceProvider)
     {
@@ -26,10 +23,6 @@ public class EmployeesController : ControllerBase
 
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
     }
 
     [HttpGet]
@@ -38,7 +31,7 @@ public class EmployeesController : ControllerBase
     [SwaggerOperation("Fetches all employees")]
     public async Task<IEnumerable<Employee>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }

@@ -17,7 +17,7 @@ public class SalesStatusesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public SalesStatusesController(ILogger<SalesStatusesController> logger, IServiceProvider serviceProvider)
     {
@@ -26,9 +26,7 @@ public class SalesStatusesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -36,7 +34,7 @@ public class SalesStatusesController : ControllerBase
     [SwaggerOperation("Fetches all sales statuses")]
     public async Task<IEnumerable<SalesStatus>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetSalesStatuses(user.Environment, user.Key, user.Secret);
     }

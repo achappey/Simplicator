@@ -17,7 +17,7 @@ public class SalesProgressesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public SalesProgressesController(ILogger<SalesProgressesController> logger, IServiceProvider serviceProvider)
     {
@@ -26,9 +26,7 @@ public class SalesProgressesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -36,7 +34,7 @@ public class SalesProgressesController : ControllerBase
     [SwaggerOperation("Fetches all sales progresses")]
     public async Task<IEnumerable<SalesProgress>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetSalesProgresses(user.Environment, user.Key, user.Secret);
     }

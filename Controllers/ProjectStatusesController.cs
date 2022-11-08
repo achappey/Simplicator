@@ -17,7 +17,7 @@ public class ProjectStatusesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public ProjectStatusesController(ILogger<ProjectStatusesController> logger, IServiceProvider serviceProvider)
     {
@@ -26,9 +26,7 @@ public class ProjectStatusesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -36,7 +34,7 @@ public class ProjectStatusesController : ControllerBase
     [SwaggerOperation("Fetches all project statuses")]
     public async Task<IEnumerable<ProjectStatus>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetProjectStatuses(user.Environment, user.Key, user.Secret);
     }

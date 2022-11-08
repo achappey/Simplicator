@@ -17,7 +17,7 @@ public class MessageTypesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    private readonly KeyVaultService _keyVaultService;
+    
 
     public MessageTypesController(ILogger<MessageTypesController> logger, IServiceProvider serviceProvider)
     {
@@ -26,9 +26,7 @@ public class MessageTypesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        _keyVaultService = serviceProvider
-          .GetService<KeyVaultService>() ??
-            null!;
+        
     }
 
     [HttpGet]
@@ -36,7 +34,7 @@ public class MessageTypesController : ControllerBase
     [SwaggerOperation("Fetches all message types")]
     public async Task<IEnumerable<MessageType>> Get()
     {
-        var user = await this.GetUser(this._keyVaultService);
+        var user = await this.GetUser();
 
         return await _simplicateService.GetMessageTypes(user.Environment, user.Key, user.Secret);
     }
