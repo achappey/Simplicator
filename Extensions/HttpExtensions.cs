@@ -1,8 +1,5 @@
 using Simplicator.Models;
 using System.Text;
-using Simplicator.Services;
-using System.Security.Claims;
-using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Simplicator.Extensions;
@@ -18,7 +15,7 @@ public static class HttpExtensions
             header = context.Request.Query["x-api-key"].FirstOrDefault();
         }
 
-        if (header != null)
+        if (!string.IsNullOrEmpty(header))
         {
             var decoded = header.DecodeBase64();
 
@@ -40,20 +37,7 @@ public static class HttpExtensions
             }
         }
 
-
         throw new UnauthorizedAccessException();
-    }
-
-    public static string GetObjectIdValue(this ClaimsPrincipal claim)
-    {
-        var id = claim.GetObjectId();
-
-        if (string.IsNullOrEmpty(id))
-        {
-            throw new UnauthorizedAccessException();
-        }
-
-        return id;
     }
 
     public static string DecodeBase64(this string value)

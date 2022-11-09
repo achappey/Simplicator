@@ -4,7 +4,6 @@ using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 

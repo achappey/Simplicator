@@ -4,14 +4,12 @@ using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-[Authorize]
 // TEMP
 [ApiExplorerSettings(IgnoreApi = true)]
 public class SalesController : ControllerBase
