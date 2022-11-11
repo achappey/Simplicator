@@ -47,6 +47,9 @@ public class Invoice : Base
     [JsonPropertyName("organization_id")]
     public string? OrganizationId { get; set; }
 
+    [JsonPropertyName("contact_id")]
+    public string? ContactId { get; set; }
+
     [JsonPropertyName("my_organization_profile")]
     public MyOrganizationLookup? MyOrganization { get; set; }
 
