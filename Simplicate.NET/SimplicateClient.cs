@@ -62,6 +62,12 @@ public class SimplicateClient
         return await this._httpClient.GetProjectStatuses(environment, key, secret);
     }
 
+    
+    public async Task<IEnumerable<InvoiceStatus>> GetInvoiceStatuses(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetInvoiceStatuses(environment, key, secret);
+    }
+
     public async Task<IEnumerable<SalesStatus>> GetSalesStatuses(string environment, string key, string secret)
     {
         return await this._httpClient.GetSalesStatuses(environment, key, secret);

@@ -48,6 +48,11 @@ public class SimplicateService
     {
         return await this._client.GetProjectStatuses(environment, key, secret);
     }
+    
+    public async Task<IEnumerable<InvoiceStatus>> GetInvoiceStatuses(string environment, string key, string secret)
+    {
+        return await this._client.GetInvoiceStatuses(environment, key, secret);
+    }
 
     public async Task<IEnumerable<SalesStatus>> GetSalesStatuses(string environment, string key, string secret)
     {

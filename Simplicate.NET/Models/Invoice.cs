@@ -26,8 +26,8 @@ public class Invoice : Base
     [JsonPropertyName("comments")]
     public string Comments { get; set; } = null!;
 
-    [JsonPropertyName("project")]
-    public ProjectLookup? Project { get; set; }
+    [JsonPropertyName("projects")]
+    public IEnumerable<ProjectLookup>? Projects { get; set; }
 
     [JsonPropertyName("total_excluding_vat")]
     public decimal TotalExcludingVat { get; set; }
@@ -53,7 +53,24 @@ public class Invoice : Base
     [JsonPropertyName("my_organization_profile_id")]
     public string? MyOrganizationId { get; set; }
 
+    [JsonPropertyName("timeline_email_address")]
+    public string? TimelineEmailAddress { get; set; }
+
 }
+
+
+public class InvoiceStatus
+{
+    [JsonPropertyName("id")]
+    public string? Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("color")]
+    public string? Color { get; set; }
+}
+
 
 public class NewInvoice
 {

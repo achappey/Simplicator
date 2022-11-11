@@ -61,6 +61,12 @@ public static async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(this Http
         return await client.PagedRequest<ProjectStatus>(environment.BuildRequestUri(Endpoints.PROJECTSTATUS), key, secret);
     }
 
+    
+    public static async Task<IEnumerable<InvoiceStatus>> GetInvoiceStatuses(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<InvoiceStatus>(environment.BuildRequestUri(Endpoints.INVOICESTATUS), key, secret);
+    }
+
     public static async Task<IEnumerable<SalesStatus>> GetSalesStatuses(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<SalesStatus>(environment.BuildRequestUri(Endpoints.SALESSTATUS), key, secret);

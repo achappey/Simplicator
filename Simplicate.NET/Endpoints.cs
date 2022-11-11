@@ -29,6 +29,8 @@ public static class Endpoints
 
     public static string PROJECTSTATUS = "projects/projectstatus";
 
+    public static string INVOICESTATUS = "invoices/invoicestatus";
+
     public static string SALESSTATUS = "sales/salesstatus";
 
     public static string CRMINDUSTRY = "crm/industry";
