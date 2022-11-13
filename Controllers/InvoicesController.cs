@@ -40,17 +40,6 @@ public class InvoicesController : ControllerBase
         return await _simplicateService.GetInvoices(user.Environment, user.Key, user.Secret);
     }
 
-    [HttpGet(template: "vatclass", Name = "GetVatClasses")]
-    [EnableQuery]
-    [Tags("Invoices")]
-    [SwaggerOperation("Fetches all vat classes")]
-    public async Task<IEnumerable<VatClass>> GetVatClasses()
-    {
-        var user = await this.GetUser();
-
-        return await _simplicateService.GetVatClasses(user.Environment, user.Key, user.Secret);
-    }
-
     [HttpPost(template: "invoice", Name = "AddInvoice")]
     [Tags("Invoices")]
     [SwaggerOperation("Add a new invoice")]

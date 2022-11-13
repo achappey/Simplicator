@@ -122,9 +122,10 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.Contract>("Contracts").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Invoice>("Invoices").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Message>("Messages").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.VatClass>("VatClasses").EntityType.Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.Avatar>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.MyOrganizationLookup>().Namespace = name;
-    builder.ComplexType<Simplicate.NET.Models.VatClass>().Namespace = name;
+  //  builder.ComplexType<Simplicate.NET.Models.VatClass>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.NameLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.LinkedProject>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.TypeLookup>().Namespace = name;
