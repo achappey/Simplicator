@@ -107,6 +107,7 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.Hours>("Hours").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Project>("Projects").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.ProjectServices>("ProjectServices").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.SalesService>("SalesServices").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.DefaultService>("DefaultServices").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Sales>("Sales").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Quote>("Quotes").EntityType.Namespace = name;
@@ -125,7 +126,6 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.VatClass>("VatClasses").EntityType.Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.Avatar>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.MyOrganizationLookup>().Namespace = name;
-  //  builder.ComplexType<Simplicate.NET.Models.VatClass>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.NameLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.LinkedProject>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.TypeLookup>().Namespace = name;
@@ -134,6 +134,7 @@ static IEdmModel GetGraphModel(string name)
     builder.ComplexType<Simplicate.NET.Models.CustomField>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.ProjectEmployee>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.ProjectServiceLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.VatClassLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.ProjectLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.OrganizationContact>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.EmployeeLookup>().Namespace = name;

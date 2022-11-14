@@ -17,3 +17,17 @@ public class VatClass
     public double Percentage { get; set; }
 
 }
+
+
+public class VatClassLookup
+{
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("percentage")]
+    public double Percentage { get; set; }
+
+}

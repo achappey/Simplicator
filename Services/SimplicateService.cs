@@ -104,6 +104,11 @@ public class SimplicateService
         return await this._client.GetProjectServices(environment, key, secret);
     }
 
+    public async Task<IEnumerable<SalesService>> GetSalesServices(string environment, string key, string secret)
+    {
+        return await this._client.GetSalesServices(environment, key, secret);
+    }
+
     public async Task<ProjectService> AddProjectService(string environment, string key, string secret, NewProjectService service)
     {
         service.Id = await this._client.AddProjectService(environment, key, secret, service);

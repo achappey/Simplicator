@@ -21,6 +21,8 @@ public static class Endpoints
 
     public static string SALES = "sales/sales";
     
+    public static string SALESSERVICE = "sales/service";
+    
     public static string QUOTES = "sales/quote";
 
     public static string QUOTESTATUS = "sales/quotestatus";

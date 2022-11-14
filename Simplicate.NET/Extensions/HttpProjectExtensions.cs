@@ -16,6 +16,11 @@ public static class HttpProjectExtensions
         return await client.PagedRequest<ProjectServices>(environment.BuildRequestUri(Endpoints.PROJECTSERVICE), key, secret);
     }
 
+    public static async Task<IEnumerable<SalesService>> GetSalesServices(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<SalesService>(environment.BuildRequestUri(Endpoints.SALESSERVICE), key, secret);
+    }
+
     public static async Task<string?> AddProjectService(this HttpClient client, string environment, string key, string secret, NewProjectService service)
     {
         var item = await client.SimplicatePostRequest<NewResource>(

@@ -82,3 +82,16 @@ public class HourType
     public string HoursTypeId { get; set; } = null!;
 
 }
+
+
+public class SalesHourType
+{
+    [JsonPropertyName("budgeted_amount")]
+    public decimal? BudgetedAmount { get; set; }
+
+    [JsonPropertyName("tariff")]
+    public decimal? Tariff { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+}
