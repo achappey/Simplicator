@@ -53,6 +53,10 @@ public class Project : Base
     [JsonPropertyName("my_organization_profile_id")]
     public string MyOrganizationId { get; set; } = null!;
 
+    [JsonPropertyName("project_manager")]
+    public NameLookup? ProjectManager { get; set; }
+
+
 }
 
 public class ProjectLookup : NameLookup
@@ -86,7 +90,7 @@ public class ProjectStatus : LabelLookup
 }
 
 
-public class NewProject 
+public class NewProject
 {
 
     [JsonPropertyName("name")]
@@ -122,10 +126,10 @@ public class NewProject
     [JsonPropertyName("can_register_mileage")]
     public bool CanRegisterMileage { get; set; }
 
-     [JsonPropertyName("custom_fields")]
+    [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomFieldLookup>? CustomFields { get; set; }
 
-    
+
 
 
 }
