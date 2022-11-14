@@ -72,6 +72,8 @@ public class Person : Base
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
+     [JsonPropertyName("relation_manager")]
+    public NameLookup? RelationManager { get; set; }    
 
 }
 
