@@ -41,6 +41,9 @@ public class Project : Base
     [JsonPropertyName("end_date")]
     public string? EndDate { get; set; }
 
+    [JsonPropertyName("timeline_email_address")]
+    public string? TimelineEmailAddress { get; set; }    
+
     [JsonPropertyName("employees")]
     public IEnumerable<ProjectEmployee> Employees { get; set; } = null!;
 
