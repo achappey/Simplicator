@@ -24,10 +24,10 @@ public class Sales : Base
     public string? MyOrganizationProfileId { get; set; }
 
     [JsonPropertyName("status")]
-    public SalesStatus? Status { get; set; }
+    public SalesStatusLookup? Status { get; set; }
 
     [JsonPropertyName("progress")]
-    public SalesProgress? Progress { get; set; }
+    public SalesProgressLookup? Progress { get; set; }
 
     [JsonPropertyName("start_date")]
     public string? StartDate { get; set; }
@@ -53,6 +53,15 @@ public class SalesStatus : LabelLookup
 {
 }
 
+public class SalesStatusLookup
+{
+      [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+}
+
 
 public class RevenueGroup : LabelLookup
 {
@@ -68,4 +77,17 @@ public class SalesProgress : LabelLookup
 
     [JsonPropertyName("position")]
     public int? Position { get; set; }
+}
+
+
+public class SalesProgressLookup
+{
+    [JsonPropertyName("color")]
+    public string? Color { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
 }

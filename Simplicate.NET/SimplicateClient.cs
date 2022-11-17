@@ -88,6 +88,16 @@ public class SimplicateClient
         return await this._httpClient.GetMessageTypes(environment, key, secret);
     }
 
+    public async Task<IEnumerable<DocumentType>> GetDocumentTypes(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetDocumentTypes(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<Document>> GetDocuments(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetDocuments(environment, key, secret);
+    }
+
     public async Task<IEnumerable<DefaultService>> GetDefaultServices(string environment, string key, string secret)
     {
         return await this._httpClient.GetDefaultServices(environment, key, secret);

@@ -29,23 +29,52 @@ public class Quote : Base
     [JsonPropertyName("sales_id")]
     public string? SalesId { get; set; }
 
+    [JsonPropertyName("sent_at")]
+    public string? SentAt { get; set; }
+
     [JsonPropertyName("quotetemplate")]
-    public QuoteTemplate QuoteTemplate { get; set; } = null!;
+    public QuoteTemplateLookup QuoteTemplate { get; set; } = null!;
 
     [JsonPropertyName("quotestatus")]
-    public QuoteStatus QuoteStatus { get; set; } = null!;
+    public QuoteStatusLookup QuoteStatus { get; set; } = null!;
 
     
 
 }
 
-
-public class QuoteStatus : LabelLookup
+public class QuoteStatusLookup
 {
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("color")]
+    public string? Color { get; set; }
+
 }
 
+
+public class QuoteStatus : LabelLookup
+{   
+ 
+
+}
 
 
 public class QuoteTemplate : LabelLookup
 {
+  
+
+}
+
+public class QuoteTemplateLookup
+{
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
 }

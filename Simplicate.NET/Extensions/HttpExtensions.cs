@@ -51,7 +51,7 @@ public static class HttpExtensions
         return await client.PagedRequest<QuoteStatus>(environment.BuildRequestUri(Endpoints.QUOTESTATUS), key, secret);
     }
 
-public static async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(this HttpClient client, string environment, string key, string secret)
+    public static async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<QuoteTemplate>(environment.BuildRequestUri(Endpoints.QUOTETEMPLATE), key, secret);
     }
@@ -90,6 +90,16 @@ public static async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(this Http
     public static async Task<IEnumerable<MessageType>> GetMessageTypes(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<MessageType>(environment.BuildRequestUri(Endpoints.MESSAGETYPES), key, secret);
+    }
+
+    public static async Task<IEnumerable<DocumentType>> GetDocumentTypes(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<DocumentType>(environment.BuildRequestUri(Endpoints.DOCUMENTTYPES), key, secret);
+    }
+
+    public static async Task<IEnumerable<Document>> GetDocuments(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<Document>(environment.BuildRequestUri(Endpoints.DOCUMENTS), key, secret);
     }
 
     public static async Task<IEnumerable<DefaultService>> GetDefaultServices(this HttpClient client, string environment, string key, string secret)

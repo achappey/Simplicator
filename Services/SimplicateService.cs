@@ -69,6 +69,16 @@ public class SimplicateService
         return await this._client.GetMessageTypes(environment, key, secret);
     }
 
+    public async Task<IEnumerable<DocumentType>> GetDocumentTypes(string environment, string key, string secret)
+    {
+        return await this._client.GetDocumentTypes(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<Document>> GetDocuments(string environment, string key, string secret)
+    {
+        return await this._client.GetDocuments(environment, key, secret);
+    }
+
     public async Task<IEnumerable<Person>> GetPersons(string environment, string key, string secret)
     {
         return await this._client.GetPersons(environment, key, secret);

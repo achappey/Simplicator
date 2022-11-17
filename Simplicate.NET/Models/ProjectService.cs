@@ -14,6 +14,9 @@ public class ProjectServices : Service
     [JsonPropertyName("start_date")]
     public string? StartDate { get; set; }
 
+    [JsonPropertyName("budget")]
+    public decimal? Budget { get; set; }
+
     [JsonPropertyName("end_date")]
     public string? EndDate { get; set; }
 
