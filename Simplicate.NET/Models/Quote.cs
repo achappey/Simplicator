@@ -33,7 +33,7 @@ public class Quote : Base
     public string? SentAt { get; set; }
 
     [JsonPropertyName("quotetemplate")]
-    public QuoteTemplateLookup QuoteTemplate { get; set; } = null!;
+    public QuoteTemplateLookup? QuoteTemplate { get; set; }
 
     [JsonPropertyName("quotestatus")]
     public QuoteStatusLookup QuoteStatus { get; set; } = null!;
