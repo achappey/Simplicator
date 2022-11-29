@@ -29,6 +29,9 @@ public class Invoice : Base
     [JsonPropertyName("projects")]
     public IEnumerable<ProjectLookup>? Projects { get; set; }
 
+    [JsonPropertyName("invoice_lines")]
+    public IEnumerable<InvoiceLine>? InvoiceLines { get; set; }
+
     [JsonPropertyName("total_excluding_vat")]
     public decimal TotalExcludingVat { get; set; }
 
@@ -60,7 +63,6 @@ public class Invoice : Base
     public string? TimelineEmailAddress { get; set; }
 
 }
-
 
 public class InvoiceStatus
 {
@@ -111,11 +113,8 @@ public class NewInvoice
 
 public class InvoiceLine
 {
-    [JsonPropertyName("vat_class_id")]
-    public string VatClassId { get; set; } = null!;
-
-    [JsonPropertyName("revenue_group_id")]
-    public string RevenueGroupId { get; set; } = null!;
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
 
     [JsonPropertyName("date")]
     public string? Date { get; set; }
@@ -128,5 +127,8 @@ public class InvoiceLine
 
     [JsonPropertyName("price")]
     public decimal Price { get; set; }
+
+    [JsonPropertyName("default_service_id")]
+    public string? DefaultServiceId { get; set; }
 
 }

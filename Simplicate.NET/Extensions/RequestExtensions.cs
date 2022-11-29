@@ -49,7 +49,7 @@ public static class RequestExtensions
     }
 
     private static async Task<T?> SimplicateRequest<T>(this HttpClient client, Uri uri, string key, string secret, HttpMethod method, object? bodyContent = null)
-    {
+    {     
         var httpRequestMessage = new HttpRequestMessage
         {
             Method = method,
