@@ -75,9 +75,6 @@ public class Person : Base
      [JsonPropertyName("relation_manager")]
     public NameLookup? RelationManager { get; set; }    
 
-     [JsonPropertyName("address")]
-    public Address? Address { get; set; }    
-
 }
 
 public class OrganizationContact

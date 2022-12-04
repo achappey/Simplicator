@@ -49,12 +49,22 @@ public class Employee : Base
     [JsonPropertyName("teams")]
     public IEnumerable<NameLookup>? Teams { get; set; }
 
+    [JsonPropertyName("person")]
+    public PersonLookup? Person { get; set; }
+
 }
 
 public class EmployeeLookup : NameLookup
 {
     [JsonPropertyName("person_id")]
     public string? PersonId { get; set; }
+}
+
+
+public class PersonLookup : NameLookup
+{
+    [JsonPropertyName("address")]
+    public Address? Address { get; set; }
 }
 
 public class Avatar
