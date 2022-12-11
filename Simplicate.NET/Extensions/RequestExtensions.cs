@@ -128,7 +128,7 @@ public static class RequestExtensions
     {
         return await client.SimplicateItemRequest<T>(uri, key, secret, bodyContent, HttpMethod.Put);
     }
-
+    
     public static async Task<T?> SimplicateGetRequest<T>(this HttpClient client, Uri uri, string key, string secret)
     {
         return await client.SimplicateRequest<T>(uri, key, secret, HttpMethod.Get);

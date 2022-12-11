@@ -42,7 +42,7 @@ public class Project : Base
     public string? EndDate { get; set; }
 
     [JsonPropertyName("timeline_email_address")]
-    public string? TimelineEmailAddress { get; set; }    
+    public string? TimelineEmailAddress { get; set; }
 
     [JsonPropertyName("employees")]
     public IEnumerable<ProjectEmployee> Employees { get; set; } = null!;
@@ -58,6 +58,11 @@ public class Project : Base
 
     [JsonPropertyName("project_manager")]
     public NameLookup? ProjectManager { get; set; }
+
+    [JsonPropertyName("budget")]
+    public ProjectBudget Budget { get; set; } = null!;
+
+
 
 
 }
@@ -92,6 +97,21 @@ public class ProjectStatus : LabelLookup
     public string? Color { get; set; }
 }
 
+
+public class ProjectBudget
+{
+
+    [JsonPropertyName("costs")]
+    public ProjectCosts Costs { get; set; } = null!;
+}
+
+
+public class ProjectCosts
+{
+
+    [JsonPropertyName("value_spent")]
+    public decimal? Spent { get; set; }
+}
 
 public class NewProject
 {

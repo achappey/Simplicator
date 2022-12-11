@@ -16,16 +16,12 @@ public class OrganizationsController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    
-
     public OrganizationsController(ILogger<OrganizationsController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
 
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-
-        
     }
 
     [HttpGet]
