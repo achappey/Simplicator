@@ -8,6 +8,8 @@ public static class HttpExtensions
 {
     public static async Task<User> GetUser(this ControllerBase context)
     {
+        await Task.Yield();
+        
         var header = context.Request.Headers["x-api-key"].FirstOrDefault();
 
         if (header == null)

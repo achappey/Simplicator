@@ -66,6 +66,24 @@ public static class HttpProjectExtensions
         return item?.Id;
     }
 
+    public static async Task<string?> UpdateOrganization(this HttpClient client, string environment, string key, string secret, string id, Organization organization)
+    {
+        var item = await client.SimplicatePutRequest<NewResource>(
+            environment.BuildRequestUri(Endpoints.ORGANIZATION, id),
+            key, secret, organization);
+
+        return item?.Id;
+    }
+    
+    public static async Task<string?> UpdateSales(this HttpClient client, string environment, string key, string secret, string id, Sales sales)
+    {
+        var item = await client.SimplicatePutRequest<NewResource>(
+            environment.BuildRequestUri(Endpoints.SALES, id),
+            key, secret, sales);
+
+        return item?.Id;
+    }
+
 
     public static async Task<IEnumerable<Hours>> GetProjectHours(this HttpClient client, string environment, string key, string secret, string projectId)
     {
@@ -76,5 +94,4 @@ public static class HttpProjectExtensions
     {
         return await client.PagedRequest<Invoice>(environment.BuildRequestUri(Endpoints.INVOICE, null, string.Format("q[projects.id]={0}", projectId)), key, secret);
     }
-
 }

@@ -39,7 +39,7 @@ public class SimplicateService
         return await this._client.GetIndustries(environment, key, secret);
     }
 
-     public async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(string environment, string key, string secret)
+    public async Task<IEnumerable<QuoteTemplate>> GetQuoteTemplates(string environment, string key, string secret)
     {
         return await this._client.GetQuoteTemplates(environment, key, secret);
     }
@@ -48,7 +48,7 @@ public class SimplicateService
     {
         return await this._client.GetProjectStatuses(environment, key, secret);
     }
-    
+
     public async Task<IEnumerable<InvoiceStatus>> GetInvoiceStatuses(string environment, string key, string secret)
     {
         return await this._client.GetInvoiceStatuses(environment, key, secret);
@@ -89,6 +89,16 @@ public class SimplicateService
         return await this._client.GetOrganizations(environment, key, secret);
     }
 
+    public async Task<Organization?> GetOrganization(string environment, string key, string secret, string id)
+    {
+        return await this._client.GetOrganization(environment, key, secret, id);
+    }
+
+    public async Task<Sales?> GetSales(string environment, string key, string secret, string id)
+    {
+        return await this._client.GetSales(environment, key, secret, id);
+    }
+
     public async Task<IEnumerable<MyOrganization>> GetMyOrganizations(string environment, string key, string secret)
     {
         return await this._client.GetMyOrganizations(environment, key, secret);
@@ -126,7 +136,7 @@ public class SimplicateService
         return service;
     }
 
-    
+
     public async Task<Project> AddProject(string environment, string key, string secret, NewProject service)
     {
 
@@ -163,6 +173,31 @@ public class SimplicateService
         service.Id = await this._client.UpdateProjectService(environment, key, secret, id, service);
 
         return service;
+    }
+
+    public async Task<Organization> UpdateOrganization(string environment, string key, string secret, string id, Organization organization)
+    {
+        var newId = await this._client.UpdateOrganization(environment, key, secret, id, organization);
+
+        if (newId != null)
+        {
+            organization.Id = newId;
+        }
+
+        return organization;
+    }
+
+    
+    public async Task<Sales> UpdateSales(string environment, string key, string secret, string id, Sales sales)
+    {
+        var newId = await this._client.UpdateSales(environment, key, secret, id, sales);
+
+        if (newId != null)
+        {
+            sales.Id = newId;
+        }
+
+        return sales;
     }
 
     public async Task<IEnumerable<Invoice>> GetInvoices(string environment, string key, string secret)

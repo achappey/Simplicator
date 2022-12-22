@@ -1,5 +1,6 @@
 ﻿
 using Simplicate.NET.Models;
+using Simplicate.NET.Models.Http;
 
 namespace Simplicate.NET.Extensions;
 
@@ -9,6 +10,20 @@ public static class HttpExtensions
     public static async Task<IEnumerable<Organization>> GetOrganizations(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<Organization>(environment.BuildRequestUri(Endpoints.ORGANIZATION), key, secret);
+    }
+
+    public static async Task<Organization?> GetOrganization(this HttpClient client, string environment, string key, string secret, string id)
+    {
+        var result = await client.SimplicateGetRequest<SimplicateItemResponse<Organization>>(environment.BuildRequestUri(Endpoints.ORGANIZATION, id), key, secret);
+
+        return result?.Data;
+    }
+
+    public static async Task<Sales?> GetSales(this HttpClient client, string environment, string key, string secret, string id)
+    {
+        var result = await client.SimplicateGetRequest<SimplicateItemResponse<Sales>>(environment.BuildRequestUri(Endpoints.SALES, id), key, secret);
+
+        return result?.Data;
     }
 
     public static async Task<IEnumerable<MyOrganization>> GetMyOrganizations(this HttpClient client, string environment, string key, string secret)

@@ -10,8 +10,6 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-// TEMP
-[ApiExplorerSettings(IgnoreApi = true)]
 public class SalesController : ControllerBase
 {
     private readonly ILogger<SalesController> _logger;
@@ -31,6 +29,7 @@ public class SalesController : ControllerBase
 
     [HttpGet(template: "sales", Name = "GetSales")]
     [EnableQuery]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerOperation("Fetches all sales")]
     public async Task<IEnumerable<Sales>> Get()
     {
@@ -41,6 +40,7 @@ public class SalesController : ControllerBase
 
     [HttpGet(template: "revenuegroup", Name = "GetRevenueGroups")]
     [EnableQuery]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerOperation("Fetches all revenue groups")]
     [Tags("Sales")]
     public async Task<IEnumerable<LabelLookup>> GetRevenueGroups()
@@ -52,6 +52,7 @@ public class SalesController : ControllerBase
 
     [HttpGet(template: "quotes", Name = "GetQuotes")]
     [EnableQuery]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerOperation("Fetches all quotes")]
     [Tags("Sales")]
     public async Task<IEnumerable<Quote>> GetQuotes()
@@ -59,5 +60,24 @@ public class SalesController : ControllerBase
         var user = await this.GetUser();
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
+    }
+    
+    [HttpGet(template: "sales/{id}", Name = "GetSale")]
+    [EnableQuery]
+    [SwaggerOperation("Fetches sale for the given sale id")]
+    public async Task<Sales?> GetSale([FromRoute] string id)
+    {
+        var user = await this.GetUser();
+
+        return await _simplicateService.GetSales(user.Environment, user.Key, user.Secret, id);
+    }
+
+    [HttpPut(template: "sales/{id}", Name = "UpdateSales")]
+    [SwaggerOperation("Updates a sale for the given id")]
+    public async Task<Sales> UpdateSales([FromRoute] string id, [FromBody] Sales sales)
+    {
+        var user = await this.GetUser();
+
+        return await _simplicateService.UpdateSales(user.Environment, user.Key, user.Secret, id, sales);
     }
 }

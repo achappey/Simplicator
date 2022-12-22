@@ -33,6 +33,7 @@ public class ProjectsController : ControllerBase
     [HttpGet(template: "project", Name = "GetProjects")]
     [Tags("Projects")]
     [EnableQuery]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerOperation("Fetches all projects")]
     public async Task<IEnumerable<Project>> Get()
     {
@@ -44,6 +45,7 @@ public class ProjectsController : ControllerBase
     [HttpGet(template: "project/{id}/hours", Name = "GetProjectHours")]
     [Tags("Projects")]
     [EnableQuery]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerOperation("Fetches all hours for the given project id")]
     public async Task<IEnumerable<Hours>> GetHours([FromRoute] string id)
     {
@@ -55,6 +57,7 @@ public class ProjectsController : ControllerBase
     [HttpGet(template: "project/{id}/invoices", Name = "GetProjectInvoices")]
     [Tags("Projects")]
     [EnableQuery]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerOperation("Fetches all invoices for the given project id")]
     public async Task<IEnumerable<Invoice>> GetInvoices([FromRoute] string id)
     {
@@ -66,6 +69,7 @@ public class ProjectsController : ControllerBase
     [HttpGet(template: "service", Name = "GetProjectServices")]
     [Tags("Projects")]
     [EnableQuery]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerOperation("Fetches all project services")]
     public async Task<IEnumerable<ProjectServices>> GetProjectServices()
     {
@@ -96,6 +100,7 @@ public class ProjectsController : ControllerBase
 
     [HttpPut(template: "service/{id}", Name = "UpdateProjectService")]
     [Tags("Projects")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerOperation("Updates a project service for the given id")]
     public async Task<ProjectService> UpdateProjectService([FromRoute] string id, [FromBody] ProjectService service)
     {
