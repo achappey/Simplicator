@@ -177,6 +177,8 @@ public class SimplicateService
 
     public async Task<Organization> UpdateOrganization(string environment, string key, string secret, string id, Organization organization)
     {
+        organization.Industry = organization.Industry != null && !string.IsNullOrEmpty(organization.Id) ? organization.Industry : null;
+
         var newId = await this._client.UpdateOrganization(environment, key, secret, id, organization);
 
         if (newId != null)
