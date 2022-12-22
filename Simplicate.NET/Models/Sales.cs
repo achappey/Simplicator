@@ -41,6 +41,9 @@ public class Sales : Base
     [JsonPropertyName("linked_project")]
     public LinkedProject? LinkedProject { get; set; }
 
+    [JsonPropertyName("responsible_employee_id")]
+    public string? ResponsibleEmployeeId { get; set; }    
+
     [JsonPropertyName("responsible_employee")]
     public NameLookup? ResponsibleEmployee { get; set; }    
 
