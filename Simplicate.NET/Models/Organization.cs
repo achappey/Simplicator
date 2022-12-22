@@ -33,9 +33,6 @@ public class Organization : Base
     [JsonPropertyName("bank_account")]
     public string? BankAccount { get; set; }
 
-    [JsonPropertyName("industry")]
-    public Industry? Industry { get; set; }
-
     [JsonPropertyName("visiting_address")]
     public Address? VisitingAddress { get; set; }
 
