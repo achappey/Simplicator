@@ -100,17 +100,24 @@ public class ProjectStatus : LabelLookup
 
 public class ProjectBudget
 {
+   [JsonPropertyName("costs")]
+    public BudgetStatus Costs { get; set; } = null!;
 
-    [JsonPropertyName("costs")]
-    public ProjectCosts Costs { get; set; } = null!;
+    [JsonPropertyName("hours")]
+    public BudgetStatus Hours { get; set; } = null!;
+
+    [JsonPropertyName("total")]
+    public BudgetStatus Total { get; set; } = null!;
 }
 
 
-public class ProjectCosts
+public class BudgetStatus
 {
-
     [JsonPropertyName("value_spent")]
     public decimal? Spent { get; set; }
+
+    [JsonPropertyName("value_budget")]
+    public decimal? Budget { get; set; }
 }
 
 public class NewProject

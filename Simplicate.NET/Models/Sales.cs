@@ -58,7 +58,7 @@ public class SalesStatus : LabelLookup
 
 public class SalesStatusLookup
 {
-      [JsonPropertyName("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 
     [JsonPropertyName("label")]
