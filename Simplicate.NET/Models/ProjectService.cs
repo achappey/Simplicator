@@ -34,7 +34,6 @@ public class ProjectServices : Service
         }
         set { }
     }
-
 }
 
 public class ServiceCostType
@@ -49,10 +48,11 @@ public class ServiceCostType
     {
         get
         {
-            return Tariff * BudgetedAmount;
+            return Tariff.HasValue ? Math.Round(Tariff.Value, 2) * BudgetedAmount : null;
         }
         set { }
     }
+
 
 }
 
