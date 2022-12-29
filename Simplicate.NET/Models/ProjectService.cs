@@ -23,7 +23,39 @@ public class ProjectServices : Service
     [JsonPropertyName("revenue_group")]
     public LabelLookup? RevenueGroup { get; set; } = null!;
 
+    [JsonPropertyName("cost_types")]
+    public IEnumerable<ServiceCostType>? CostTypes { get; set; }
+
+    public decimal? CostBudget
+    {
+        get
+        {
+            return CostTypes?.Select(a => a.Budget).Sum();
+        }
+        set { }
+    }
+
 }
+
+public class ServiceCostType
+{
+    [JsonPropertyName("budgeted_amount")]
+    public decimal? BudgetedAmount { get; set; }
+
+    [JsonPropertyName("tariff")]
+    public decimal? Tariff { get; set; }
+
+    public decimal? Budget
+    {
+        get
+        {
+            return Tariff * BudgetedAmount;
+        }
+        set { }
+    }
+
+}
+
 
 public class ProjectServiceLookup : NameLookup
 {
