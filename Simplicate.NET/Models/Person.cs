@@ -75,7 +75,21 @@ public class Person : Base
      [JsonPropertyName("relation_manager")]
     public NameLookup? RelationManager { get; set; }    
 
+     [JsonPropertyName("relation_type")]
+    public RelationType? RelationType { get; set; }    
+
 }
+
+
+public class RelationType
+{
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+}
+
 
 public class OrganizationContact
 {

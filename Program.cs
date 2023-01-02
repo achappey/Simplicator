@@ -139,6 +139,7 @@ static IEdmModel GetGraphModel(string name)
     builder.ComplexType<Simplicate.NET.Models.QuoteStatusLookup>().Namespace = name;    
     builder.ComplexType<Simplicate.NET.Models.QuoteTemplateLookup>().Namespace = name;    
     builder.ComplexType<Simplicate.NET.Models.ProjectEmployee>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.RelationType>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.InvoiceLine>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.ProjectServiceLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.VatClassLookup>().Namespace = name;
