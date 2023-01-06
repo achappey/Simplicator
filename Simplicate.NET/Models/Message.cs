@@ -29,6 +29,69 @@ public class Message
     [JsonPropertyName("linked_to")]
     public IEnumerable<LabelTypeLookup>? LinkedTo { get; set; }
 
+    public IEnumerable<LabelTypeLookup>? LinkedToNotEmpty
+    {
+        get
+        {
+            return LinkedTo?.Where(a => !string.IsNullOrEmpty(a.Label));
+        }
+        set { }
+    }
+
+    public string? LinkedToOrganization
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "organization")?.Id;
+        }
+        set { }
+    }
+
+    public string? LinkedToPerson
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "person")?.Id;
+        }
+        set { }
+    }
+
+    public string? LinkedToSales
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "sales")?.Id;
+        }
+        set { }
+    }
+
+    public string? LinkedToProject
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "project")?.Id;
+        }
+        set { }
+    }
+
+    public string? LinkedToEmployee
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "employee")?.Id;
+        }
+        set { }
+    }
+
+    public string? LinkedToInvoice
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "invoice")?.Id;
+        }
+        set { }
+    }
+
 }
 
 
@@ -63,18 +126,6 @@ public class NewMessage
 
 public class MessageLink
 {
-  /*  [JsonPropertyName("sales_id")]
-    public string? SalesId { get; set; }
-
-    [JsonPropertyName("project_id")]
-    public string? ProjectId { get; set; }
-
-    [JsonPropertyName("invoice_id")]
-    public string? InvoiceId { get; set; }
-
-    [JsonPropertyName("organization_id")]
-    public string? OrganizationId { get; set; }*/
-
     [JsonPropertyName("employee_id")]
     public string? EmployeeId { get; set; }
 
