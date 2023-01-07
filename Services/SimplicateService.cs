@@ -59,6 +59,11 @@ public class SimplicateService
         return await this._client.GetSalesStatuses(environment, key, secret);
     }
 
+
+    public async Task<IEnumerable<SalesSource>> GetSalesSources(string environment, string key, string secret)
+    {
+        return await this._client.GetSalesSources(environment, key, secret);
+    }
     public async Task<IEnumerable<SalesProgress>> GetSalesProgresses(string environment, string key, string secret)
     {
         return await this._client.GetSalesProgresses(environment, key, secret);
@@ -136,6 +141,23 @@ public class SimplicateService
         return service;
     }
 
+    public async Task<NewQuote> AddQuote(string environment, string key, string secret, NewQuote quote)
+    {
+        await this._client.AddQuote(environment, key, secret, quote);
+
+        return quote;
+    }
+
+    public async Task<Sales> AddSales(string environment, string key, string secret, Sales sales)
+    {
+        var id = await this._client.AddSales(environment, key, secret, sales);
+
+        return id != null ? new Sales()
+        {
+            Id = id
+        } : throw new SimplicateResponseException(500, "Could not create sales");
+
+    }
 
     public async Task<Project> AddProject(string environment, string key, string secret, NewProject service)
     {

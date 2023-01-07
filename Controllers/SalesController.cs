@@ -80,4 +80,14 @@ public class SalesController : ControllerBase
 
         return await _simplicateService.UpdateSales(user.Environment, user.Key, user.Secret, id, sales);
     }
+
+    [HttpPost(template: "sales", Name = "AddSales")]
+    [SwaggerOperation("Add a new sale")]
+    public async Task<Sales> AddSales([FromBody] Sales sales)
+    {
+        var user = await this.GetUser();
+
+        return await _simplicateService.AddSales(user.Environment, user.Key, user.Secret, sales);
+    }
+
 }

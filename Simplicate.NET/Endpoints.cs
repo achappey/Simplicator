@@ -34,6 +34,8 @@ public static class Endpoints
     public static string INVOICESTATUS = "invoices/invoicestatus";
 
     public static string SALESSTATUS = "sales/salesstatus";
+    
+    public static string SALESSOURCE = "sales/salessource";
 
     public static string CRMINDUSTRY = "crm/industry";
 

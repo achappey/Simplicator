@@ -46,14 +46,18 @@ public static class HttpExtensions
         return await client.PagedRequest<Contract>(environment.BuildRequestUri(Endpoints.CONTRACT), key, secret);
     }
 
- public static async Task<IEnumerable<Message>> GetMessages(this HttpClient client, string environment, string key, string secret)
+    public static async Task<IEnumerable<Message>> GetMessages(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<Message>(environment.BuildRequestUri(Endpoints.MESSAGE), key, secret);
     }
 
     public static async Task<IEnumerable<Sales>> GetSales(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<Sales>(environment.BuildRequestUri(Endpoints.SALES), key, secret);
+        return await client.PagedRequest<Sales>(environment.BuildRequestUri(Endpoints.SALES, null, @"select=id,simplicate_url,created_at,updated_at,
+        subject,note,chance_to_score,expected_revenue,organization.,
+        my_organization_profile_id,status.,start_date,expected_closing_date,
+        timeline_email_address,responsible_employee.,source.,
+        linked_project.,progress."), key, secret);
     }
 
     public static async Task<IEnumerable<Quote>> GetQuotes(this HttpClient client, string environment, string key, string secret)
@@ -73,18 +77,22 @@ public static class HttpExtensions
 
     public static async Task<IEnumerable<ProjectStatus>> GetProjectStatuses(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<ProjectStatus>(environment.BuildRequestUri(Endpoints.PROJECTSTATUS), key, secret);
+        return await client.PagedRequest<ProjectStatus>(environment.BuildRequestUri(Endpoints.PROJECTSTATUS, null, "select=id,label,color"), key, secret);
     }
 
-    
     public static async Task<IEnumerable<InvoiceStatus>> GetInvoiceStatuses(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<InvoiceStatus>(environment.BuildRequestUri(Endpoints.INVOICESTATUS), key, secret);
+        return await client.PagedRequest<InvoiceStatus>(environment.BuildRequestUri(Endpoints.INVOICESTATUS, null, "select=id,name,color"), key, secret);
     }
 
     public static async Task<IEnumerable<SalesStatus>> GetSalesStatuses(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<SalesStatus>(environment.BuildRequestUri(Endpoints.SALESSTATUS), key, secret);
+        return await client.PagedRequest<SalesStatus>(environment.BuildRequestUri(Endpoints.SALESSTATUS, null, "select=id,label"), key, secret);
+    }
+
+    public static async Task<IEnumerable<SalesSource>> GetSalesSources(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<SalesSource>(environment.BuildRequestUri(Endpoints.SALESSOURCE, null, "select=id,name"), key, secret);
     }
 
     public static async Task<IEnumerable<RevenueGroup>> GetRevenueGroups(this HttpClient client, string environment, string key, string secret)
@@ -104,12 +112,12 @@ public static class HttpExtensions
 
     public static async Task<IEnumerable<MessageType>> GetMessageTypes(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<MessageType>(environment.BuildRequestUri(Endpoints.MESSAGETYPES), key, secret);
+        return await client.PagedRequest<MessageType>(environment.BuildRequestUri(Endpoints.MESSAGETYPES, null, "select=id,label,blocked"), key, secret);
     }
 
     public static async Task<IEnumerable<DocumentType>> GetDocumentTypes(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<DocumentType>(environment.BuildRequestUri(Endpoints.DOCUMENTTYPES), key, secret);
+        return await client.PagedRequest<DocumentType>(environment.BuildRequestUri(Endpoints.DOCUMENTTYPES, null, "select=id,label"), key, secret);
     }
 
     public static async Task<IEnumerable<Document>> GetDocuments(this HttpClient client, string environment, string key, string secret)
@@ -124,7 +132,9 @@ public static class HttpExtensions
 
     public static async Task<IEnumerable<Hours>> GetHours(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<Hours>(environment.BuildRequestUri(Endpoints.HOURS), key, secret);
+        return await client.PagedRequest<Hours>(environment.BuildRequestUri(Endpoints.HOURS, null, @"select=id,employee.,projectservice.,
+        project.,invoice_status,start_date,end_date,hours,
+        billable,status,billable,tariff"), key, secret);
     }
 
     public static async Task<IEnumerable<Hours>> GetEmployeeHours(this HttpClient client, string environment, string key, string secret, string employeeId)

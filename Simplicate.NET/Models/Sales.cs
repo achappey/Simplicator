@@ -41,19 +41,29 @@ public class Sales : Base
     [JsonPropertyName("linked_project")]
     public LinkedProject? LinkedProject { get; set; }
 
-    [JsonPropertyName("responsible_employee_id")]
-    public string? ResponsibleEmployeeId { get; set; }    
-
     [JsonPropertyName("responsible_employee")]
-    public NameLookup? ResponsibleEmployee { get; set; }    
+    public NameLookup? ResponsibleEmployee { get; set; }
 
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
+
+    [JsonPropertyName("source")]
+    public NameLookup? Source { get; set; }
+
 
 }
 
 public class SalesStatus : LabelLookup
 {
+}
+
+public class SalesSource
+{
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
 }
 
 public class SalesStatusLookup

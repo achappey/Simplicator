@@ -10,7 +10,6 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-[ApiExplorerSettings(IgnoreApi = true)]
 public class QuotesController : ControllerBase
 {
     private readonly ILogger<QuotesController> _logger;
@@ -33,11 +32,21 @@ public class QuotesController : ControllerBase
     [EnableQuery]
     [Tags("Sales")]
     [SwaggerOperation("Fetches all quotes")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IEnumerable<Quote>> Get()
     {
         var user = await this.GetUser();
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
+    }
+    
+    [HttpPost(template: "quote", Name = "AddQuote")]
+    [SwaggerOperation("Add a new quote")]
+    public async Task<NewQuote> AddQuote([FromBody] NewQuote newQuote)
+    {
+        var user = await this.GetUser();
+
+        return await _simplicateService.AddQuote(user.Environment, user.Key, user.Secret, newQuote);
     }
 
 }

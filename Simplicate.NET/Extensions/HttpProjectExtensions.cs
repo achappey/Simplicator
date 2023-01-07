@@ -30,6 +30,24 @@ public static class HttpProjectExtensions
         return item?.Id;
     }
 
+    public static async Task<string?> AddSales(this HttpClient client, string environment, string key, string secret, Sales sales)
+    {
+        var item = await client.SimplicatePostRequest<NewResource>(
+            environment.BuildRequestUri(Endpoints.SALES),
+            key, secret, sales);
+
+        return item?.Id;
+    }
+    
+    public static async Task<string?> AddQuote(this HttpClient client, string environment, string key, string secret, NewQuote newQuote)
+    {
+        var item = await client.SimplicatePostRequest<NewResource>(
+            environment.BuildRequestUri(Endpoints.QUOTES),
+            key, secret, newQuote);
+
+        return item?.Id;
+    }
+
     public static async Task<string?> AddProject(this HttpClient client, string environment, string key, string secret, NewProject service)
     {
         var item = await client.SimplicatePostRequest<NewResource>(
