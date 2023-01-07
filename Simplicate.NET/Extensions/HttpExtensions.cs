@@ -26,6 +26,14 @@ public static class HttpExtensions
         return result?.Data;
     }
 
+    
+    public static async Task<Quote?> GetQuote(this HttpClient client, string environment, string key, string secret, string id)
+    {
+        var result = await client.SimplicateGetRequest<SimplicateItemResponse<Quote>>(environment.BuildRequestUri(Endpoints.QUOTES, id), key, secret);
+
+        return result?.Data;
+    }
+
     public static async Task<IEnumerable<MyOrganization>> GetMyOrganizations(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<MyOrganization>(environment.BuildRequestUri(Endpoints.MYORGANIZATION), key, secret);

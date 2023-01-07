@@ -104,6 +104,11 @@ public class SimplicateService
         return await this._client.GetSales(environment, key, secret, id);
     }
 
+    public async Task<Quote?> GetQuote(string environment, string key, string secret, string id)
+    {
+        return await this._client.GetQuote(environment, key, secret, id);
+    }
+
     public async Task<IEnumerable<MyOrganization>> GetMyOrganizations(string environment, string key, string secret)
     {
         return await this._client.GetMyOrganizations(environment, key, secret);
@@ -141,14 +146,17 @@ public class SimplicateService
         return service;
     }
 
-    public async Task<NewQuote> AddQuote(string environment, string key, string secret, NewQuote quote)
+    public async Task<Quote> AddQuote(string environment, string key, string secret, NewQuote quote)
     {
-        await this._client.AddQuote(environment, key, secret, quote);
+          var id = await this._client.AddQuote(environment, key, secret, quote);
 
-        return quote;
+        return id != null ? new Quote()
+        {
+            Id = id
+        } : throw new SimplicateResponseException(500, "Could not create quote");
     }
 
-    public async Task<Sales> AddSales(string environment, string key, string secret, Sales sales)
+    public async Task<Sales> AddSales(string environment, string key, string secret, NewSales sales)
     {
         var id = await this._client.AddSales(environment, key, secret, sales);
 

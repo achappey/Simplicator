@@ -38,3 +38,13 @@ public class MyOrganizationLookup
     [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
 }
+
+
+public class Team
+{
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("value")]
+    public string? Value { get; set; }
+}

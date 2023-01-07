@@ -83,7 +83,7 @@ public class SalesController : ControllerBase
 
     [HttpPost(template: "sales", Name = "AddSales")]
     [SwaggerOperation("Add a new sale")]
-    public async Task<Sales> AddSales([FromBody] Sales sales)
+    public async Task<Sales> AddSales([FromBody] NewSales sales)
     {
         var user = await this.GetUser();
 

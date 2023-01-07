@@ -30,7 +30,7 @@ public static class HttpProjectExtensions
         return item?.Id;
     }
 
-    public static async Task<string?> AddSales(this HttpClient client, string environment, string key, string secret, Sales sales)
+    public static async Task<string?> AddSales(this HttpClient client, string environment, string key, string secret, NewSales sales)
     {
         var item = await client.SimplicatePostRequest<NewResource>(
             environment.BuildRequestUri(Endpoints.SALES),

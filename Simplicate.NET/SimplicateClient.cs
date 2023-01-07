@@ -32,6 +32,11 @@ public class SimplicateClient
         return await this._httpClient.GetSales(environment, key, secret, id);
     }
 
+    public async Task<Quote?> GetQuote(string environment, string key, string secret, string id)
+    {
+        return await this._httpClient.GetQuote(environment, key, secret, id);
+    }
+
     public async Task<IEnumerable<MyOrganization>> GetMyOrganizations(string environment, string key, string secret)
     {
         return await this._httpClient.GetMyOrganizations(environment, key, secret);
@@ -178,7 +183,7 @@ public class SimplicateClient
         return await this._httpClient.AddProjectService(environment, key, secret, service);
     }
 
-    public async Task<string?> AddSales(string environment, string key, string secret, Sales sales)
+    public async Task<string?> AddSales(string environment, string key, string secret, NewSales sales)
     {
         return await this._httpClient.AddSales(environment, key, secret, sales);
     }

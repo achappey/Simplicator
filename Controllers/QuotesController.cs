@@ -39,10 +39,20 @@ public class QuotesController : ControllerBase
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
     }
+
+    [HttpGet(template: "quote/{id}", Name = "GetQuote")]
+    [EnableQuery]
+    [SwaggerOperation("Fetches quote for the given quote id")]
+    public async Task<Quote?> GetSale([FromRoute] string id)
+    {
+        var user = await this.GetUser();
+
+        return await _simplicateService.GetQuote(user.Environment, user.Key, user.Secret, id);
+    }
     
     [HttpPost(template: "quote", Name = "AddQuote")]
     [SwaggerOperation("Add a new quote")]
-    public async Task<NewQuote> AddQuote([FromBody] NewQuote newQuote)
+    public async Task<Quote> AddQuote([FromBody] NewQuote newQuote)
     {
         var user = await this.GetUser();
 
