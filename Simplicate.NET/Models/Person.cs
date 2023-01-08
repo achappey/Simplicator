@@ -72,11 +72,11 @@ public class Person : Base
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
-     [JsonPropertyName("relation_manager")]
-    public NameLookup? RelationManager { get; set; }    
+    [JsonPropertyName("relation_manager")]
+    public NameLookup? RelationManager { get; set; }
 
-     [JsonPropertyName("relation_type")]
-    public RelationType? RelationType { get; set; }    
+    [JsonPropertyName("relation_type")]
+    public RelationType? RelationType { get; set; }
 
 }
 
@@ -90,7 +90,6 @@ public class RelationType
     public string? Label { get; set; }
 }
 
-
 public class OrganizationContact
 {
     [JsonPropertyName("name")]
@@ -100,7 +99,7 @@ public class OrganizationContact
     public string Id { get; set; } = null!;
 
     [JsonPropertyName("organization_id")]
-    public string CustomSalutation { get; set; } = null!;
+    public string OrganizationId { get; set; } = null!;
 
     [JsonPropertyName("is_active")]
     public bool IsActive { get; set; }

@@ -10,6 +10,8 @@ public static class Endpoints
     public static string MYORGANIZATION = "crm/myorganizationprofile";
 
     public static string PERSON = "crm/person";
+    
+    public static string CONTACTPERSON = "crm/contactperson";
 
     public static string EMPLOYEE = "hrm/employee";
 

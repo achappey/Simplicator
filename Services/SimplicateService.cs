@@ -9,9 +9,9 @@ public class SimplicateService
     private readonly SimplicateClient _client;
 
     public SimplicateService(
-        HttpClient client)
+        SimplicateClient client)
     {
-        _client = new SimplicateClient(client);
+        _client = client;
     }
 
     public async Task<IEnumerable<Project>> GetProjects(string environment, string key, string secret)
@@ -58,7 +58,6 @@ public class SimplicateService
     {
         return await this._client.GetSalesStatuses(environment, key, secret);
     }
-
 
     public async Task<IEnumerable<SalesSource>> GetSalesSources(string environment, string key, string secret)
     {

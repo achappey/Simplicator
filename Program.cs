@@ -7,6 +7,7 @@ using Microsoft.OData.ModelBuilder;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
 using Simplicate.NET.Models.Http;
+using Simplicate.NET;
 using Simplicator.Services;
 using Simplicator.Models;
 
@@ -58,7 +59,11 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<ODataOperationFilter>();
 });
 
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<SimplicateClient>(client => {
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.DefaultRequestHeaders.Add("Conent-Type", "application/json");
+});
+
 builder.Services.AddScoped<SimplicateService>();
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 

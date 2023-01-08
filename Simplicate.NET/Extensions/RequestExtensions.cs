@@ -24,6 +24,7 @@ public static class RequestExtensions
         uri = uri.AddParameter("metadata", "offset,count,limit");
 
         int offset = 0;
+        long runningTime = 0;
 
         SimplicateCollectionResponse<T>? result = null;
 
@@ -31,6 +32,7 @@ public static class RequestExtensions
         {
             uri = uri.AddParameter("offset", offset.ToString());
 
+            runningTime = DateTimeOffset.Now.Ticks;
             result = await client.SimplicateGetRequest<SimplicateCollectionResponse<T>>(uri, key, secret);
 
             if (result != null)
@@ -40,7 +42,9 @@ public static class RequestExtensions
                 offset = result.Metadata!.Offset + result.Metadata.Limit;
             }
 
-            System.Threading.Thread.Sleep(delay);
+            var timeOut = delay - (int)((DateTimeOffset.Now.Ticks - runningTime) / 10000);
+            
+            await Task.Delay(timeOut < 0 ? 0 : timeOut);
         }
         while (result?.Metadata!.Count > offset);
 
@@ -49,23 +53,21 @@ public static class RequestExtensions
     }
 
     private static async Task<T?> SimplicateRequest<T>(this HttpClient client, Uri uri, string key, string secret, HttpMethod method, object? bodyContent = null)
-    {     
-        var httpRequestMessage = new HttpRequestMessage
+    {
+        using (var httpRequestMessage = new HttpRequestMessage
         {
             Method = method,
             RequestUri = uri,
             Headers = {
-            { System.Net.HttpRequestHeader.Accept.ToString(), "application/json" },
-            { System.Net.HttpRequestHeader.ContentType.ToString(), "application/json" },
             { "Authentication-Key", key },
             { "Authentication-Secret", secret }
         },
             Content = bodyContent != null ? JsonContent.Create(bodyContent) : null
-        };
-
-        var result = await client.SendAsync(httpRequestMessage);
-
-        return await result.HandleSimplicateResponse<T>();
+        })
+        using (var result = await client.SendAsync(httpRequestMessage, HttpCompletionOption.ResponseHeadersRead))
+        {
+            return await result.HandleSimplicateResponse<T>();
+        }
     }
 
     private static async Task<T?> HandleSimplicateResponse<T>(this HttpResponseMessage message)
@@ -128,7 +130,7 @@ public static class RequestExtensions
     {
         return await client.SimplicateItemRequest<T>(uri, key, secret, bodyContent, HttpMethod.Put);
     }
-    
+
     public static async Task<T?> SimplicateGetRequest<T>(this HttpClient client, Uri uri, string key, string secret)
     {
         return await client.SimplicateRequest<T>(uri, key, secret, HttpMethod.Get);
