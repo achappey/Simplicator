@@ -60,11 +60,7 @@ public static class HttpExtensions
 
     public static async Task<IEnumerable<Sales>> GetSales(this HttpClient client, string environment, string key, string secret)
     {
-        return await client.PagedRequest<Sales>(environment.BuildRequestUri(Endpoints.SALES, null, @"select=id,simplicate_url,created_at,updated_at,
-        subject,note,chance_to_score,expected_revenue,organization.,
-        my_organization_profile_id,status.,start_date,expected_closing_date,
-        timeline_email_address,responsible_employee.,source.,
-        linked_project.,progress."), key, secret);
+        return await client.PagedRequest<Sales>(environment.BuildRequestUri(Endpoints.SALES), key, secret);
     }
 
     public static async Task<IEnumerable<Quote>> GetQuotes(this HttpClient client, string environment, string key, string secret)

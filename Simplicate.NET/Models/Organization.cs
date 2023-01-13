@@ -42,8 +42,13 @@ public class Organization : Base
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomField>? CustomFields { get; set; }
 
-}
+    [JsonPropertyName("industry")]
+    public NameLookup? Industry { get; set; }
 
+    [JsonPropertyName("relation_type")]
+    public RelationType? RelationType { get; set; }
+
+}
 
 public class Industry
 {

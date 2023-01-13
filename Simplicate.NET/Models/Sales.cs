@@ -23,6 +23,15 @@ public class Sales : Base
     [JsonPropertyName("my_organization_profile_id")]
     public string? MyOrganizationProfileId { get; set; }
 
+    [JsonPropertyName("organization_id")]
+    public string? OrganizationId { get; set; }
+
+    [JsonPropertyName("contact_id")]
+    public string? ContactId { get; set; }
+
+    [JsonPropertyName("person_id")]
+    public string? PersonId { get; set; }
+
     [JsonPropertyName("status")]
     public SalesStatusLookup? Status { get; set; }
 

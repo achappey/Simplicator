@@ -15,7 +15,7 @@ public class Message
     public string? Content { get; set; }
 
     [JsonPropertyName("created_at")]
-    public string? CreatedAt { get; set; }
+    public string CreatedAt { get; set; } = null!;
 
     [JsonPropertyName("created_by")]
     public TypeLookup? CreatedBy { get; set; }

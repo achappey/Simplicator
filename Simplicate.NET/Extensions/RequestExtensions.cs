@@ -64,7 +64,7 @@ public static class RequestExtensions
         },
             Content = bodyContent != null ? JsonContent.Create(bodyContent) : null
         })
-        using (var result = await client.SendAsync(httpRequestMessage, HttpCompletionOption.ResponseHeadersRead))
+        using (var result = await client.SendAsync(httpRequestMessage))
         {
             return await result.HandleSimplicateResponse<T>();
         }
