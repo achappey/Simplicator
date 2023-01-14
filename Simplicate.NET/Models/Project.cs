@@ -26,6 +26,9 @@ public class Project : Base
     [JsonPropertyName("person_id")]
     public string? PersonId { get; set; }
 
+    [JsonPropertyName("contact_id")]
+    public string? ContactId { get; set; }
+
     [JsonPropertyName("billable")]
     public bool Billable { get; set; }
 
