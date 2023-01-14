@@ -100,7 +100,7 @@ public class ProjectStatus : LabelLookup
 
 public class ProjectBudget
 {
-   [JsonPropertyName("costs")]
+    [JsonPropertyName("costs")]
     public BudgetStatus Costs { get; set; } = null!;
 
     [JsonPropertyName("hours")]
@@ -122,18 +122,23 @@ public class BudgetStatus
 
 public class NewProject
 {
-
     [JsonPropertyName("name")]
     public string? Name { get; set; }
 
     [JsonPropertyName("note")]
     public string? Note { get; set; }
 
+    [JsonPropertyName("project_manager_id")]
+    public string? ProjectManagerId { get; set; }
+
     [JsonPropertyName("organization_id")]
     public string? OrganizationId { get; set; }
 
     [JsonPropertyName("person_id")]
     public string? PersonId { get; set; }
+
+    [JsonPropertyName("contact_id")]
+    public string? ContactId { get; set; }
 
     [JsonPropertyName("billable")]
     public bool Billable { get; set; }
@@ -159,7 +164,6 @@ public class NewProject
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomFieldLookup>? CustomFields { get; set; }
 
-
-
-
+    [JsonPropertyName("teams")]
+    public IEnumerable<Team>? Teams { get; set; }
 }

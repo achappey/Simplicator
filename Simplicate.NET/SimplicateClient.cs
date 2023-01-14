@@ -32,6 +32,11 @@ public class SimplicateClient
         return await this._httpClient.GetSales(environment, key, secret, id);
     }
 
+    public async Task<Project?> GetProject(string environment, string key, string secret, string id)
+    {
+        return await this._httpClient.GetProject(environment, key, secret, id);
+    }
+
     public async Task<Quote?> GetQuote(string environment, string key, string secret, string id)
     {
         return await this._httpClient.GetQuote(environment, key, secret, id);

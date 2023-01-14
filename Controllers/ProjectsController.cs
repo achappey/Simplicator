@@ -97,6 +97,16 @@ public class ProjectsController : ControllerBase
 
         return await _simplicateService.AddProject(user.Environment, user.Key, user.Secret, project);
     }
+    
+    [HttpGet(template: "project/{id}", Name = "GetProject")]
+    [EnableQuery]
+    [SwaggerOperation("Fetches project for the given project id")]
+    public async Task<Project?> GetProject([FromRoute] string id)
+    {
+        var user = await this.GetUser();
+
+        return await _simplicateService.GetProject(user.Environment, user.Key, user.Secret, id);
+    }
 
     [HttpPut(template: "service/{id}", Name = "UpdateProjectService")]
     [Tags("Projects")]

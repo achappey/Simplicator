@@ -102,6 +102,12 @@ public class SimplicateService
     {
         return await this._client.GetSales(environment, key, secret, id);
     }
+    
+    public async Task<Project?> GetProject(string environment, string key, string secret, string id)
+    {
+        return await this._client.GetProject(environment, key, secret, id);
+    }
+
 
     public async Task<Quote?> GetQuote(string environment, string key, string secret, string id)
     {
