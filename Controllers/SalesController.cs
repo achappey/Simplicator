@@ -63,7 +63,6 @@ public class SalesController : ControllerBase
     }
     
     [HttpGet(template: "sales/{id}", Name = "GetSale")]
-    [EnableQuery]
     [SwaggerOperation("Fetches sale for the given sale id")]
     public async Task<Sales?> GetSale([FromRoute] string id)
     {

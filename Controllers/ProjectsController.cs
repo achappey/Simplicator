@@ -99,7 +99,6 @@ public class ProjectsController : ControllerBase
     }
     
     [HttpGet(template: "project/{id}", Name = "GetProject")]
-    [EnableQuery]
     [SwaggerOperation("Fetches project for the given project id")]
     public async Task<Project?> GetProject([FromRoute] string id)
     {
