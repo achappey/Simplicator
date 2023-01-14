@@ -23,3 +23,14 @@ public class ProjectEmployee
     public bool Declarable { get; set; }
 
 }
+
+
+public class NewProjectEmployee
+{
+    [JsonPropertyName("project_id")]
+    public string ProjectId { get; set; } = null!;
+    
+    [JsonPropertyName("employee_id")]
+    public string EmployeeId { get; set; } = null!;
+
+}

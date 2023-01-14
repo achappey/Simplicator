@@ -37,6 +37,7 @@ public class SimplicateClient
         return await this._httpClient.GetProject(environment, key, secret, id);
     }
 
+
     public async Task<Quote?> GetQuote(string environment, string key, string secret, string id)
     {
         return await this._httpClient.GetQuote(environment, key, secret, id);
@@ -82,7 +83,7 @@ public class SimplicateClient
         return await this._httpClient.GetProjectStatuses(environment, key, secret);
     }
 
-    
+
     public async Task<IEnumerable<InvoiceStatus>> GetInvoiceStatuses(string environment, string key, string secret)
     {
         return await this._httpClient.GetInvoiceStatuses(environment, key, secret);
@@ -179,7 +180,7 @@ public class SimplicateClient
         return await this._httpClient.GetProjectHours(environment, key, secret, projectId);
     }
 
-     public async Task<IEnumerable<Invoice>> GetProjectInvoices(string environment, string key, string secret, string projectId)
+    public async Task<IEnumerable<Invoice>> GetProjectInvoices(string environment, string key, string secret, string projectId)
     {
         return await this._httpClient.GetProjectInvoices(environment, key, secret, projectId);
     }
@@ -198,11 +199,17 @@ public class SimplicateClient
     {
         return await this._httpClient.AddSales(environment, key, secret, sales);
     }
-    
+
     public async Task<string?> AddQuote(string environment, string key, string secret, NewQuote quote)
     {
         return await this._httpClient.AddQuote(environment, key, secret, quote);
     }
+
+    public async Task AddProjectEmployee(string environment, string key, string secret, NewProjectEmployee newEmployee)
+    {
+        await this._httpClient.AddProjectEmployee(environment, key, secret, newEmployee);
+    }
+
 
 
     public async Task<string?> AddProject(string environment, string key, string secret, NewProject service)
@@ -229,7 +236,7 @@ public class SimplicateClient
     {
         return await this._httpClient.UpdateOrganization(environment, key, secret, id, organization);
     }
-    
+
     public async Task<string?> UpdateSales(string environment, string key, string secret, string id, Sales sales)
     {
         return await this._httpClient.UpdateSales(environment, key, secret, id, sales);

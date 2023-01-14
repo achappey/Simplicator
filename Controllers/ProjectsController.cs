@@ -117,4 +117,15 @@ public class ProjectsController : ControllerBase
 
         return await _simplicateService.UpdateProjectService(user.Environment, user.Key, user.Secret, id, service);
     }
+
+    [HttpPost(template: "project/projectemployee", Name = "AddProjectEmployee")]
+    [Tags("Projects")]
+    [SwaggerOperation("Adds a project employee")]
+    public async Task AddProjectEmployee([FromBody] NewProjectEmployee newEmployee)
+    {
+        var user = await this.GetUser();
+
+        await _simplicateService.AddProjectEmployee(user.Environment, user.Key, user.Secret, newEmployee);
+    }
+
 }

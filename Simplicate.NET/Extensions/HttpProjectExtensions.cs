@@ -48,6 +48,13 @@ public static class HttpProjectExtensions
         return item?.Id;
     }
 
+    public static async Task AddProjectEmployee(this HttpClient client, string environment, string key, string secret, NewProjectEmployee newEmployee)
+    {
+        await client.SimplicatePostRequest<NewResource>(
+            environment.BuildRequestUri(Endpoints.PROJECTEMPLOYEE),
+            key, secret, newEmployee);
+    }
+
     public static async Task<string?> AddProject(this HttpClient client, string environment, string key, string secret, NewProject service)
     {
         var item = await client.SimplicatePostRequest<NewResource>(
