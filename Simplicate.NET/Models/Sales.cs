@@ -138,6 +138,9 @@ public class NewSales
     [JsonPropertyName("person_id")]
     public string? PersonId { get; set; }
 
+    [JsonPropertyName("contact_id")]
+    public string? ContactId { get; set; }
+
     [JsonPropertyName("status_id")]
     public string? StatusId { get; set; }
 
