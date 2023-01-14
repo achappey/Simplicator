@@ -20,8 +20,27 @@ public class Message
     [JsonPropertyName("created_by")]
     public TypeLookup? CreatedBy { get; set; }
 
+    public string? CreatedById
+    {
+        get
+        {
+            return CreatedBy?.Id;
+        }
+        set { }
+
+    }
+
     [JsonPropertyName("message_type")]
     public MessageType? MessageType { get; set; }
+
+    public string? MessageTypeId
+    {
+        get
+        {
+            return MessageType?.Id;
+        }
+        set { }
+    }
 
     [JsonPropertyName("linked_to")]
     public IEnumerable<LabelTypeLookup>? LinkedTo { get; set; }

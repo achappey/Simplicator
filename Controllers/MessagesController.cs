@@ -24,8 +24,6 @@ public class MessagesController : ControllerBase
 
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-
-        
     }
 
     [HttpGet(template: "messages", Name = "GetMessages")]
@@ -38,13 +36,13 @@ public class MessagesController : ControllerBase
         return await _simplicateService.GetAllMessages(user.Environment, user.Key, user.Secret);
     }
 
-    [HttpGet(template: "lastmonth", Name = "LastWeek")]
+    [HttpGet(template: "lastweek", Name = "LastWeek")]
     [EnableQuery]
     [SwaggerOperation("Fetches last week messages")]
     public async Task<IEnumerable<Message>> LastWeek()
     {
         var user = await this.GetUser();
-    
+
         return await _simplicateService.GetMessagesLastWeek(user.Environment, user.Key, user.Secret);
     }
 
