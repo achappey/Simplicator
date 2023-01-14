@@ -163,7 +163,4 @@ public class NewProject
 
     [JsonPropertyName("custom_fields")]
     public IEnumerable<CustomFieldLookup>? CustomFields { get; set; }
-
-    [JsonPropertyName("teams")]
-    public IEnumerable<Team>? Teams { get; set; }
 }
