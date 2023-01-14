@@ -138,9 +138,15 @@ public class SimplicateClient
         return await this._httpClient.GetContracts(environment, key, secret);
     }
 
-    public async Task<IEnumerable<Message>> GetMessages(string environment, string key, string secret)
+    public async Task<IEnumerable<Message>> GetAllMessages(string environment, string key, string secret)
     {
         return await this._httpClient.GetMessages(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<Message>> GetMessagesLastWeek(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetMessages(environment, key, secret, string.Format(
+            @"q[created_at][ge]={0}", DateTimeOffset.Now.AddDays(-7).ToString("yyyy-MM-dd hh:mm:ss")));
     }
 
     public async Task<IEnumerable<Invoice>> GetInvoices(string environment, string key, string secret)

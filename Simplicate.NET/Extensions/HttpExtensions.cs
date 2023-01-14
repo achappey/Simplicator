@@ -25,7 +25,6 @@ public static class HttpExtensions
 
         return result?.Data;
     }
-
     
     public static async Task<Quote?> GetQuote(this HttpClient client, string environment, string key, string secret, string id)
     {
@@ -43,7 +42,8 @@ public static class HttpExtensions
     {
         return await client.PagedRequest<Person>(environment.BuildRequestUri(Endpoints.PERSON), key, secret);
     }
-        public static async Task<IEnumerable<Employee>> GetEmployees(this HttpClient client, string environment, string key, string secret)
+
+    public static async Task<IEnumerable<Employee>> GetEmployees(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<Employee>(environment.BuildRequestUri(Endpoints.EMPLOYEE), key, secret);
     }
@@ -53,9 +53,11 @@ public static class HttpExtensions
         return await client.PagedRequest<Contract>(environment.BuildRequestUri(Endpoints.CONTRACT), key, secret);
     }
 
-    public static async Task<IEnumerable<Message>> GetMessages(this HttpClient client, string environment, string key, string secret)
+    public static async Task<IEnumerable<Message>> GetMessages(this HttpClient client, string environment, string key, string secret, string query = null!)
     {
-        return await client.PagedRequest<Message>(environment.BuildRequestUri(Endpoints.MESSAGE, null, @"select=title,id,content,created_at,created_by.,message_type.,linked_to."), key, secret);
+        return await client.PagedRequest<Message>(environment.BuildRequestUri(Endpoints.MESSAGE, null, 
+            string.Format(@"select=title,id,content,created_at,created_by.,message_type.,linked_to.{0}", string.IsNullOrEmpty(query) ? string.Empty : string.Format("&{0}", query))), 
+                key, secret);
     }
 
     public static async Task<IEnumerable<Sales>> GetSales(this HttpClient client, string environment, string key, string secret)

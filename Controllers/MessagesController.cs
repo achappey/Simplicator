@@ -35,7 +35,17 @@ public class MessagesController : ControllerBase
     {
         var user = await this.GetUser();
 
-        return await _simplicateService.GetMessages(user.Environment, user.Key, user.Secret);
+        return await _simplicateService.GetAllMessages(user.Environment, user.Key, user.Secret);
+    }
+
+    [HttpGet(template: "lastmonth", Name = "LastWeek")]
+    [EnableQuery]
+    [SwaggerOperation("Fetches last week messages")]
+    public async Task<IEnumerable<Message>> LastWeek()
+    {
+        var user = await this.GetUser();
+    
+        return await _simplicateService.GetMessagesLastWeek(user.Environment, user.Key, user.Secret);
     }
 
 }

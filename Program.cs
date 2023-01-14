@@ -156,6 +156,10 @@ static IEdmModel GetGraphModel(string name)
     builder.ComplexType<Simplicate.NET.Models.OrganizationContact>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.EmployeeLookup>().Namespace = name;
 
+    builder.EntityType<Simplicate.NET.Models.Message>().Collection
+    .Function("LastWeek")
+    .Returns<IEnumerable<Simplicate.NET.Models.Message>>();
+
     builder.Namespace = name;
 
     return builder.GetEdmModel();

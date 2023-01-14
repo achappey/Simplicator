@@ -244,9 +244,14 @@ public class SimplicateService
         return await this._client.GetContracts(environment, key, secret);
     }
 
-    public async Task<IEnumerable<Message>> GetMessages(string environment, string key, string secret)
+    public async Task<IEnumerable<Message>> GetAllMessages(string environment, string key, string secret)
     {
-        return await this._client.GetMessages(environment, key, secret);
+        return await this._client.GetAllMessages(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<Message>> GetMessagesLastWeek(string environment, string key, string secret)
+    {
+        return await this._client.GetMessagesLastWeek(environment, key, secret);
     }
 
     public async Task<IEnumerable<Hours>> GetHours(string environment, string key, string secret)
