@@ -205,9 +205,9 @@ public class SimplicateClient
         return await this._httpClient.AddQuote(environment, key, secret, quote);
     }
 
-    public async Task AddProjectEmployee(string environment, string key, string secret, NewProjectEmployee newEmployee)
+    public async Task<string?> AddProjectEmployee(string environment, string key, string secret, NewProjectEmployee newEmployee)
     {
-        await this._httpClient.AddProjectEmployee(environment, key, secret, newEmployee);
+        return await this._httpClient.AddProjectEmployee(environment, key, secret, newEmployee);
     }
 
 

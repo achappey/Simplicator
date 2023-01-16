@@ -210,9 +210,9 @@ public class SimplicateService
         return service;
     }
 
-    public async Task AddProjectEmployee(string environment, string key, string secret, NewProjectEmployee employee)
+    public async Task<string?> AddProjectEmployee(string environment, string key, string secret, NewProjectEmployee employee)
     {
-        await this._client.AddProjectEmployee(environment, key, secret, employee);
+        return await this._client.AddProjectEmployee(environment, key, secret, employee);
     }
 
     public async Task<Organization> UpdateOrganization(string environment, string key, string secret, string id, Organization organization)

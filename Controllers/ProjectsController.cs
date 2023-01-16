@@ -121,11 +121,11 @@ public class ProjectsController : ControllerBase
     [HttpPost(template: "project/projectemployee", Name = "AddProjectEmployee")]
     [Tags("Projects")]
     [SwaggerOperation("Adds a project employee")]
-    public async Task AddProjectEmployee([FromBody] NewProjectEmployee newEmployee)
+    public async Task<string?> AddProjectEmployee([FromBody] NewProjectEmployee newEmployee)
     {
         var user = await this.GetUser();
 
-        await _simplicateService.AddProjectEmployee(user.Environment, user.Key, user.Secret, newEmployee);
+        return await _simplicateService.AddProjectEmployee(user.Environment, user.Key, user.Secret, newEmployee);
     }
 
 }
