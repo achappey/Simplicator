@@ -18,7 +18,7 @@ public class Invoice : Base
     public string? Reference { get; set; }
 
     [JsonPropertyName("sending_method")]
-    public string SendingMethod { get; set; } = null!;
+    public string? SendingMethod { get; set; }
 
     [JsonPropertyName("invoice_number")]
     public string? InvoiceNumber { get; set; }

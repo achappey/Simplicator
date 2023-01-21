@@ -102,7 +102,7 @@ public class SimplicateService
     {
         return await this._client.GetSales(environment, key, secret, id);
     }
-    
+
     public async Task<Project?> GetProject(string environment, string key, string secret, string id)
     {
         return await this._client.GetProject(environment, key, secret, id);
@@ -153,54 +153,34 @@ public class SimplicateService
 
     public async Task<Quote> AddQuote(string environment, string key, string secret, NewQuote quote)
     {
-          var id = await this._client.AddQuote(environment, key, secret, quote);
+        var id = await this._client.AddQuote(environment, key, secret, quote)
+        ?? throw new SimplicateResponseException(500, "Could not create quote");
 
-        return id != null ? new Quote()
-        {
-            Id = id
-        } : throw new SimplicateResponseException(500, "Could not create quote");
+        return new Quote() { Id = id };
     }
 
     public async Task<Sales> AddSales(string environment, string key, string secret, NewSales sales)
     {
-        var id = await this._client.AddSales(environment, key, secret, sales);
+        var id = await this._client.AddSales(environment, key, secret, sales)
+        ?? throw new SimplicateResponseException(500, "Could not create sales");
 
-        return id != null ? new Sales()
-        {
-            Id = id
-        } : throw new SimplicateResponseException(500, "Could not create sales");
-
+        return new Sales() { Id = id };
     }
 
     public async Task<Project> AddProject(string environment, string key, string secret, NewProject service)
     {
+        var id = await this._client.AddProject(environment, key, secret, service)
+        ?? throw new SimplicateResponseException(500, "Could not create project");
 
-        var id = await this._client.AddProject(environment, key, secret, service);
-
-        return id != null ? new Project()
-        {
-            Id = id
-        } : throw new SimplicateResponseException(500, "Could not create project");
+        return new Project() { Id = id };
     }
 
     public async Task<Invoice> AddInvoice(string environment, string key, string secret, NewInvoice invoice)
     {
-        var id = await this._client.AddInvoice(environment, key, secret, invoice);
+        var id = await this._client.AddInvoice(environment, key, secret, invoice)
+        ?? throw new SimplicateResponseException(500, "Could not create invoice");
 
-        return id != null ? new Invoice()
-        {
-            Id = id
-        } : throw new SimplicateResponseException(500, "Could not create invoice");
-    }
-
-    public async Task<Message> AddMessage(string environment, string key, string secret, NewMessage message)
-    {
-        var id = await this._client.AddMessage(environment, key, secret, message);
-
-        return id != null ? new Message()
-        {
-            Id = id
-        } : throw new SimplicateResponseException(500, "Could not create message");
+        return new Invoice() { Id = id };
     }
 
     public async Task<ProjectService> UpdateProjectService(string environment, string key, string secret, string id, ProjectService service)
@@ -217,25 +197,15 @@ public class SimplicateService
 
     public async Task<Organization> UpdateOrganization(string environment, string key, string secret, string id, Organization organization)
     {
-        var newId = await this._client.UpdateOrganization(environment, key, secret, id, organization);
-
-        if (newId != null)
-        {
-            organization.Id = newId;
-        }
+        organization.Id = await this._client.UpdateOrganization(environment, key, secret, id, organization) ?? organization.Id;
 
         return organization;
     }
 
-    
+
     public async Task<Sales> UpdateSales(string environment, string key, string secret, string id, Sales sales)
     {
-        var newId = await this._client.UpdateSales(environment, key, secret, id, sales);
-
-        if (newId != null)
-        {
-            sales.Id = newId;
-        }
+        sales.Id = await this._client.UpdateSales(environment, key, secret, id, sales) ?? sales.Id;
 
         return sales;
     }

@@ -20,94 +20,34 @@ public class Message
     [JsonPropertyName("created_by")]
     public TypeLookup? CreatedBy { get; set; }
 
-    public string? CreatedById
-    {
-        get
-        {
-            return CreatedBy?.Id;
-        }
-        set { }
-
-    }
+    public string CreatedById => CreatedBy?.Id;
 
     [JsonPropertyName("message_type")]
     public MessageType? MessageType { get; set; }
 
-    public string? MessageTypeId
-    {
-        get
-        {
-            return MessageType?.Id;
-        }
-        set { }
-    }
+    public string MessageTypeId => MessageType?.Id;
 
     [JsonPropertyName("linked_to")]
     public IEnumerable<LabelTypeLookup>? LinkedTo { get; set; }
 
-    public IEnumerable<LabelTypeLookup>? LinkedToNotEmpty
-    {
-        get
-        {
-            return LinkedTo?.Where(a => !string.IsNullOrEmpty(a.Label));
-        }
-        set { }
-    }
+    public IEnumerable<LabelTypeLookup> LinkedToNotEmpty => LinkedTo?.Where(a => !string.IsNullOrEmpty(a.Label));
 
-    public string? LinkedToOrganization
-    {
-        get
-        {
-            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "organization")?.Id;
-        }
-        set { }
-    }
+    public string LinkedToOrganization => LinkedToNotEmpty?.GetLinkedId("organization");
+    public string LinkedToPerson => LinkedToNotEmpty?.GetLinkedId("person");
+    public string LinkedToSales => LinkedToNotEmpty?.GetLinkedId("sales");
+    public string LinkedToProject => LinkedToNotEmpty?.GetLinkedId("project");
+    public string LinkedToEmployee => LinkedToNotEmpty?.GetLinkedId("employee");
+    public string LinkedToInvoice => LinkedToNotEmpty?.GetLinkedId("invoice");
 
-    public string? LinkedToPerson
-    {
-        get
-        {
-            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "person")?.Id;
-        }
-        set { }
-    }
+}
 
-    public string? LinkedToSales
-    {
-        get
-        {
-            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "sales")?.Id;
-        }
-        set { }
-    }
 
-    public string? LinkedToProject
+public static class LabelTypeLookupExtensions
+{
+    public static string GetLinkedId(this IEnumerable<LabelTypeLookup> linkedTo, string type)
     {
-        get
-        {
-            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "project")?.Id;
-        }
-        set { }
+        return linkedTo?.FirstOrDefault(g => g.Type == type)?.Id;
     }
-
-    public string? LinkedToEmployee
-    {
-        get
-        {
-            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "employee")?.Id;
-        }
-        set { }
-    }
-
-    public string? LinkedToInvoice
-    {
-        get
-        {
-            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "invoice")?.Id;
-        }
-        set { }
-    }
-
 }
 
 

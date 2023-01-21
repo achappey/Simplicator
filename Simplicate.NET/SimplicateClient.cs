@@ -151,8 +151,9 @@ public class SimplicateClient
 
     public async Task<IEnumerable<Message>> GetMessagesLastWeek(string environment, string key, string secret)
     {
-        return await this._httpClient.GetMessages(environment, key, secret, string.Format(
-            @"q[created_at][ge]={0}", DateTimeOffset.Now.AddDays(-7).ToString("yyyy-MM-dd hh:mm:ss")));
+        var lastWeek = DateTimeOffset.Now.AddDays(-7).ToString("yyyy-MM-dd hh:mm:ss");
+
+        return await this._httpClient.GetMessages(environment, key, secret, $"q[created_at][ge]={lastWeek}");
     }
 
     public async Task<IEnumerable<Invoice>> GetInvoices(string environment, string key, string secret)
@@ -215,11 +216,6 @@ public class SimplicateClient
     public async Task<string?> AddProject(string environment, string key, string secret, NewProject service)
     {
         return await this._httpClient.AddProject(environment, key, secret, service);
-    }
-
-    public async Task<string?> AddMessage(string environment, string key, string secret, NewMessage message)
-    {
-        return await this._httpClient.AddMessage(environment, key, secret, message);
     }
 
     public async Task<string?> AddInvoice(string environment, string key, string secret, NewInvoice invoice)

@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using Simplicate.NET.Models.Http;
 
 namespace Simplicate.NET.Extensions;
@@ -24,7 +25,6 @@ public static class RequestExtensions
         uri = uri.AddParameter("metadata", "offset,count,limit");
 
         int offset = 0;
-        long runningTime = 0;
 
         SimplicateCollectionResponse<T>? result = null;
 
@@ -32,7 +32,7 @@ public static class RequestExtensions
         {
             uri = uri.AddParameter("offset", offset.ToString());
 
-            runningTime = DateTimeOffset.Now.Ticks;
+            var stopwatch = Stopwatch.StartNew();
             result = await client.SimplicateGetRequest<SimplicateCollectionResponse<T>>(uri, key, secret);
 
             if (result != null)
@@ -42,8 +42,8 @@ public static class RequestExtensions
                 offset = result.Metadata!.Offset + result.Metadata.Limit;
             }
 
-            var timeOut = delay - (int)((DateTimeOffset.Now.Ticks - runningTime) / 10000);
-            
+            var timeOut = delay - (int)stopwatch.ElapsedMilliseconds;
+
             await Task.Delay(timeOut < 0 ? 0 : timeOut);
         }
         while (result?.Metadata!.Count > offset);
