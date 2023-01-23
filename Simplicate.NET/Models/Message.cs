@@ -20,7 +20,7 @@ public class Message
     [JsonPropertyName("created_by")]
     public TypeLookup? CreatedBy { get; set; } = null!;
 
-    public string CreatedById
+    public string? CreatedById
     {
         get
         {
@@ -35,7 +35,7 @@ public class Message
     [JsonPropertyName("message_type")]
     public MessageType? MessageType { get; set; } = null!;
 
-    public string MessageTypeId
+    public string? MessageTypeId
     {
         get
         {
