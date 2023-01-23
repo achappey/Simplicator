@@ -18,36 +18,105 @@ public class Message
     public string CreatedAt { get; set; } = null!;
 
     [JsonPropertyName("created_by")]
-    public TypeLookup? CreatedBy { get; set; }
+    public TypeLookup? CreatedBy { get; set; } = null!;
 
-    public string CreatedById => CreatedBy?.Id;
+    public string CreatedById
+    {
+        get
+        {
+            return CreatedBy?.Id;
+        }
+        set
+        {
+
+        }
+    }
 
     [JsonPropertyName("message_type")]
-    public MessageType? MessageType { get; set; }
+    public MessageType? MessageType { get; set; } = null!;
 
-    public string MessageTypeId => MessageType?.Id;
+    public string MessageTypeId
+    {
+        get
+        {
+            return MessageType?.Id;
+        }
+        set
+        {
+
+        }
+    }
 
     [JsonPropertyName("linked_to")]
-    public IEnumerable<LabelTypeLookup>? LinkedTo { get; set; }
+    public IEnumerable<LabelTypeLookup> LinkedTo { get; set; } = null!;
 
-    public IEnumerable<LabelTypeLookup> LinkedToNotEmpty => LinkedTo?.Where(a => !string.IsNullOrEmpty(a.Label));
-
-    public string LinkedToOrganization => LinkedToNotEmpty?.GetLinkedId("organization");
-    public string LinkedToPerson => LinkedToNotEmpty?.GetLinkedId("person");
-    public string LinkedToSales => LinkedToNotEmpty?.GetLinkedId("sales");
-    public string LinkedToProject => LinkedToNotEmpty?.GetLinkedId("project");
-    public string LinkedToEmployee => LinkedToNotEmpty?.GetLinkedId("employee");
-    public string LinkedToInvoice => LinkedToNotEmpty?.GetLinkedId("invoice");
-
-}
-
-
-public static class LabelTypeLookupExtensions
-{
-    public static string GetLinkedId(this IEnumerable<LabelTypeLookup> linkedTo, string type)
+    public IEnumerable<LabelTypeLookup> LinkedToNotEmpty
     {
-        return linkedTo?.FirstOrDefault(g => g.Type == type)?.Id;
+        get
+        {
+            return LinkedTo.Where(a => !string.IsNullOrEmpty(a.Label));
+        }
+        set { }
     }
+
+    public string? LinkedToOrganization
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "organization")?.Id;
+        }
+        set { }
+    }
+  
+    public string? LinkedToPerson
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "person")?.Id;
+        }
+        set { }
+    }
+  
+    
+    public string? LinkedToSales
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "sales")?.Id;
+        }
+        set { }
+    }
+
+    
+    public string? LinkedToProject
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "project")?.Id;
+        }
+        set { }
+    }
+
+
+    public string? LinkedToEmployee
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "employee")?.Id;
+        }
+        set { }
+    }
+
+    public string? LinkedToInvoice
+    {
+        get
+        {
+            return LinkedToNotEmpty?.FirstOrDefault(g => g.Type == "invoice")?.Id;
+        }
+        set { }
+    }
+ 
+
 }
 
 
