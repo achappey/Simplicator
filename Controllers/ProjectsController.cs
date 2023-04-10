@@ -26,8 +26,6 @@ public class ProjectsController : ControllerBase
 
          _simplicateService = serviceProvider
           .GetRequiredService<SimplicateService>();
-
-        
     }
 
     [HttpGet(template: "project", Name = "GetProjects")]
@@ -37,7 +35,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all projects")]
     public async Task<IEnumerable<Project>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetProjects(user.Environment, user.Key, user.Secret);
     }
@@ -49,7 +47,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all hours for the given project id")]
     public async Task<IEnumerable<Hours>> GetHours([FromRoute] string id)
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetProjectHours(user.Environment, user.Key, user.Secret, id);
     }
@@ -61,7 +59,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all invoices for the given project id")]
     public async Task<IEnumerable<Invoice>> GetInvoices([FromRoute] string id)
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetProjectInvoices(user.Environment, user.Key, user.Secret, id);
     }
@@ -73,7 +71,7 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Fetches all project services")]
     public async Task<IEnumerable<ProjectServices>> GetProjectServices()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetProjectServices(user.Environment, user.Key, user.Secret);
     }
@@ -83,26 +81,16 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Add a new project service")]
     public async Task<ProjectService> AddProjectService([FromBody] NewProjectService service)
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.AddProjectService(user.Environment, user.Key, user.Secret, service);
-    }
-    
-    [HttpPost(template: "project", Name = "AddProject")]
-    [Tags("Projects")]
-    [SwaggerOperation("Add a new project")]
-    public async Task<Project> AddProject([FromBody] NewProject project)
-    {
-        var user = await this.GetUser();
-
-        return await _simplicateService.AddProject(user.Environment, user.Key, user.Secret, project);
     }
     
     [HttpGet(template: "project/{id}", Name = "GetProject")]
     [SwaggerOperation("Fetches project for the given project id")]
     public async Task<Project?> GetProject([FromRoute] string id)
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetProject(user.Environment, user.Key, user.Secret, id);
     }
@@ -113,19 +101,9 @@ public class ProjectsController : ControllerBase
     [SwaggerOperation("Updates a project service for the given id")]
     public async Task<ProjectService> UpdateProjectService([FromRoute] string id, [FromBody] ProjectService service)
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.UpdateProjectService(user.Environment, user.Key, user.Secret, id, service);
-    }
-
-    [HttpPost(template: "project/projectemployee", Name = "AddProjectEmployee")]
-    [Tags("Projects")]
-    [SwaggerOperation("Adds a project employee")]
-    public async Task<string?> AddProjectEmployee([FromBody] NewProjectEmployee newEmployee)
-    {
-        var user = await this.GetUser();
-
-        return await _simplicateService.AddProjectEmployee(user.Environment, user.Key, user.Secret, newEmployee);
     }
 
 }

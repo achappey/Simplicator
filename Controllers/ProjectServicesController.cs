@@ -4,7 +4,6 @@ using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 
@@ -34,7 +33,7 @@ public class ProjectServicesController : ControllerBase
     [SwaggerOperation("Fetches all project services")]
     public async Task<IEnumerable<ProjectServices>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetProjectServices(user.Environment, user.Key, user.Secret);
     }

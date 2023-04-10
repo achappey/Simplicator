@@ -109,21 +109,6 @@ public class SimplicateClient
         return await this._httpClient.GetSalesProgresses(environment, key, secret);
     }
 
-    public async Task<IEnumerable<MessageType>> GetMessageTypes(string environment, string key, string secret)
-    {
-        return await this._httpClient.GetMessageTypes(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<DocumentType>> GetDocumentTypes(string environment, string key, string secret)
-    {
-        return await this._httpClient.GetDocumentTypes(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<Document>> GetDocuments(string environment, string key, string secret)
-    {
-        return await this._httpClient.GetDocuments(environment, key, secret);
-    }
-
     public async Task<IEnumerable<DefaultService>> GetDefaultServices(string environment, string key, string secret)
     {
         return await this._httpClient.GetDefaultServices(environment, key, secret);
@@ -137,23 +122,6 @@ public class SimplicateClient
     public async Task<IEnumerable<Employee>> GetEmployees(string environment, string key, string secret)
     {
         return await this._httpClient.GetEmployees(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<Contract>> GetContracts(string environment, string key, string secret)
-    {
-        return await this._httpClient.GetContracts(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<Message>> GetAllMessages(string environment, string key, string secret)
-    {
-        return await this._httpClient.GetMessages(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<Message>> GetMessagesLastWeek(string environment, string key, string secret)
-    {
-        var lastWeek = DateTimeOffset.Now.AddDays(-7).ToString("yyyy-MM-dd hh:mm:ss");
-
-        return await this._httpClient.GetMessages(environment, key, secret, $"q[created_at][ge]={lastWeek}");
     }
 
     public async Task<IEnumerable<Invoice>> GetInvoices(string environment, string key, string secret)
@@ -196,45 +164,9 @@ public class SimplicateClient
         return await this._httpClient.AddProjectService(environment, key, secret, service);
     }
 
-    public async Task<string?> AddSales(string environment, string key, string secret, NewSales sales)
-    {
-        return await this._httpClient.AddSales(environment, key, secret, sales);
-    }
-
-    public async Task<string?> AddQuote(string environment, string key, string secret, NewQuote quote)
-    {
-        return await this._httpClient.AddQuote(environment, key, secret, quote);
-    }
-
-    public async Task<string?> AddProjectEmployee(string environment, string key, string secret, NewProjectEmployee newEmployee)
-    {
-        return await this._httpClient.AddProjectEmployee(environment, key, secret, newEmployee);
-    }
-
-
-
-    public async Task<string?> AddProject(string environment, string key, string secret, NewProject service)
-    {
-        return await this._httpClient.AddProject(environment, key, secret, service);
-    }
-
-    public async Task<string?> AddInvoice(string environment, string key, string secret, NewInvoice invoice)
-    {
-        return await this._httpClient.AddInvoice(environment, key, secret, invoice);
-    }
-
     public async Task<string?> UpdateProjectService(string environment, string key, string secret, string id, ProjectService service)
     {
         return await this._httpClient.UpdateProjectService(environment, key, secret, id, service);
     }
 
-    public async Task<string?> UpdateOrganization(string environment, string key, string secret, string id, Organization organization)
-    {
-        return await this._httpClient.UpdateOrganization(environment, key, secret, id, organization);
-    }
-
-    public async Task<string?> UpdateSales(string environment, string key, string secret, string id, Sales sales)
-    {
-        return await this._httpClient.UpdateSales(environment, key, secret, id, sales);
-    }
 }

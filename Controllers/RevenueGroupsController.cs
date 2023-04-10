@@ -34,7 +34,7 @@ public class RevenueGroupsController : ControllerBase
     [SwaggerOperation("Fetches all revenue groups")]
     public async Task<IEnumerable<RevenueGroup>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetRevenueGroups(user.Environment, user.Key, user.Secret);
     }

@@ -11,7 +11,6 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-// TEMP
 [ApiExplorerSettings(IgnoreApi = true)]
 
 public class HoursController : ControllerBase
@@ -34,7 +33,7 @@ public class HoursController : ControllerBase
     [SwaggerOperation("Fetches all hours")]
     public async Task<IEnumerable<Hours>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetHours(user.Environment, user.Key, user.Secret);
     }

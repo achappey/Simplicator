@@ -10,9 +10,7 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-// TEMP
 [ApiExplorerSettings(IgnoreApi = true)]
-
 public class HrmController : ControllerBase
 {
     private readonly ILogger<HrmController> _logger;
@@ -33,20 +31,9 @@ public class HrmController : ControllerBase
     [SwaggerOperation("Fetches all employees")]
     public async Task<IEnumerable<Employee>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
-    }
-
-    [HttpGet(template: "contract", Name = "GetContracts")]
-    [EnableQuery]
-    [Tags("HRM")]
-    [SwaggerOperation("Fetches all contracts")]
-    public async Task<IEnumerable<Contract>> GetContracts()
-    {
-        var user = await this.GetUser();
-
-        return await _simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
     }
 
     [HttpGet(template: "employee/{id}/hours", Name = "GetEmployeeHours")]
@@ -55,7 +42,7 @@ public class HrmController : ControllerBase
     [SwaggerOperation("Fetches all hours for the given employee id")]
     public async Task<IEnumerable<Hours>> GetByEmployee([FromRoute] string id)
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetEmployeeHours(user.Environment, user.Key, user.Secret, id);
     }

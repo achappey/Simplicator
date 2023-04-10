@@ -34,7 +34,7 @@ public class QuoteTemplatesController : ControllerBase
     [SwaggerOperation("Fetches all quote templates")]
     public async Task<IEnumerable<QuoteTemplate>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetQuoteTemplates(user.Environment, user.Key, user.Secret);
     }

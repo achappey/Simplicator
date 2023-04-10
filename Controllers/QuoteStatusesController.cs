@@ -34,7 +34,7 @@ public class QuoteStatusesController : ControllerBase
     [SwaggerOperation("Fetches all quote statuses")]
     public async Task<IEnumerable<QuoteStatus>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetQuoteStatuses(user.Environment, user.Key, user.Secret);
     }

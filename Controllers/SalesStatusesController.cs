@@ -17,8 +17,6 @@ public class SalesStatusesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    
-
     public SalesStatusesController(ILogger<SalesStatusesController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
@@ -26,7 +24,7 @@ public class SalesStatusesController : ControllerBase
         _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
 
-        
+
     }
 
     [HttpGet]
@@ -34,7 +32,7 @@ public class SalesStatusesController : ControllerBase
     [SwaggerOperation("Fetches all sales statuses")]
     public async Task<IEnumerable<SalesStatus>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetSalesStatuses(user.Environment, user.Key, user.Secret);
     }

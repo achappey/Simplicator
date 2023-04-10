@@ -1,20 +1,36 @@
-using System.Text.Json.Serialization;
-
-namespace Simplicator.Models;
-
-public class User
+namespace Simplicator.Models
 {
-    public string Environment { get; set; } = null!;
+    /// <summary>
+    /// Represents a user with access to the Simplicator API.
+    /// </summary>
+    public class User
+    {
+        /// <summary>
+        /// Gets or sets the environment of the user.
+        /// </summary>
+        public string Environment { get; set; }
 
-    public string Key { get; set; } = null!;
+        /// <summary>
+        /// Gets or sets the API key of the user.
+        /// </summary>
+        public string Key { get; set; }
 
-    public string Secret { get; set; } = null!;
-}
+        /// <summary>
+        /// Gets or sets the API secret of the user.
+        /// </summary>
+        public string Secret { get; set; }
 
-
-
-public class UserClaim
-{
-    [JsonPropertyName("user_id")]
-    public string UserId { get; set; } = null!;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class with the specified environment, key, and secret.
+        /// </summary>
+        /// <param name="environment">The user's environment.</param>
+        /// <param name="key">The user's API key.</param>
+        /// <param name="secret">The user's API secret.</param>
+        public User(string environment, string key, string secret)
+        {
+            Environment = environment;
+            Key = key;
+            Secret = secret;
+        }
+    }
 }

@@ -30,7 +30,7 @@ public class DefaultServicesController : ControllerBase
     [SwaggerOperation("Fetches all default services")]
     public async Task<IEnumerable<DefaultService>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetDefaultServices(user.Environment, user.Key, user.Secret);
     }

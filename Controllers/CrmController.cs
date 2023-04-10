@@ -10,7 +10,6 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-// TEMP
 [ApiExplorerSettings(IgnoreApi = true)]
 
 public class CrmController : ControllerBase
@@ -35,7 +34,7 @@ public class CrmController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<Person>), 200)]
     public async Task<IEnumerable<Person>> GetPersons()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }
@@ -46,7 +45,7 @@ public class CrmController : ControllerBase
     [SwaggerOperation("Fetches all organizations")]
     public async Task<IEnumerable<Organization>> GetOrganizations()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }
@@ -57,7 +56,7 @@ public class CrmController : ControllerBase
     [SwaggerOperation("Fetches all my organizations")]
     public async Task<IEnumerable<Organization>> GetMyOrganizations()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }

@@ -4,24 +4,18 @@ using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-[Authorize]
-// TEMP
 [ApiExplorerSettings(IgnoreApi = true)]
-
 public class ServicesController : ControllerBase
 {
     private readonly ILogger<ServicesController> _logger;
 
     private readonly SimplicateService _simplicateService;
-
-    
 
     public ServicesController(ILogger<ServicesController> logger, IServiceProvider serviceProvider)
     {
@@ -39,7 +33,7 @@ public class ServicesController : ControllerBase
     [SwaggerOperation("Fetches all default services")]
     public async Task<IEnumerable<DefaultService>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetDefaultServices(user.Environment, user.Key, user.Secret);
     }

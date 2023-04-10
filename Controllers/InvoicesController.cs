@@ -11,7 +11,6 @@ namespace Simplicator.Controllers;
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
 [Consumes("application/json")]
-// TEMP
 [ApiExplorerSettings(IgnoreApi = true)]
 
 public class InvoicesController : ControllerBase
@@ -35,19 +34,9 @@ public class InvoicesController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IEnumerable<Invoice>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetInvoices(user.Environment, user.Key, user.Secret);
-    }
-
-    [HttpPost(template: "invoice", Name = "AddInvoice")]
-    [Tags("Invoices")]
-    [SwaggerOperation("Add a new invoice")]
-    public async Task<Invoice> AddMessage([FromBody] NewInvoice invoice)
-    {
-        var user = await this.GetUser();
-
-        return await _simplicateService.AddInvoice(user.Environment, user.Key, user.Secret, invoice);
     }
 
 }

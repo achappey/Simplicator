@@ -32,7 +32,7 @@ public class InvoiceStatusesController : ControllerBase
     [SwaggerOperation("Fetches all invoice statuses")]
     public async Task<IEnumerable<InvoiceStatus>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetInvoiceStatuses(user.Environment, user.Key, user.Secret);
     }

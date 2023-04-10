@@ -6,7 +6,6 @@ namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
-//[ApiExplorerSettings(IgnoreApi = true)]
 [Produces("application/json")]
 [Consumes("application/json")]
 public class ApiKeyController : ControllerBase
@@ -20,8 +19,30 @@ public class ApiKeyController : ControllerBase
 
     [HttpGet(Name = "GetApiKey")]
     [SwaggerOperation("Calculates an API Key")]
-    public string Get(string apiKey, string apiSecret, string environment)
+    public async Task<ActionResult<string>> Get(string apiKey, string apiSecret, string environment)
     {
-        return string.Format("{0}:{1}@{2}", apiKey, apiSecret, environment).EncodeBase64();
+        if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(apiSecret) || string.IsNullOrEmpty(environment))
+        {
+            ModelState.AddModelError(string.Empty, "One or more input parameters are missing or empty.");
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            string apiKeyValue = GenerateApiKey(apiKey, apiSecret, environment);
+            return Ok(apiKeyValue);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while generating the API key.");
+            ModelState.AddModelError(string.Empty, "An error occurred while generating the API key.");
+            return BadRequest(ModelState);
+        }
     }
+
+    private string GenerateApiKey(string apiKey, string apiSecret, string environment)
+    {
+        return $"{apiKey}:{apiSecret}@{environment}".EncodeBase64();
+    }
+
 }

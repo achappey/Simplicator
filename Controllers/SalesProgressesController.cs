@@ -34,7 +34,7 @@ public class SalesProgressesController : ControllerBase
     [SwaggerOperation("Fetches all sales progresses")]
     public async Task<IEnumerable<SalesProgress>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetSalesProgresses(user.Environment, user.Key, user.Secret);
     }

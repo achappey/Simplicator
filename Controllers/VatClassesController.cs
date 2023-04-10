@@ -35,7 +35,7 @@ public class VatClassesController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IEnumerable<VatClass>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetVatClasses(user.Environment, user.Key, user.Secret);
     }

@@ -34,7 +34,7 @@ public class ProjectStatusesController : ControllerBase
     [SwaggerOperation("Fetches all project statuses")]
     public async Task<IEnumerable<ProjectStatus>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetProjectStatuses(user.Environment, user.Key, user.Secret);
     }

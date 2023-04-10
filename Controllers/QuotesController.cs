@@ -35,7 +35,7 @@ public class QuotesController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IEnumerable<Quote>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetQuotes(user.Environment, user.Key, user.Secret);
     }
@@ -45,18 +45,10 @@ public class QuotesController : ControllerBase
     [SwaggerOperation("Fetches quote for the given quote id")]
     public async Task<Quote?> GetSale([FromRoute] string id)
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetQuote(user.Environment, user.Key, user.Secret, id);
     }
     
-    [HttpPost(template: "quote", Name = "AddQuote")]
-    [SwaggerOperation("Add a new quote")]
-    public async Task<Quote> AddQuote([FromBody] NewQuote newQuote)
-    {
-        var user = await this.GetUser();
-
-        return await _simplicateService.AddQuote(user.Environment, user.Key, user.Secret, newQuote);
-    }
 
 }

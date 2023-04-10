@@ -30,7 +30,7 @@ public class EmployeesController : ControllerBase
     [SwaggerOperation("Fetches all employees")]
     public async Task<IEnumerable<Employee>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }

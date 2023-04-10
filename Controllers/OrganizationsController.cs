@@ -31,7 +31,7 @@ public class OrganizationsController : ControllerBase
     [SwaggerOperation("Fetches all organizations")]
     public async Task<IEnumerable<Organization>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }
@@ -41,17 +41,9 @@ public class OrganizationsController : ControllerBase
     [SwaggerOperation("Fetches organization for the given organization id")]
     public async Task<Organization?> GetOrganization([FromRoute] string id)
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetOrganization(user.Environment, user.Key, user.Secret, id);
     }
 
-    [HttpPut(template: "organization/{id}", Name = "UpdateOrganization")]
-    [SwaggerOperation("Updates an organization for the given id")]
-    public async Task<Organization> UpdateOrganization([FromRoute] string id, [FromBody] Organization organization)
-    {
-        var user = await this.GetUser();
-
-        return await _simplicateService.UpdateOrganization(user.Environment, user.Key, user.Secret, id, organization);
-    }
 }

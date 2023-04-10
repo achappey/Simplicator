@@ -1,10 +1,9 @@
 using Simplicate.NET;
 using Simplicate.NET.Models;
-using Simplicate.NET.Models.Http;
 
 namespace Simplicator.Services;
 
-public class SimplicateService
+public sealed class SimplicateService
 {
     private readonly SimplicateClient _client;
 
@@ -66,21 +65,6 @@ public class SimplicateService
     public async Task<IEnumerable<SalesProgress>> GetSalesProgresses(string environment, string key, string secret)
     {
         return await this._client.GetSalesProgresses(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<MessageType>> GetMessageTypes(string environment, string key, string secret)
-    {
-        return await this._client.GetMessageTypes(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<DocumentType>> GetDocumentTypes(string environment, string key, string secret)
-    {
-        return await this._client.GetDocumentTypes(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<Document>> GetDocuments(string environment, string key, string secret)
-    {
-        return await this._client.GetDocuments(environment, key, secret);
     }
 
     public async Task<IEnumerable<Person>> GetPersons(string environment, string key, string secret)
@@ -151,63 +135,12 @@ public class SimplicateService
         return service;
     }
 
-    public async Task<Quote> AddQuote(string environment, string key, string secret, NewQuote quote)
-    {
-        var id = await this._client.AddQuote(environment, key, secret, quote)
-        ?? throw new SimplicateResponseException(500, "Could not create quote");
-
-        return new Quote() { Id = id };
-    }
-
-    public async Task<Sales> AddSales(string environment, string key, string secret, NewSales sales)
-    {
-        var id = await this._client.AddSales(environment, key, secret, sales)
-        ?? throw new SimplicateResponseException(500, "Could not create sales");
-
-        return new Sales() { Id = id };
-    }
-
-    public async Task<Project> AddProject(string environment, string key, string secret, NewProject service)
-    {
-        var id = await this._client.AddProject(environment, key, secret, service)
-        ?? throw new SimplicateResponseException(500, "Could not create project");
-
-        return new Project() { Id = id };
-    }
-
-    public async Task<Invoice> AddInvoice(string environment, string key, string secret, NewInvoice invoice)
-    {
-        var id = await this._client.AddInvoice(environment, key, secret, invoice)
-        ?? throw new SimplicateResponseException(500, "Could not create invoice");
-
-        return new Invoice() { Id = id };
-    }
 
     public async Task<ProjectService> UpdateProjectService(string environment, string key, string secret, string id, ProjectService service)
     {
         service.Id = await this._client.UpdateProjectService(environment, key, secret, id, service);
 
         return service;
-    }
-
-    public async Task<string?> AddProjectEmployee(string environment, string key, string secret, NewProjectEmployee employee)
-    {
-        return await this._client.AddProjectEmployee(environment, key, secret, employee);
-    }
-
-    public async Task<Organization> UpdateOrganization(string environment, string key, string secret, string id, Organization organization)
-    {
-        organization.Id = await this._client.UpdateOrganization(environment, key, secret, id, organization) ?? organization.Id;
-
-        return organization;
-    }
-
-
-    public async Task<Sales> UpdateSales(string environment, string key, string secret, string id, Sales sales)
-    {
-        sales.Id = await this._client.UpdateSales(environment, key, secret, id, sales) ?? sales.Id;
-
-        return sales;
     }
 
     public async Task<IEnumerable<Invoice>> GetInvoices(string environment, string key, string secret)
@@ -218,21 +151,6 @@ public class SimplicateService
     public async Task<IEnumerable<Employee>> GetEmployees(string environment, string key, string secret)
     {
         return await this._client.GetEmployees(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<Contract>> GetContracts(string environment, string key, string secret)
-    {
-        return await this._client.GetContracts(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<Message>> GetAllMessages(string environment, string key, string secret)
-    {
-        return await this._client.GetAllMessages(environment, key, secret);
-    }
-
-    public async Task<IEnumerable<Message>> GetMessagesLastWeek(string environment, string key, string secret)
-    {
-        return await this._client.GetMessagesLastWeek(environment, key, secret);
     }
 
     public async Task<IEnumerable<Hours>> GetHours(string environment, string key, string secret)

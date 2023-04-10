@@ -33,7 +33,7 @@ public class SalesServicesController : ControllerBase
     [SwaggerOperation("Fetches all sales services")]
     public async Task<IEnumerable<SalesService>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetSalesServices(user.Environment, user.Key, user.Secret);
     }

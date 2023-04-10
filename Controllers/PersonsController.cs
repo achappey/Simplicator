@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.OData.Query;
 using Simplicate.NET.Models;
 using Simplicator.Services;
 using Simplicator.Extensions;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Simplicator.Controllers;
 
@@ -15,8 +14,6 @@ public class PersonsController : ControllerBase
     private readonly ILogger<PersonsController> _logger;
 
     private readonly SimplicateService _simplicateService;
-
-    
 
     public PersonsController(ILogger<PersonsController> logger, IServiceProvider serviceProvider)
     {
@@ -32,7 +29,7 @@ public class PersonsController : ControllerBase
     [EnableQuery]
     public async Task<IEnumerable<Person>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }

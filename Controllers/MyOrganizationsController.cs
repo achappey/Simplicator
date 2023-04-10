@@ -16,16 +16,12 @@ public class MyOrganizationsController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    
-
     public MyOrganizationsController(ILogger<MyOrganizationsController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
 
         _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-
-        
     }
 
     [HttpGet]
@@ -34,7 +30,7 @@ public class MyOrganizationsController : ControllerBase
     [SwaggerOperation("Fetches all my organizations")]
     public async Task<IEnumerable<MyOrganization>> Get()
     {
-        var user = await this.GetUser();
+        var user = this.GetUser();
 
         return await _simplicateService.GetMyOrganizations(user.Environment, user.Key, user.Secret);
     }
