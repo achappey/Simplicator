@@ -17,12 +17,11 @@ public class ServicesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public ServicesController(ILogger<ServicesController> logger, IServiceProvider serviceProvider)
+    public ServicesController(ILogger<ServicesController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
 
-        _simplicateService = serviceProvider
-            .GetRequiredService<SimplicateService>();
+        _simplicateService = simplicateService;
 
         
     }

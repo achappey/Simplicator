@@ -17,6 +17,8 @@ namespace Simplicate.NET
         {
             public const string Employee = "hrm/employee";
             public const string Contract = "hrm/contract";
+            public const string Leave = "hrm/leave";
+            public const string TimeTable = "hrm/timetable";
         }
 
         public static class Timeline

@@ -19,14 +19,12 @@ public class InvoicesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public InvoicesController(ILogger<InvoicesController> logger, IServiceProvider serviceProvider)
+    public InvoicesController(ILogger<InvoicesController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
-
-        _simplicateService = serviceProvider
-            .GetRequiredService<SimplicateService>();
+        _simplicateService = simplicateService;
     }
-
+    
     [HttpGet(template: "invoice", Name = "GetInvoices")]
     [EnableQuery]
     [Tags("Invoices")]

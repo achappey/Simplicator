@@ -183,11 +183,50 @@ public static class HttpExtensions
         string selectQuery = @"select=id,employee.,projectservice.,
                            project.,invoice_status,start_date,
                            end_date,hours,billable,status,
-                           billable,tariff";
+                           billable,tariff,note";
 
         Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
 
         return await client.PagedRequest<Hours>(requestUri, key, secret);
+    }
+
+    /// <summary>
+    /// Retrieves the leaves data from the Simplicate API.
+    /// </summary>
+    /// <param name="client">The HttpClient instance to use for making the request.</param>
+    /// <param name="environment">The environment to be used for the API request.</param>
+    /// <param name="key">The authentication key for the API request.</param>
+    /// <param name="secret">The authentication secret for the API request.</param>
+    /// <returns>A Task representing the asynchronous operation, with a result of an IEnumerable of Hours objects.</returns>
+    public static async Task<IEnumerable<Leave>> GetLeaves(this HttpClient client, string environment, string key, string secret)
+    {
+        string requestPath = Endpoints.Hrm.Leave;
+        string selectQuery = @"select=id,employee.,
+                           start_date,end_date,description,
+                           leavetype.,hours";
+
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+
+        return await client.PagedRequest<Leave>(requestUri, key, secret);
+    }
+
+        /// <summary>
+    /// Retrieves the timetables data from the Simplicate API.
+    /// </summary>
+    /// <param name="client">The HttpClient instance to use for making the request.</param>
+    /// <param name="environment">The environment to be used for the API request.</param>
+    /// <param name="key">The authentication key for the API request.</param>
+    /// <param name="secret">The authentication secret for the API request.</param>
+    /// <returns>A Task representing the asynchronous operation, with a result of an IEnumerable of Hours objects.</returns>
+    public static async Task<IEnumerable<TimeTable>> GetTimeTables(this HttpClient client, string environment, string key, string secret)
+    {
+        string requestPath = Endpoints.Hrm.TimeTable;
+        string selectQuery = @"select=id,even_week,employee.,
+                           start_date,end_date,odd_week";
+
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+
+        return await client.PagedRequest<TimeTable>(requestUri, key, secret);
     }
 
     public static async Task<IEnumerable<Hours>> GetEmployeeHours(this HttpClient client, string environment, string key, string secret, string employeeId)

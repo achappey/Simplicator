@@ -17,13 +17,10 @@ public class IndustriesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public IndustriesController(ILogger<IndustriesController> logger, IServiceProvider serviceProvider)
+    public IndustriesController(ILogger<IndustriesController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
-
-        _simplicateService = serviceProvider
-       .GetRequiredService<SimplicateService>();
-
+        _simplicateService = simplicateService;
     }
 
     [HttpGet]

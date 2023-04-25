@@ -20,12 +20,11 @@ public class VatClassesController : ControllerBase
 
     private readonly SimplicateService _simplicateService;
 
-    public VatClassesController(ILogger<VatClassesController> logger, IServiceProvider serviceProvider)
+    public VatClassesController(ILogger<VatClassesController> logger, SimplicateService simplicateService)
     {
         _logger = logger;
 
-        _simplicateService = serviceProvider
-            .GetRequiredService<SimplicateService>();
+        _simplicateService = simplicateService;
     }
 
     [HttpGet(template: "vatclass", Name = "GetVatClasses")]

@@ -150,6 +150,8 @@ static IEdmModel GetGraphModel(string name)
     builder.EntitySet<Simplicate.NET.Models.QuoteTemplate>("QuoteTemplates").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.Invoice>("Invoices").EntityType.Namespace = name;
     builder.EntitySet<Simplicate.NET.Models.VatClass>("VatClasses").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.TimeTable>("TimeTables").EntityType.Namespace = name;
+    builder.EntitySet<Simplicate.NET.Models.Leave>("Leaves").EntityType.Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.Avatar>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.MyOrganizationLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.NameLookup>().Namespace = name;
@@ -172,6 +174,9 @@ static IEdmModel GetGraphModel(string name)
     builder.ComplexType<Simplicate.NET.Models.PersonLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.OrganizationContact>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.EmployeeLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.LeaveTypeLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.TimeTableWeek>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.TimeTableDay>().Namespace = name;
 
     builder.Namespace = name;
 

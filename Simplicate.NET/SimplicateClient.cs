@@ -144,6 +144,16 @@ public class SimplicateClient
         return await this._httpClient.GetHours(environment, key, secret);
     }
 
+    public async Task<IEnumerable<Leave>> GetLeaves(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetLeaves(environment, key, secret);
+    }
+
+    public async Task<IEnumerable<TimeTable>> GetTimeTables(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetTimeTables(environment, key, secret);
+    }
+
     public async Task<IEnumerable<Hours>> GetProjectHours(string environment, string key, string secret, string projectId)
     {
         return await this._httpClient.GetProjectHours(environment, key, secret, projectId);
