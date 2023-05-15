@@ -64,6 +64,12 @@ public class Hours
     [JsonPropertyName("note")]
     public string? Note { get; set; }
 
+     [JsonPropertyName("created_at")]
+    public string? CreatedAt { get; set; }
+
+    [JsonPropertyName("updated_at")]
+    public string? UpdatedAt { get; set; }
+
 }
 
 

@@ -181,8 +181,8 @@ public static class HttpExtensions
     {
         string requestPath = Endpoints.Hours.TimeEntry;
         string selectQuery = @"select=id,employee.,projectservice.,
-                           project.,invoice_status,start_date,
-                           end_date,hours,billable,status,
+                           project.,invoice_status,start_date,updated_at,
+                           end_date,hours,billable,status,created_at,
                            billable,tariff,note";
 
         Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
@@ -210,7 +210,7 @@ public static class HttpExtensions
         return await client.PagedRequest<Leave>(requestUri, key, secret);
     }
 
-        /// <summary>
+    /// <summary>
     /// Retrieves the timetables data from the Simplicate API.
     /// </summary>
     /// <param name="client">The HttpClient instance to use for making the request.</param>

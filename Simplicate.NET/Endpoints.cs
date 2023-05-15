@@ -21,12 +21,6 @@ namespace Simplicate.NET
             public const string TimeTable = "hrm/timetable";
         }
 
-        public static class Timeline
-        {
-            public const string Message = "timeline/message";
-            public const string MessageType = "timeline/messagetype";
-        }
-
         public static class Projects
         {
             public const string Project = "projects/project";
@@ -58,12 +52,6 @@ namespace Simplicate.NET
         public static class Services
         {
             public const string DefaultService = "services/defaultservice";
-        }
-
-        public static class Documents
-        {
-            public const string Document = "documents/document";
-            public const string DocumentType = "documents/documenttype";
         }
 
         public static class Hours

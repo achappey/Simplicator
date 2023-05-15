@@ -8,9 +8,19 @@ namespace Simplicate.NET.Extensions;
 
 public static class RequestExtensions
 {
+    private const string AuthenticationKeyHeader = "Authentication-Key";
+    private const string AuthenticationSecretHeader = "Authentication-Secret";
+    private const string ApplicationJson = "application/json";
+    private const string Metadata = "metadata";
+    private const string Offset = "offset";
+    private const string Count = "count";
+    private const string Limit = "limit";
 
     public static Uri AddParameter(this Uri url, string paramName, string paramValue)
     {
+        if (string.IsNullOrEmpty(paramName)) throw new ArgumentNullException(nameof(paramName));
+        if (string.IsNullOrEmpty(paramValue)) throw new ArgumentNullException(nameof(paramValue));
+
         var uriBuilder = new UriBuilder(url);
         var query = System.Web.HttpUtility.ParseQueryString(uriBuilder.Query);
 
@@ -34,7 +44,7 @@ public static class RequestExtensions
     {
         List<T> items = new List<T>();
 
-        uri = uri.AddParameter("metadata", "offset,count,limit");
+        uri = uri.AddParameter(Metadata, $"{Offset},{Count},{Limit}");
 
         int offset = 0;
 
@@ -42,7 +52,7 @@ public static class RequestExtensions
 
         do
         {
-            uri = uri.AddParameter("offset", offset.ToString());
+            uri = uri.AddParameter(Offset, offset.ToString());
 
             var stopwatch = Stopwatch.StartNew();
             result = await client.SimplicateGetRequest<SimplicateCollectionResponse<T>>(uri, key, secret);
@@ -65,8 +75,7 @@ public static class RequestExtensions
 
     private static int CalculateTimeout(int delayMilliseconds, long elapsedMilliseconds)
     {
-        int timeOut = delayMilliseconds - (int)elapsedMilliseconds;
-        return timeOut < 0 ? 0 : timeOut;
+        return Math.Max(delayMilliseconds - (int)elapsedMilliseconds, 0);
     }
 
     /// <summary>
@@ -100,8 +109,8 @@ public static class RequestExtensions
 
     private static void SetAuthenticationHeaders(HttpRequestMessage httpRequestMessage, string key, string secret)
     {
-        httpRequestMessage.Headers.Add("Authentication-Key", key);
-        httpRequestMessage.Headers.Add("Authentication-Secret", secret);
+        httpRequestMessage.Headers.Add(AuthenticationKeyHeader, key);
+        httpRequestMessage.Headers.Add(AuthenticationSecretHeader, secret);
     }
 
     /// <summary>

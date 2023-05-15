@@ -1,48 +1,53 @@
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Simplicator.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Simplicator.Controllers;
-
-[ApiController]
-[Route("api/v2/[controller]")]
-[Produces("application/json")]
-[Consumes("application/json")]
-public class ApiKeyController : ControllerBase
+namespace Simplicator.Controllers
 {
-    private readonly ILogger<ApiKeyController> _logger;
-
-    public ApiKeyController(ILogger<ApiKeyController> logger)
+    public class ApiKeyRequest
     {
-        _logger = logger;
+        [Required]
+        public string ApiKey { get; set; } = null!;
+
+        [Required]
+        public string ApiSecret { get; set; } = null!;
+
+        [Required]
+        public string Environment { get; set; } = null!;
     }
 
-    [HttpGet(Name = "GetApiKey")]
-    [SwaggerOperation("Calculates an API Key")]
-    public async Task<ActionResult<string>> Get(string apiKey, string apiSecret, string environment)
+    [ApiController]
+    [Route("api/v2/[controller]")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public class ApiKeyController : ControllerBase
     {
-        if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(apiSecret) || string.IsNullOrEmpty(environment))
+        private readonly ILogger<ApiKeyController> _logger;
+
+        public ApiKeyController(ILogger<ApiKeyController> logger)
         {
-            ModelState.AddModelError(string.Empty, "One or more input parameters are missing or empty.");
-            return BadRequest(ModelState);
+            _logger = logger;
         }
 
-        try
+        [HttpGet(Name = "GetApiKey")]
+        [SwaggerOperation("Calculates an API Key")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<string> Get([FromQuery] ApiKeyRequest apiKeyRequest)
         {
-            string apiKeyValue = GenerateApiKey(apiKey, apiSecret, environment);
-            return Ok(apiKeyValue);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "An error occurred while generating the API key.");
-            ModelState.AddModelError(string.Empty, "An error occurred while generating the API key.");
-            return BadRequest(ModelState);
+            try
+            {
+                string apiKeyValue = $"{apiKeyRequest.ApiKey}:{apiKeyRequest.ApiSecret}@{apiKeyRequest.Environment}".EncodeBase64();
+                return Ok(apiKeyValue);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while generating the API key.");
+                ModelState.AddModelError(string.Empty, "An error occurred while generating the API key.");
+                return BadRequest(ModelState);
+            }
         }
     }
-
-    private string GenerateApiKey(string apiKey, string apiSecret, string environment)
-    {
-        return $"{apiKey}:{apiSecret}@{environment}".EncodeBase64();
-    }
-
 }
