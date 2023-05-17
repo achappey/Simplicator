@@ -19,10 +19,14 @@ public class VatClass
 }
 
 
+
 public class VatClassLookup
 {
     [JsonPropertyName("id")]
     public string Id { get; set; } = null!;
+
+     [JsonPropertyName("code")]
+    public string? Code { get; set; }
 
     [JsonPropertyName("name")]
     public string? Name { get; set; }

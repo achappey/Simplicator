@@ -12,7 +12,7 @@ public class Project : Base
     public string? Note { get; set; }
 
     [JsonPropertyName("project_status")]
-    public ProjectStatus Status { get; set; } = null!;
+    public ProjectStatusLookup Status { get; set; } = null!;
 
     [JsonPropertyName("hours_rate_type")]
     public string? RateType { get; set; }
@@ -92,6 +92,17 @@ public class LinkedProject
     [JsonPropertyName("project_number")]
     public string? ProjectNumber { get; set; }
 }
+
+public class ProjectStatusLookup 
+{
+
+   [JsonPropertyName("label")]
+    public string? Label { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+}
+
 
 public class ProjectStatus : LabelLookup
 {
