@@ -89,6 +89,16 @@ public class RevenueGroup : LabelLookup
 {
 }
 
+
+
+public class RevenueGroupLookup 
+{
+     [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+}
 public class SalesProgress : LabelLookup
 {
     [JsonPropertyName("color")]

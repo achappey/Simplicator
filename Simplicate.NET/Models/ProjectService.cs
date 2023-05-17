@@ -24,7 +24,7 @@ public class ProjectServices : Service
     public string? ServiceNumber { get; set; }
 
     [JsonPropertyName("revenue_group")]
-    public LabelLookup? RevenueGroup { get; set; } = null!;
+    public RevenueGroupLookup? RevenueGroup { get; set; } = null!;
 
     [JsonPropertyName("cost_types")]
     public IEnumerable<ServiceCostType>? CostTypes { get; set; }
