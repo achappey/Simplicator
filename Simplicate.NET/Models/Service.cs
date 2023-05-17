@@ -36,7 +36,7 @@ public class Service
     public bool UseInResourcePlanner { get; set; }
 
     [JsonPropertyName("vat_class")]
-    public VatClassLookup VatClass { get; set; } = null!;
+    public VatClassLookup? VatClass { get; set; }
 
     [JsonPropertyName("track_hours")]
     public bool TrackHours { get; set; }
