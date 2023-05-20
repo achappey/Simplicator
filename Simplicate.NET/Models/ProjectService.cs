@@ -41,11 +41,24 @@ public class ProjectServices : Service
 
 public class ServiceCostType
 {
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; } = null!;
+
+    [JsonPropertyName("label")]
+    public string Label { get; set; } = null!;
+
     [JsonPropertyName("budgeted_amount")]
     public decimal? BudgetedAmount { get; set; }
 
     [JsonPropertyName("tariff")]
     public decimal? Tariff { get; set; }
+
+    [JsonPropertyName("purchase_margin")]
+    public double? PurchaseMargin { get; set; }
+
+    [JsonPropertyName("purchase_tariff")]
+    public decimal? PurchaseTariff { get; set; }
 
     public decimal? Budget
     {

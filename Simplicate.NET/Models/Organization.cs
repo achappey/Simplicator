@@ -30,6 +30,9 @@ public class Organization : Base
     [JsonPropertyName("relation_number")]
     public string? RelationNumber { get; set; }
 
+    [JsonPropertyName("coc_code")]
+    public string? CocCode { get; set; }
+
     [JsonPropertyName("bank_account")]
     public string? BankAccount { get; set; }
 
@@ -48,6 +51,10 @@ public class Organization : Base
     [JsonPropertyName("relation_type")]
     public RelationType? RelationType { get; set; }
 
+    [JsonPropertyName("relation_manager")]
+    public NameLookup? RelationManager { get; set; }
+
+
 }
 
 public class Industry
@@ -65,21 +72,21 @@ public class Address
     public string Id { get; set; } = null!;
 
     [JsonPropertyName("line_1")]
-    public string? Line1 { get; set; } 
+    public string? Line1 { get; set; }
 
     [JsonPropertyName("line_2")]
-    public string? Line2 { get; set; } 
+    public string? Line2 { get; set; }
 
     [JsonPropertyName("postal_code")]
-    public string? PostalCode { get; set; } 
+    public string? PostalCode { get; set; }
 
     [JsonPropertyName("country")]
-    public string? Country { get; set; } 
+    public string? Country { get; set; }
 
     [JsonPropertyName("province")]
-    public string? Province { get; set; } 
+    public string? Province { get; set; }
 
     [JsonPropertyName("locality")]
-    public string? Locality { get; set; } 
+    public string? Locality { get; set; }
 
 }
