@@ -78,6 +78,8 @@ public class Person : Base
     [JsonPropertyName("relation_type")]
     public RelationType? RelationType { get; set; }
 
+    [JsonPropertyName("teams")]
+    public IEnumerable<NameLookup>? Teams { get; set; }
 }
 
 

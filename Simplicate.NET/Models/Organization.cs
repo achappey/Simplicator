@@ -54,6 +54,9 @@ public class Organization : Base
     [JsonPropertyName("relation_manager")]
     public NameLookup? RelationManager { get; set; }
 
+    [JsonPropertyName("teams")]
+    public IEnumerable<NameLookup>? Teams { get; set; }
+
 
 }
 
