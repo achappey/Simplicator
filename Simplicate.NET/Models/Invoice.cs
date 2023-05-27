@@ -62,6 +62,8 @@ public class Invoice : Base
     [JsonPropertyName("timeline_email_address")]
     public string? TimelineEmailAddress { get; set; }
 
+    [JsonPropertyName("payment_term")]
+    public PaymentTermLookup PaymentTerm { get; set; } = null!;
 }
 
 public class InvoiceStatus
@@ -110,6 +112,20 @@ public class NewInvoice
     public IEnumerable<InvoiceLine> InvoiceLines { get; set; } = null!;
 
 }
+
+
+public class PaymentTermLookup
+{
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("days")]
+    public int Days { get; set; }
+
+    [JsonPropertyName("method")]
+    public string? Method { get; set; }
+}
+
 
 public class InvoiceLine
 {

@@ -178,6 +178,7 @@ static IEdmModel GetGraphModel(string name)
     builder.ComplexType<Simplicate.NET.Models.ServiceCostType>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.RevenueGroupLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.LeaveTypeLookup>().Namespace = name;
+    builder.ComplexType<Simplicate.NET.Models.PaymentTermLookup>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.TimeTableWeek>().Namespace = name;
     builder.ComplexType<Simplicate.NET.Models.TimeTableDay>().Namespace = name;
 
