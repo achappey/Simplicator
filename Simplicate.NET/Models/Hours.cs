@@ -36,6 +36,17 @@ public class Hours
         }
     }
 
+    public string? ProjectServiceId
+    {
+        get
+        {
+            return ProjectService?.Id;
+        }
+        set
+        {
+        }
+    }
+
 
     [JsonPropertyName("projectservice")]
     public ProjectServiceLookup? ProjectService { get; set; }
@@ -64,12 +75,13 @@ public class Hours
     [JsonPropertyName("note")]
     public string? Note { get; set; }
 
-     [JsonPropertyName("created_at")]
+    [JsonPropertyName("created_at")]
     public string? CreatedAt { get; set; }
 
     [JsonPropertyName("updated_at")]
     public string? UpdatedAt { get; set; }
 
+    public string? EmployeeWorkEmail { get; set; }
 }
 
 

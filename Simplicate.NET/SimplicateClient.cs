@@ -141,7 +141,20 @@ public class SimplicateClient
 
     public async Task<IEnumerable<Hours>> GetHours(string environment, string key, string secret)
     {
-        return await this._httpClient.GetHours(environment, key, secret);
+        var employees = await this.GetEmployees(environment, key, secret);
+        var hours = await this._httpClient.GetHours(environment, key, secret);
+
+        var employeeMap = employees.ToDictionary(emp => emp.Id, emp => emp);
+
+        foreach (var hour in hours)
+        {
+            if (employeeMap.TryGetValue(hour.EmployeeId, out var matchingEmployee))
+            {
+                hour.EmployeeWorkEmail = matchingEmployee.WorkEmail;
+            }
+        }
+
+        return hours;
     }
 
     public async Task<IEnumerable<Leave>> GetLeaves(string environment, string key, string secret)

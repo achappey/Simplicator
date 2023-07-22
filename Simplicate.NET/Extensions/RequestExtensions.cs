@@ -1,5 +1,6 @@
 ﻿
 using System.Diagnostics;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using Simplicate.NET.Models.Http;
@@ -123,22 +124,14 @@ public static class RequestExtensions
     {
         switch (message.StatusCode)
         {
-            case System.Net.HttpStatusCode.OK:
-                if (message.Content != null)
-                {
-                    return await message.Content.ReadFromJsonAsync<T>();
-                }
+            case HttpStatusCode.OK:
+                return await message.Content.ReadFromJsonAsync<T>();
+            case HttpStatusCode.BadRequest:
+                var errors = await message.Content.ReadFromJsonAsync<SimplicateErrorResponse>();
 
-                return default(T);
-            case System.Net.HttpStatusCode.BadRequest:
-                if (message.Content != null)
+                if (errors != null && errors.Errors != null)
                 {
-                    var errors = await message.Content.ReadFromJsonAsync<SimplicateErrorResponse>();
-
-                    if (errors != null && errors.Errors != null)
-                    {
-                        throw new SimplicateResponseException((int)message.StatusCode, string.Join(',', errors.Errors.Select(y => y.Message)));
-                    }
+                    throw new SimplicateResponseException((int)message.StatusCode, string.Join(',', errors.Errors.Select(y => y.Message)));
                 }
                 break;
             case System.Net.HttpStatusCode.NotFound:

@@ -181,13 +181,13 @@ public static class HttpExtensions
     {
         string requestPath = Endpoints.Hours.TimeEntry;
         string selectQuery = @"select=id,employee.,projectservice.,
-                           project.,invoice_status,start_date,updated_at,
-                           end_date,hours,billable,status,created_at,
+                           project.,invoice_status,start_date,created_at,
+                           end_date,hours,billable,status,updated_at,
                            billable,tariff,note";
 
         Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
 
-        return await client.PagedRequest<Hours>(requestUri, key, secret);
+        return await client.PagedRequest<Hours>(requestUri, key, secret, 500);
     }
 
     /// <summary>
