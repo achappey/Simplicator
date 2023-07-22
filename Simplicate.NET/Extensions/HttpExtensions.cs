@@ -187,7 +187,7 @@ public static class HttpExtensions
 
         Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
 
-        return await client.PagedRequest<Hours>(requestUri, key, secret, 500);
+        return await client.PagedRequest<Hours>(requestUri, key, secret);
     }
 
     /// <summary>
