@@ -184,10 +184,36 @@ public static class HttpExtensions
                            project.,invoice_status,start_date,
                            end_date,hours,status,
                            billable,tariff,note";
-//created_at,updated_at
         Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
 
         return await client.PagedRequest<Hours>(requestUri, key, secret, 500);
+    }
+
+    public static async Task<int> GetHourCount(this HttpClient client, string environment, string key, string secret)
+    {
+        string requestPath = Endpoints.Hours.TimeEntry;
+        string selectQuery = @"select=id,employee.,projectservice.,
+                           project.,invoice_status,start_date,
+                           end_date,hours,status,
+                           billable,tariff,note";
+//created_at,updated_at
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+
+        return await client.GetTotalItemCount<Hours>(requestUri, key, secret);
+    }
+
+     public static async Task<IEnumerable<Hours>> GetHourPage(this HttpClient client, string environment, string key, 
+     string secret, int top, int skip)
+    {
+        string requestPath = Endpoints.Hours.TimeEntry;
+        string selectQuery = @"select=id,employee.,projectservice.,
+                           project.,invoice_status,start_date,
+                           end_date,hours,status,
+                           billable,tariff,note";
+//created_at,updated_at
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+
+        return await client.GetItemsPerPage<Hours>(requestUri, key, secret, top, skip, 500);
     }
 
     /// <summary>

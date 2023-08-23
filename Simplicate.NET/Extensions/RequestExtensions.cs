@@ -31,6 +31,35 @@ public static class RequestExtensions
         return uriBuilder.Uri;
     }
 
+    public static async Task<IEnumerable<T>> GetItemsPerPage<T>(this HttpClient client, Uri uri, string key, string secret, int top, int skip, int delayMilliseconds = 1000)
+    {
+        List<T> items = new List<T>();
+
+        uri = uri.AddParameter(Limit, top.ToString()); // Corresponds to OData's $top
+        uri = uri.AddParameter(Offset, skip.ToString()); // Corresponds to OData's $skip
+
+        SimplicateCollectionResponse<T>? result = await client.SimplicateGetRequest<SimplicateCollectionResponse<T>>(uri, key, secret);
+
+        if (result != null)
+        {
+            items.AddRange(result.Data);
+        }
+
+        int timeOut = CalculateTimeout(delayMilliseconds, Stopwatch.StartNew().ElapsedMilliseconds);
+        await Task.Delay(timeOut);
+
+        return items;
+    }
+
+    public static async Task<int> GetTotalItemCount<T>(this HttpClient client, Uri uri, string key, string secret)
+    {
+        uri = uri.AddParameter(Limit, "1"); // Limit to one item to get the metadata with the total count
+        uri = uri.AddParameter(Offset, "0"); // Start at the beginning
+
+        var result = await client.SimplicateGetRequest<SimplicateCollectionResponse<T>>(uri, key, secret);
+        return result?.Metadata?.Count ?? 0; // Return the total count from the metadata
+    }
+
     /// <summary>
     /// Sends paged HTTP GET requests to the specified URI and retrieves the response as a collection of objects of type T.
     /// </summary>
@@ -186,6 +215,7 @@ public static class RequestExtensions
 
     public static async Task<T?> SimplicateGetRequest<T>(this HttpClient client, Uri uri, string key, string secret)
     {
+        uri = uri.AddParameter(Metadata, $"{Offset},{Count},{Limit}");
         return await client.SimplicateRequest<T>(uri, key, secret, HttpMethod.Get);
     }
 
