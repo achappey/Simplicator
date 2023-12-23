@@ -21,7 +21,6 @@ public class HoursController : ControllerBase
     public HoursController(ILogger<HoursController> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
-
         _simplicateService = serviceProvider
            .GetRequiredService<SimplicateService>();
 
@@ -41,7 +40,7 @@ public class HoursController : ControllerBase
 
             if (hours != null && hours.Any())
             {
-                var json = JsonSerializer.Serialize(hours);
+                var json = JsonSerializer.Serialize(hours.Select(a => a.ToSimplicatorHours()));
                 return Content(json, "application/json");
 
             }
