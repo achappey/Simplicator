@@ -196,22 +196,62 @@ public static class HttpExtensions
                            project.,invoice_status,start_date,
                            end_date,hours,status,
                            billable,tariff,note";
-//created_at,updated_at
+        //created_at,updated_at
         Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
 
         return await client.GetTotalItemCount<Hours>(requestUri, key, secret);
     }
 
-     public static async Task<IEnumerable<Hours>> GetHourPage(this HttpClient client, string environment, string key, 
-     string secret, int top, int skip)
+    public static async Task<IEnumerable<Hours>> GetHourPage(this HttpClient client, string environment, string key,
+        string secret, int top, int skip)
     {
         string requestPath = Endpoints.Hours.TimeEntry;
         string selectQuery = @"select=id,employee.,projectservice.,
                            project.,invoice_status,start_date,
                            end_date,hours,status,
                            billable,tariff,note";
-//created_at,updated_at
+        //created_at,updated_at
         Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+
+        return await client.GetItemsPerPage<Hours>(requestUri, key, secret, top, skip, 500);
+    }
+
+    public static async Task<IEnumerable<Hours>> GetHoursByYear(this HttpClient client, string environment, string key, string secret, int year)
+    {
+        string requestPath = Endpoints.Hours.TimeEntry;
+        string startDate = $"{year}-01-01 00:00:00";
+        string endDate = $"{year}-12-31 23:59:59";
+        string selectQuery = $@"select=id,employee.,projectservice.,project.,invoice_status,start_date,end_date,hours,status,billable,tariff,note&q[start_date][le]={endDate}&q[start_date][ge]={startDate}";
+
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+        return await client.PagedRequest<Hours>(requestUri, key, secret, 500);
+    }
+
+    public static async Task<int> GetHourCountByYear(this HttpClient client, string environment, string key, string secret, int year)
+    {
+        string requestPath = Endpoints.Hours.TimeEntry;
+        string startDate = $"{year}-01-01 00:00:00";
+        string endDate = $"{year}-12-31 23:59:59";
+        string selectQuery = $@"select=id,employee.,projectservice.,project.,invoice_status,start_date,end_date,hours,status,billable,tariff,note&q[start_date][le]={endDate}&q[start_date][ge]={startDate}";
+
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+        return await client.GetTotalItemCount<Hours>(requestUri, key, secret);
+    }
+
+
+    public static async Task<IEnumerable<Hours>> GetHourPageByYear(this HttpClient client, string environment, string key,
+        string secret, int top, int skip, int year)
+    {
+        string requestPath = Endpoints.Hours.TimeEntry;
+        string selectQuery = @"select=id,employee.,projectservice.,project.,invoice_status,start_date,end_date,hours,status,billable,tariff,note";
+
+        string startDate = $"{year}-01-01 00:00:00";
+        string endDate = $"{year}-12-31 23:59:59";
+
+        string dateFilter = $"&q[start_date][le]={endDate}&q[start_date][ge]={startDate}";
+        string requestQuery = selectQuery + dateFilter;
+        //created_at,updated_at
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, requestQuery);
 
         return await client.GetItemsPerPage<Hours>(requestUri, key, secret, top, skip, 500);
     }

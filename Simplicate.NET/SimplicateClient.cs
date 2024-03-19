@@ -157,15 +157,56 @@ public class SimplicateClient
         return hours;
     }
 
-     public async Task<int> GetHourPageCount(string environment, string key, string secret)
+    public async Task<int> GetHourPageCount(string environment, string key, string secret)
     {
         return await this._httpClient.GetHourCount(environment, key, secret);
     }
 
-     public async Task<IEnumerable<Hours>> GetHourPage(string environment, string key, string secret, int top, int skip)
+    public async Task<IEnumerable<Hours>> GetHourPage(string environment, string key, string secret, int top, int skip)
     {
-        var employees = await this.GetEmployees(environment, key, secret);
-        var hours = await this._httpClient.GetHourPage(environment, key, secret, top, skip);
+        var employees = await GetEmployees(environment, key, secret);
+        var hours = await _httpClient.GetHourPage(environment, key, secret, top, skip);
+
+        var employeeMap = employees.ToDictionary(emp => emp.Id, emp => emp);
+
+        foreach (var hour in hours)
+        {
+            if (employeeMap.TryGetValue(hour.EmployeeId, out var matchingEmployee))
+            {
+                hour.EmployeeWorkEmail = matchingEmployee.WorkEmail;
+            }
+        }
+
+        return hours;
+    }
+
+    public async Task<IEnumerable<Hours>> GetHoursByYear(string environment, string key, string secret, int year)
+    {
+        var employees = await GetEmployees(environment, key, secret);
+        var hours = await _httpClient.GetHoursByYear(environment, key, secret, year);
+
+        var employeeMap = employees.ToDictionary(emp => emp.Id, emp => emp);
+
+        foreach (var hour in hours)
+        {
+            if (employeeMap.TryGetValue(hour.EmployeeId, out var matchingEmployee))
+            {
+                hour.EmployeeWorkEmail = matchingEmployee.WorkEmail;
+            }
+        }
+
+        return hours;
+    }
+
+    public async Task<int> GetHourPageCountByYear(string environment, string key, string secret, int year)
+    {
+        return await _httpClient.GetHourCountByYear(environment, key, secret, year);
+    }
+
+    public async Task<IEnumerable<Hours>> GetHourPageByYear(string environment, string key, string secret, int top, int skip, int year)
+    {
+        var employees = await GetEmployees(environment, key, secret);
+        var hours = await _httpClient.GetHourPageByYear(environment, key, secret, top, skip, year);
 
         var employeeMap = employees.ToDictionary(emp => emp.Id, emp => emp);
 

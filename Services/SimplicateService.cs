@@ -158,9 +158,9 @@ public sealed class SimplicateService
         return await _client.GetHours(environment, key, secret);
     }
 
-    public async Task<int> GetHoursCount(string environment, string key, string secret)
+    public async Task<IEnumerable<Hours>> GetHoursByYear(string environment, string key, string secret, int year)
     {
-        return await _client.GetHourPageCount(environment, key, secret);
+        return await _client.GetHoursByYear(environment, key, secret, year);
     }
 
     public async Task<int> GetHourCount(string environment, string key, string secret)
@@ -168,9 +168,19 @@ public sealed class SimplicateService
         return await _client.GetHourPageCount(environment, key, secret);
     }
 
+    public async Task<int> GetHourPageCountByYear(string environment, string key, string secret, int year)
+    {
+        return await _client.GetHourPageCountByYear(environment, key, secret, year);
+    }
+
     public async Task<IEnumerable<Hours>> GetHourPage(string environment, string key, string secret, int top = 100, int skip = 0)
     {
         return await _client.GetHourPage(environment, key, secret, top, skip);
+    }
+
+    public async Task<IEnumerable<Hours>> GetHourPageByYear(string environment, string key, string secret, int year, int top = 100, int skip = 0)
+    {
+        return await _client.GetHourPageByYear(environment, key, secret, top, skip, year);
     }
 
     public async Task<IEnumerable<Leave>> GetLeaves(string environment, string key, string secret)
