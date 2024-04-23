@@ -29,8 +29,8 @@ public class Invoice : Base
     [JsonPropertyName("projects")]
     public IEnumerable<ProjectLookup>? Projects { get; set; }
 
-    [JsonPropertyName("invoice_lines")]
-    public IEnumerable<InvoiceLine>? InvoiceLines { get; set; }
+  //  [JsonPropertyName("invoice_lines")]
+  //  public IEnumerable<InvoiceLine>? InvoiceLines { get; set; }
 
     [JsonPropertyName("total_excluding_vat")]
     public decimal TotalExcludingVat { get; set; }
