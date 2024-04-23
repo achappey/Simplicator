@@ -12,7 +12,7 @@ public class Invoice : Base
     public string? Date { get; set; }
 
     [JsonPropertyName("subject")]
-    public string Subject { get; set; } = null!;
+    public string? Subject { get; set; }
 
     [JsonPropertyName("reference")]
     public string? Reference { get; set; }
