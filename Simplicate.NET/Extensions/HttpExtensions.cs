@@ -111,6 +111,11 @@ public static class HttpExtensions
         return await client.PagedRequest<SalesProgress>(environment.BuildRequestUri(Endpoints.SalesInfo.SalesProgress), key, secret);
     }
 
+    public static async Task<IEnumerable<Interest>> GetInterests(this HttpClient client, string environment, string key, string secret)
+    {
+        return await client.PagedRequest<Interest>(environment.BuildRequestUri(Endpoints.Crm.Interests), key, secret);
+    }
+
     public static async Task<IEnumerable<VatClass>> GetVatClasses(this HttpClient client, string environment, string key, string secret)
     {
         return await client.PagedRequest<VatClass>(environment.BuildRequestUri(Endpoints.Invoices.VatClass), key, secret);

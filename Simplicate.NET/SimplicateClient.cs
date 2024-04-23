@@ -109,6 +109,11 @@ public class SimplicateClient
         return await this._httpClient.GetSalesProgresses(environment, key, secret);
     }
 
+     public async Task<IEnumerable<Interest>> GetInterests(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetInterests(environment, key, secret);
+    }
+
     public async Task<IEnumerable<DefaultService>> GetDefaultServices(string environment, string key, string secret)
     {
         return await this._httpClient.GetDefaultServices(environment, key, secret);

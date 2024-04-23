@@ -67,6 +67,11 @@ public sealed class SimplicateService
         return await _client.GetSalesProgresses(environment, key, secret);
     }
 
+ public async Task<IEnumerable<Interest>> GetInterests(string environment, string key, string secret)
+    {
+        return await _client.GetInterests(environment, key, secret);
+    }
+
     public async Task<IEnumerable<Person>> GetPersons(string environment, string key, string secret)
     {
         return await _client.GetPersons(environment, key, secret);

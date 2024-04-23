@@ -11,6 +11,7 @@ namespace Simplicate.NET
             public const string Person = "crm/person";
             public const string ContactPerson = "crm/contactperson";
             public const string Industry = "crm/industry";
+            public const string Interests = "crm/interests";
         }
 
         public static class Hrm

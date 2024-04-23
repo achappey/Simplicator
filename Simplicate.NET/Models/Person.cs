@@ -117,5 +117,27 @@ public class OrganizationContact
     [JsonPropertyName("work_mobile")]
     public string? WorkMobile { get; set; }
 
+    [JsonPropertyName("interest_ids")]
+    public string? SelectedInterestIds
+    {
+        get
+        {
+            return string.Join(",", Interests?.Where(a => a.Value).Select(a => a.Id) ?? []);
+        }
+        set
+        {
 
+        }
+    }
+
+
+    [JsonPropertyName("interests")]
+    public IEnumerable<ContactInterest>? Interests { get; set; }
+}
+
+
+public class ContactInterest : Interest
+{
+    [JsonPropertyName("value")]
+    public bool Value { get; set; }
 }
