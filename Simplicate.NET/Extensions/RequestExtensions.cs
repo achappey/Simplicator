@@ -70,7 +70,7 @@ public static class RequestExtensions
     /// <param name="secret">The API secret used for authentication.</param>
     /// <param name="delayMilliseconds">The delay between requests in milliseconds. Default value is 1500.</param>
     /// <returns>A task representing an IEnumerable of type T containing the response items.</returns>
-    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delayMilliseconds = 1000)
+    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delayMilliseconds = 500)
     {
         List<T> items = new List<T>();
 
