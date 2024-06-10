@@ -12,19 +12,12 @@ namespace Simplicator.Controllers;
 [Produces("application/json")]
 //[ApiExplorerSettings(IgnoreApi = true)]
 
-public class HoursByYearController : ControllerBase
+public class HoursByYearController(ILogger<HoursByYearController> logger, IServiceProvider serviceProvider) : ControllerBase
 {
-    private readonly ILogger<HoursByYearController> _logger;
+    private readonly ILogger<HoursByYearController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    public HoursByYearController(ILogger<HoursByYearController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-        _simplicateService = serviceProvider
+    private readonly SimplicateService _simplicateService = serviceProvider
            .GetRequiredService<SimplicateService>();
-
-    }
 
     [HttpGet(template: "hoursbyyear", Name = "GetHoursByYear")]
     [EnableQuery]

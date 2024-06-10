@@ -14,18 +14,11 @@ namespace Simplicator.Controllers;
 // TEMP
 [ApiExplorerSettings(IgnoreApi = true)]
 
-public class VatClassesController : ControllerBase
+public class VatClassesController(ILogger<VatClassesController> logger, SimplicateService simplicateService) : ControllerBase
 {
-    private readonly ILogger<VatClassesController> _logger;
+    private readonly ILogger<VatClassesController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    public VatClassesController(ILogger<VatClassesController> logger, SimplicateService simplicateService)
-    {
-        _logger = logger;
-
-        _simplicateService = simplicateService;
-    }
+    private readonly SimplicateService _simplicateService = simplicateService;
 
     [HttpGet(template: "vatclass", Name = "GetVatClasses")]
     [EnableQuery]

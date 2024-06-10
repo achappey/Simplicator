@@ -10,20 +10,8 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class DefaultServicesController : ControllerBase
+public class DefaultServicesController(SimplicateService simplicateService) : ControllerBase
 {
-    private readonly ILogger<DefaultServicesController> _logger;
-
-    private readonly SimplicateService _simplicateService;
-
-    public DefaultServicesController(ILogger<DefaultServicesController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-
-        _simplicateService = serviceProvider
-            .GetRequiredService<SimplicateService>();
-
-    }
 
     [HttpGet]
     [EnableQuery]
@@ -32,6 +20,6 @@ public class DefaultServicesController : ControllerBase
     {
         var user = this.GetUser();
 
-        return await _simplicateService.GetDefaultServices(user.Environment, user.Key, user.Secret);
+        return await simplicateService.GetDefaultServices(user.Environment, user.Key, user.Secret);
     }
 }

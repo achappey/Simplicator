@@ -11,19 +11,12 @@ namespace Simplicator.Controllers;
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class HrmController : ControllerBase
+public class HrmController(ILogger<HrmController> logger, IServiceProvider serviceProvider) : ControllerBase
 {
-    private readonly ILogger<HrmController> _logger;
+    private readonly ILogger<HrmController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    public HrmController(ILogger<HrmController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-
-        _simplicateService = serviceProvider
+    private readonly SimplicateService _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-    }
 
     [HttpGet(template: "employee", Name = "GetEmployees")]
     [EnableQuery]

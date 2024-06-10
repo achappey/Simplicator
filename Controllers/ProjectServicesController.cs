@@ -10,23 +10,12 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class ProjectServicesController : ControllerBase
+public class ProjectServicesController(ILogger<ProjectServicesController> logger, IServiceProvider serviceProvider) : ControllerBase
 {
-    private readonly ILogger<ProjectServicesController> _logger;
+    private readonly ILogger<ProjectServicesController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    
-
-    public ProjectServicesController(ILogger<ProjectServicesController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-
-        _simplicateService = serviceProvider
+    private readonly SimplicateService _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-
-        
-    }
 
     [HttpGet]
     [EnableQuery]

@@ -12,21 +12,12 @@ namespace Simplicator.Controllers;
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
 [Consumes("application/json")]
-public class ProjectsController : ControllerBase
+public class ProjectsController(ILogger<ProjectsController> logger, IServiceProvider serviceProvider) : ControllerBase
 {
-    private readonly ILogger<ProjectsController> _logger;
+    private readonly ILogger<ProjectsController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    
-
-    public ProjectsController(ILogger<ProjectsController> logger,  IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-
-         _simplicateService = serviceProvider
+    private readonly SimplicateService _simplicateService = serviceProvider
           .GetRequiredService<SimplicateService>();
-    }
 
     [HttpGet(template: "project", Name = "GetProjects")]
     [Tags("Projects")]

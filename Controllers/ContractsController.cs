@@ -9,18 +9,17 @@ namespace Simplicator.Controllers;
 
 [ApiController]
 [Route("api/v2/[controller]")]
-[Produces("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class IndustriesController(SimplicateService simplicateService) : ControllerBase
+public class ContractsController(SimplicateService simplicateService) : ControllerBase
 {
     [HttpGet]
     [EnableQuery]
-    [SwaggerOperation("Fetches all crm industries")]
-    public async Task<IEnumerable<Industry>> Get()
+    [Tags("HRM")]
+    [SwaggerOperation("Fetches all contracts")]
+    public async Task<IEnumerable<Contract>> GetContracts()
     {
         var user = this.GetUser();
 
-        return await simplicateService.GetIndustries(user.Environment, user.Key, user.Secret);
+        return await simplicateService.GetContracts(user.Environment, user.Key, user.Secret);
     }
-
 }

@@ -11,22 +11,12 @@ namespace Simplicator.Controllers;
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class InterestsController : ControllerBase
+public class InterestsController(ILogger<InterestsController> logger, IServiceProvider serviceProvider) : ControllerBase
 {
-    private readonly ILogger<InterestsController> _logger;
+    private readonly ILogger<InterestsController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    
-
-    public InterestsController(ILogger<InterestsController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-
-        _simplicateService = serviceProvider
+    private readonly SimplicateService _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-        
-    }
 
     [HttpGet]
     [EnableQuery]

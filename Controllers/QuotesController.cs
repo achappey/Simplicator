@@ -10,23 +10,12 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
-public class QuotesController : ControllerBase
+public class QuotesController(ILogger<QuotesController> logger, IServiceProvider serviceProvider) : ControllerBase
 {
-    private readonly ILogger<QuotesController> _logger;
+    private readonly ILogger<QuotesController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    
-
-    public QuotesController(ILogger<QuotesController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-
-        _simplicateService = serviceProvider
+    private readonly SimplicateService _simplicateService = serviceProvider
        .GetRequiredService<SimplicateService>();
-
-        
-    }
 
     [HttpGet]
     [EnableQuery]

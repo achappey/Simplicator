@@ -13,18 +13,12 @@ namespace Simplicator.Controllers;
 [Consumes("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
 
-public class InvoicesController : ControllerBase
+public class InvoicesController(ILogger<InvoicesController> logger, SimplicateService simplicateService) : ControllerBase
 {
-    private readonly ILogger<InvoicesController> _logger;
+    private readonly ILogger<InvoicesController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
+    private readonly SimplicateService _simplicateService = simplicateService;
 
-    public InvoicesController(ILogger<InvoicesController> logger, SimplicateService simplicateService)
-    {
-        _logger = logger;
-        _simplicateService = simplicateService;
-    }
-    
     [HttpGet(template: "invoice", Name = "GetInvoices")]
     [EnableQuery]
     [Tags("Invoices")]

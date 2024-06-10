@@ -13,20 +13,12 @@ namespace Simplicator.Controllers;
 [Produces("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
 
-public class TimeTablesController : ControllerBase
+public class TimeTablesController(ILogger<TimeTablesController> logger, IServiceProvider serviceProvider) : ControllerBase
 {
-    private readonly ILogger<TimeTablesController> _logger;
+    private readonly ILogger<TimeTablesController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    public TimeTablesController(ILogger<TimeTablesController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-        
-         _simplicateService = serviceProvider
+    private readonly SimplicateService _simplicateService = serviceProvider
             .GetRequiredService<SimplicateService>();
-
-    }
 
     [HttpGet(template: "timetables", Name = "GetTimeTables")]
     [EnableQuery]

@@ -12,21 +12,8 @@ namespace Simplicator.Controllers;
 [Produces("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
 
-public class CrmController : ControllerBase
+public class CrmController(SimplicateService simplicateService) : ControllerBase
 {
-    private readonly ILogger<CrmController> _logger;
-
-    private readonly SimplicateService _simplicateService;
-
-    public CrmController(ILogger<CrmController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-
-        _simplicateService = serviceProvider
-            .GetRequiredService<SimplicateService>();
-
-    }
-
     [HttpGet(template: "person", Name = "GetPersons")]
     [EnableQuery]
     [Tags("CRM")]
@@ -36,7 +23,7 @@ public class CrmController : ControllerBase
     {
         var user = this.GetUser();
 
-        return await _simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
+        return await simplicateService.GetPersons(user.Environment, user.Key, user.Secret);
     }
 
     [HttpGet(template: "organization", Name = "GetOrganizations")]
@@ -47,7 +34,7 @@ public class CrmController : ControllerBase
     {
         var user = this.GetUser();
 
-        return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
+        return await simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }
 
     [HttpGet(template: "myorganization", Name = "GetMyOrganizations")]
@@ -58,6 +45,6 @@ public class CrmController : ControllerBase
     {
         var user = this.GetUser();
 
-        return await _simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
+        return await simplicateService.GetOrganizations(user.Environment, user.Key, user.Secret);
     }
 }

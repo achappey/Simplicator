@@ -11,20 +11,11 @@ namespace Simplicator.Controllers;
 [Route("api/v2/[controller]")]
 [Produces("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class ServicesController : ControllerBase
+public class ServicesController(ILogger<ServicesController> logger, SimplicateService simplicateService) : ControllerBase
 {
-    private readonly ILogger<ServicesController> _logger;
+    private readonly ILogger<ServicesController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    public ServicesController(ILogger<ServicesController> logger, SimplicateService simplicateService)
-    {
-        _logger = logger;
-
-        _simplicateService = simplicateService;
-
-        
-    }
+    private readonly SimplicateService _simplicateService = simplicateService;
 
     [HttpGet(template: "defaultservice", Name = "GetDefaultServices")]
     [EnableQuery]

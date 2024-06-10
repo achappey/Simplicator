@@ -10,20 +10,8 @@ namespace Simplicator.Controllers;
 [ApiController]
 [Route("api/v2/[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class EmployeesController : ControllerBase
+public class EmployeesController(SimplicateService simplicateService) : ControllerBase
 {
-    private readonly ILogger<EmployeesController> _logger;
-
-    private readonly SimplicateService _simplicateService;
-
-    public EmployeesController(ILogger<EmployeesController> logger, IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-
-        _simplicateService = serviceProvider
-            .GetRequiredService<SimplicateService>();
-    }
-
     [HttpGet]
     [EnableQuery]
     [Tags("HRM")]
@@ -32,7 +20,7 @@ public class EmployeesController : ControllerBase
     {
         var user = this.GetUser();
 
-        return await _simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
+        return await simplicateService.GetEmployees(user.Environment, user.Key, user.Secret);
     }
 
 }

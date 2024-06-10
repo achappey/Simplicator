@@ -22,14 +22,9 @@ namespace Simplicator.Controllers
     [Route("api/v2/[controller]")]
     [Produces("application/json")]
     [Consumes("application/json")]
-    public class ApiKeyController : ControllerBase
+    public class ApiKeyController(ILogger<ApiKeyController> logger) : ControllerBase
     {
-        private readonly ILogger<ApiKeyController> _logger;
-
-        public ApiKeyController(ILogger<ApiKeyController> logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger<ApiKeyController> _logger = logger;
 
         [HttpGet(Name = "GetApiKey")]
         [SwaggerOperation("Calculates an API Key")]

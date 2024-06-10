@@ -12,18 +12,11 @@ namespace Simplicator.Controllers;
 [Produces("application/json")]
 [ApiExplorerSettings(IgnoreApi = true)]
 
-public class LeavesController : ControllerBase
+public class LeavesController(ILogger<LeavesController> logger, SimplicateService simplicateService) : ControllerBase
 {
-    private readonly ILogger<LeavesController> _logger;
+    private readonly ILogger<LeavesController> _logger = logger;
 
-    private readonly SimplicateService _simplicateService;
-
-    // Use constructor injection to directly inject SimplicateService
-    public LeavesController(ILogger<LeavesController> logger, SimplicateService simplicateService)
-    {
-        _logger = logger;
-        _simplicateService = simplicateService;
-    }
+    private readonly SimplicateService _simplicateService = simplicateService;
 
     /// <summary>
     /// Fetches all leaves

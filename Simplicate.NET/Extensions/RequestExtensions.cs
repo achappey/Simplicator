@@ -33,7 +33,7 @@ public static class RequestExtensions
 
     public static async Task<IEnumerable<T>> GetItemsPerPage<T>(this HttpClient client, Uri uri, string key, string secret, int top, int skip, int delayMilliseconds = 1000)
     {
-        List<T> items = new List<T>();
+        List<T> items = [];
 
         uri = uri.AddParameter(Limit, top.ToString()); // Corresponds to OData's $top
         uri = uri.AddParameter(Offset, skip.ToString()); // Corresponds to OData's $skip
@@ -72,7 +72,7 @@ public static class RequestExtensions
     /// <returns>A task representing an IEnumerable of type T containing the response items.</returns>
     public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delayMilliseconds = 500)
     {
-        List<T> items = new List<T>();
+        List<T> items = [];
 
         uri = uri.AddParameter(Metadata, $"{Offset},{Count},{Limit}");
 

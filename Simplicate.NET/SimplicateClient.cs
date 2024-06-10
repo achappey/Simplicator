@@ -3,14 +3,9 @@ using Simplicate.NET.Extensions;
 
 namespace Simplicate.NET;
 
-public class SimplicateClient
+public class SimplicateClient(HttpClient client)
 {
-    private readonly HttpClient _httpClient = null!;
-
-    public SimplicateClient(HttpClient client)
-    {
-        _httpClient = client;
-    }
+    private readonly HttpClient _httpClient = client;
 
     public async Task<IEnumerable<Person>> GetPersons(string environment, string key, string secret)
     {
@@ -112,6 +107,11 @@ public class SimplicateClient
      public async Task<IEnumerable<Interest>> GetInterests(string environment, string key, string secret)
     {
         return await this._httpClient.GetInterests(environment, key, secret);
+    }
+
+     public async Task<IEnumerable<Contract>> GetContracts(string environment, string key, string secret)
+    {
+        return await this._httpClient.GetContracts(environment, key, secret);
     }
 
     public async Task<IEnumerable<DefaultService>> GetDefaultServices(string environment, string key, string secret)
