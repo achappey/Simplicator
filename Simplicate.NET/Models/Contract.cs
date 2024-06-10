@@ -16,4 +16,11 @@ public class Contract
 
     [JsonPropertyName("employee")]
     public NameLookup Employee { get; set; } = null!;
+
+    [JsonPropertyName("contract_type")]
+    public NameLookup ContractType { get; set; } = null!;
+
+    [JsonPropertyName("employment_type")]
+    public NameLookup EmploymentType { get; set; } = null!;
+
 }
