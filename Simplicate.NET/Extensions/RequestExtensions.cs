@@ -11,7 +11,6 @@ public static class RequestExtensions
 {
     private const string AuthenticationKeyHeader = "Authentication-Key";
     private const string AuthenticationSecretHeader = "Authentication-Secret";
-    private const string ApplicationJson = "application/json";
     private const string Metadata = "metadata";
     private const string Offset = "offset";
     private const string Count = "count";
@@ -70,7 +69,7 @@ public static class RequestExtensions
     /// <param name="secret">The API secret used for authentication.</param>
     /// <param name="delayMilliseconds">The delay between requests in milliseconds. Default value is 1500.</param>
     /// <returns>A task representing an IEnumerable of type T containing the response items.</returns>
-    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delayMilliseconds = 500)
+    public static async Task<IEnumerable<T>> PagedRequest<T>(this HttpClient client, Uri uri, string key, string secret, int delayMilliseconds = 1000)
     {
         List<T> items = [];
 
@@ -121,20 +120,16 @@ public static class RequestExtensions
     /// <returns>A task representing the response object of type T.</returns>
     private static async Task<T?> SimplicateRequest<T>(this HttpClient client, Uri uri, string key, string secret, HttpMethod method, object? bodyContent = null)
     {
-        using (var httpRequestMessage = new HttpRequestMessage
+        using var httpRequestMessage = new HttpRequestMessage
         {
             Method = method,
             RequestUri = uri,
             Content = bodyContent != null ? new StringContent(JsonSerializer.Serialize(bodyContent), Encoding.UTF8, "application/json") : null
-        })
-        {
-            SetAuthenticationHeaders(httpRequestMessage, key, secret);
+        };
+        SetAuthenticationHeaders(httpRequestMessage, key, secret);
 
-            using (var result = await client.SendAsync(httpRequestMessage))
-            {
-                return await result.HandleSimplicateResponse<T>();
-            }
-        }
+        using var result = await client.SendAsync(httpRequestMessage);
+        return await result.HandleSimplicateResponse<T>();
     }
 
     private static void SetAuthenticationHeaders(HttpRequestMessage httpRequestMessage, string key, string secret)
@@ -163,8 +158,8 @@ public static class RequestExtensions
                     throw new SimplicateResponseException((int)message.StatusCode, string.Join(',', errors.Errors.Select(y => y.Message)));
                 }
                 break;
-            case System.Net.HttpStatusCode.NotFound:
-            case System.Net.HttpStatusCode.Unauthorized:
+            case HttpStatusCode.NotFound:
+            case HttpStatusCode.Unauthorized:
             default:
                 break;
         }
@@ -200,23 +195,23 @@ public static class RequestExtensions
             }
         }
 
-        return default(T);
+        return default!;
     }
 
-    public static async Task<T> SimplicatePostRequest<T>(this HttpClient client, Uri uri, string key, string secret, object bodyContent)
+    public static Task<T> SimplicatePostRequest<T>(this HttpClient client, Uri uri, string key, string secret, object bodyContent)
     {
-        return await client.SimplicateItemRequest<T>(uri, key, secret, bodyContent, HttpMethod.Post);
+        return client.SimplicateItemRequest<T>(uri, key, secret, bodyContent, HttpMethod.Post);
     }
 
-    public static async Task<T> SimplicatePutRequest<T>(this HttpClient client, Uri uri, string key, string secret, object bodyContent)
+    public static Task<T> SimplicatePutRequest<T>(this HttpClient client, Uri uri, string key, string secret, object bodyContent)
     {
-        return await client.SimplicateItemRequest<T>(uri, key, secret, bodyContent, HttpMethod.Put);
+        return client.SimplicateItemRequest<T>(uri, key, secret, bodyContent, HttpMethod.Put);
     }
 
-    public static async Task<T?> SimplicateGetRequest<T>(this HttpClient client, Uri uri, string key, string secret)
+    public static Task<T?> SimplicateGetRequest<T>(this HttpClient client, Uri uri, string key, string secret)
     {
         uri = uri.AddParameter(Metadata, $"{Offset},{Count},{Limit}");
-        return await client.SimplicateRequest<T>(uri, key, secret, HttpMethod.Get);
+        return client.SimplicateRequest<T>(uri, key, secret, HttpMethod.Get);
     }
 
 }
