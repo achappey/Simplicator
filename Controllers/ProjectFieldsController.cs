@@ -15,7 +15,7 @@ namespace Simplicator.Controllers;
 public class ProjectFieldsController(ILogger<ProjectsController> logger, SimplicateService serviceProvider) : ControllerBase
 {
     private readonly ILogger<ProjectsController> _logger = logger;
-  
+
     [HttpGet(template: "projectfields", Name = "GetProjectFields")]
     [Tags("Projects")]
     [EnableQuery]
@@ -25,6 +25,8 @@ public class ProjectFieldsController(ILogger<ProjectsController> logger, Simplic
         var user = this.GetUser();
 
         var projects = await serviceProvider.GetProjects(user.Environment, user.Key, user.Secret);
+
+        //        var dsadsa = projects.SelectMany(t => t.CustomFields?.Select(a => a.Type)).ToList();
 
         var items = projects.Select(t => CreateDynamicProject(t)).ToList();
 
@@ -37,12 +39,30 @@ public class ProjectFieldsController(ILogger<ProjectsController> logger, Simplic
         expando.Id = project.Id;
 
         var expandoDict = (IDictionary<string, object?>)expando;
+
         foreach (var customField in project.CustomFields ?? [])
         {
-            expandoDict[customField.Name] = customField.Value ?? null;
+            if (customField.RenderType == "dropdown")
+            {
+                expandoDict[customField.Name] = customField.Options?.FirstOrDefault(a => a.Value == customField.Value)?.Label ?? null;
+            }
+            else if (customField.RenderType == "boolean")
+            {
+                expandoDict[customField.Name] = !string.IsNullOrEmpty(customField.Value) ?
+                    ParseBoolean(customField.Value) : null;
+            }
+            else
+            {
+                expandoDict[customField.Name] = customField.Value ?? null;
+            }
         }
 
         return expando;
+    }
+
+    private static bool ParseBoolean(string value)
+    {
+        return value == "1" || value.Equals("true", StringComparison.OrdinalIgnoreCase);
     }
 
 
