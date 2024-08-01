@@ -140,6 +140,7 @@ public static class HttpExtensions
     {
         return client.PagedRequest<Project>(environment.BuildRequestUri(Endpoints.Projects.Project), key, secret, 500);
     }
+    
     public static Task<IEnumerable<ProjectServices>> GetProjectServices(this HttpClient client, string environment, string key, string secret)
     {
         return client.PagedRequest<ProjectServices>(environment.BuildRequestUri(Endpoints.Projects.Service), key, secret);
