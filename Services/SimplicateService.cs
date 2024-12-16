@@ -168,9 +168,20 @@ public sealed class SimplicateService(
         return _client.GetHoursByYear(environment, key, secret, year);
     }
 
+  public Task<IEnumerable<Hours>> GetHoursAfter(string environment, string key, string secret, DateTimeOffset dateTimeOffset)
+    {
+        return _client.GetHoursAfter(environment, key, secret, dateTimeOffset);
+    }
+
+
     public Task<int> GetHourCount(string environment, string key, string secret)
     {
         return _client.GetHourPageCount(environment, key, secret);
+    }
+
+    public Task<int> GetHourPageCountAfter(string environment, string key, string secret, DateTimeOffset dateTimeOffset)
+    {
+        return _client.GetHourPageCountAfter(environment, key, secret, dateTimeOffset);
     }
 
     public Task<int> GetHourPageCountByYear(string environment, string key, string secret, int year)
@@ -181,6 +192,11 @@ public sealed class SimplicateService(
     public Task<IEnumerable<Hours>> GetHourPage(string environment, string key, string secret, int top = 100, int skip = 0)
     {
         return _client.GetHourPage(environment, key, secret, top, skip);
+    }
+
+    public Task<IEnumerable<Hours>> GetHourPageAfter(string environment, string key, string secret, DateTimeOffset dateTimeOffset, int top = 100, int skip = 0)
+    {
+        return _client.GetHourPageAfter(environment, key, secret, top, skip, dateTimeOffset);
     }
 
     public Task<IEnumerable<Hours>> GetHourPageByYear(string environment, string key, string secret, int year, int top = 100, int skip = 0)

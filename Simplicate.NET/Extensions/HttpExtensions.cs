@@ -140,7 +140,7 @@ public static class HttpExtensions
     {
         return client.PagedRequest<Project>(environment.BuildRequestUri(Endpoints.Projects.Project), key, secret, 500);
     }
-    
+
     public static Task<IEnumerable<ProjectServices>> GetProjectServices(this HttpClient client, string environment, string key, string secret)
     {
         return client.PagedRequest<ProjectServices>(environment.BuildRequestUri(Endpoints.Projects.Service), key, secret);
@@ -231,6 +231,18 @@ public static class HttpExtensions
         return client.GetItemsPerPage<Hours>(requestUri, key, secret, top, skip, 500);
     }
 
+
+    public static Task<IEnumerable<Hours>> GetHoursAfter(this HttpClient client, string environment, string key, string secret, DateTimeOffset dateTimeOffset)
+    {
+        string requestPath = Endpoints.Hours.TimeEntry;
+        string date = $"{dateTimeOffset:yyyy-MM-dd HH:mm:ss}";
+
+        string selectQuery = $@"select=id,employee.,projectservice.,project.,invoice_status,start_date,end_date,hours,status,billable,tariff,note&q[start_date][ge]={date}";
+
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+        return client.PagedRequest<Hours>(requestUri, key, secret, 500);
+    }
+
     public static Task<IEnumerable<Hours>> GetHoursByYear(this HttpClient client, string environment, string key, string secret, int year)
     {
         string requestPath = Endpoints.Hours.TimeEntry;
@@ -253,6 +265,16 @@ public static class HttpExtensions
         return client.GetTotalItemCount<Hours>(requestUri, key, secret);
     }
 
+    public static Task<int> GetHourCountAfter(this HttpClient client, string environment, string key, string secret, DateTimeOffset dateTimeOffset)
+    {
+        string requestPath = Endpoints.Hours.TimeEntry;
+        string date = $"{dateTimeOffset:yyyy-MM-dd HH:mm:ss}";
+        string selectQuery = $@"select=id,employee.,projectservice.,project.,invoice_status,start_date,end_date,hours,status,billable,tariff,note&q[start_date][ge]={date}";
+
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, selectQuery);
+        return client.GetTotalItemCount<Hours>(requestUri, key, secret);
+    }
+
 
     public static Task<IEnumerable<Hours>> GetHourPageByYear(this HttpClient client, string environment, string key,
         string secret, int top, int skip, int year)
@@ -264,6 +286,23 @@ public static class HttpExtensions
         string endDate = $"{year}-12-31 23:59:59";
 
         string dateFilter = $"&q[start_date][le]={endDate}&q[start_date][ge]={startDate}";
+        string requestQuery = selectQuery + dateFilter;
+        //created_at,updated_at
+        Uri requestUri = environment.BuildRequestUri(requestPath, null, requestQuery);
+
+        return client.GetItemsPerPage<Hours>(requestUri, key, secret, top, skip, 500);
+    }
+
+
+    public static Task<IEnumerable<Hours>> GetHourPageAfter(this HttpClient client, string environment, string key,
+        string secret, int top, int skip, DateTimeOffset dateTimeOffset)
+    {
+        string requestPath = Endpoints.Hours.TimeEntry;
+        string selectQuery = @"select=id,employee.,projectservice.,project.,invoice_status,start_date,end_date,hours,status,billable,tariff,note";
+
+        string date = $"{dateTimeOffset:yyyy-MM-dd HH:mm:ss}";
+
+        string dateFilter = $"&q[start_date][ge]={date}";
         string requestQuery = selectQuery + dateFilter;
         //created_at,updated_at
         Uri requestUri = environment.BuildRequestUri(requestPath, null, requestQuery);
